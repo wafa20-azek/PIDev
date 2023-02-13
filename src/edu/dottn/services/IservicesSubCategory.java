@@ -11,18 +11,16 @@ import java.util.List;
  *
  * @author WAFA
  */
-public interface IservicesCategory<C> {
+public interface IservicesSubCategory<S> {
 
-    public void addCategory(C p);
+    public void addSubCategory(S s);
 
-    public void removeCategory(int id);
+    public void removeSubCategory(int id);
 
-    public void modifyCategory(C p);
+    public void modifySubCategory(S s);
 
-    public List<C> getAllSubCategories(int id);
+    public S getById(int id);
 
-    public C getById(int id);
-
-    public List<C> getAllById();
+    public List<S> getAllById();
 
 }

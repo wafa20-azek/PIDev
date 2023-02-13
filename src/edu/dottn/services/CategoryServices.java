@@ -6,6 +6,7 @@
 package edu.dottn.services;
 
 import edu.dottn.entities.Category;
+import edu.dottn.entities.SubCategory;
 import edu.dottn.util.MyConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -92,6 +93,22 @@ public class CategoryServices implements IservicesCategory<Category>{
             ResultSet result = st.executeQuery("SELECT * FROM Category");
             while (result.next()) {
                 Category p = new Category(result.getInt(1), result.getString(2));
+                lc.add(p);
+            }
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
+        }
+        return lc;
+    }
+
+    @Override
+    public List<Category> getAllSubCategories(int id) {
+         try {
+            PreparedStatement pr = cnx.prepareStatement("SELECT * FROM Category WHERE ID_Category=?");
+            pr.setInt(1, id);
+            ResultSet result = pr.executeQuery();
+            while (result.next()) {
+                SubCategory p = new SubCategory(result.getInt(1), result.getString(2), result.getInt(3));
                 lc.add(p);
             }
         } catch (SQLException sqlEx) {

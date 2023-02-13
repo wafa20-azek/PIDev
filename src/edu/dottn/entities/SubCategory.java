@@ -9,33 +9,28 @@ package edu.dottn.entities;
  *
  * @author WAFA
  */
-public class Category {
+public class SubCategory {
 
     //les attributs
     private int id;
     private String name;
-  
+    private int idcategory;
 
     //les constructeurs
-    public Category() {
+    public SubCategory() {
     }
 
-//    public Category(String name, String subcategories) {
-//        this.name = name;
-//        this.subcategories = subcategories;
-//    }
-
-    public Category(String name) {
+    public SubCategory(String name, int idcategory) {
         this.name = name;
+        this.idcategory = idcategory;
     }
 
-    
-    public Category(int id, String name) {
+    public SubCategory(int id, String name, int idcategory) {
         this.id = id;
         this.name = name;
+        this.idcategory = idcategory;
     }
 
-    //les getters et setters
     public int getId() {
         return id;
     }
@@ -44,19 +39,19 @@ public class Category {
         return name;
     }
 
-   
+    public int getIdcategory() {
+        return idcategory;
+    }
 
     public void setName(String name) {
         this.name = name;
     }
 
+ 
 
     @Override
     public String toString() {
-        
-        return "Category{" + "name=" + name + '}';
+        return "SubCategory{" + "name=" + name + '}';
     }
-
-    
 
 }
