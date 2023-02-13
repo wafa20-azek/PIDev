@@ -5,13 +5,13 @@
  */
 package edu.dottn.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
+
 
 /**
  *
@@ -19,31 +19,32 @@ import java.util.Properties;
  */
 public class MyConnection {
     
-    Properties properties;
-     private String url;
-    private String login;
-    private String password;
-    private static Connection instance;
+
+      private final String USER = "root";
+      private final String PWD = "";
+      private final String URL = "jdbc:mysql://localhost:3306/troctndb";
+
+    private static MyConnection instance;
+    // JDBC  managing connection
+    private  Connection con;
     
     
       private MyConnection() {
             try {
-                properties = new Properties();
-                properties.load(new FileInputStream(new File("Configuration.properties")));
-                url = properties.getProperty("url");
-                login = properties.getProperty("utilisateur");
-                password = properties.getProperty("pwd");
-                instance= DriverManager.getConnection(url, login, password);
+                con= DriverManager.getConnection(URL, USER, PWD);
                 System.out.println("Connection established");
-            } catch (SQLException | IOException ex) {
-                System.out.println("not connected to DB");
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
             }
         }
     
-    public static Connection getInstance() {
+    public static MyConnection getInstance() {
         if (instance == null) {
-            new MyConnection();
+            return instance = new MyConnection();
         }
         return instance;
+    }
+    public Connection getConnection() {
+        return con;
     }
 }
