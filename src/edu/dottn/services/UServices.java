@@ -12,11 +12,11 @@ import java.util.List;
  * @author WALID
  */
 public interface UServices<T> {
-    public void ajouterUser(T t);
+    public T ajouterUser(T t);
     public void deleteUser(int id );
     public void modifierUser(T t);
     public T getOneById(int id);
     public List<T> getAllById();
-    public T authenticateUser(T t);
+    
     
 }

@@ -5,7 +5,10 @@
  */
 package edu.dottn.services;
 
+import edu.dottn.entities.Admin;
+import edu.dottn.entities.Member;
 import edu.dottn.entities.User;
+
 import edu.dottn.util.MyConnection;
 
 import java.security.NoSuchAlgorithmException;
@@ -20,8 +23,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -35,31 +37,43 @@ public class MemberServices implements UServices<User> {
     Connection cnx = MyConnection.getInstance().getConnection();
 
     @Override
-    public void ajouterUser(User t) {
+    public Member ajouterUser(User t) {
+        Member p = (Member)t;
         try {
-
             String req = "INSERT INTO `user`(`name`, `address`, `email`, `password`, `numero`, `role`, `credit`, `salt`) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, t.getName());
-            ps.setString(2, t.getAddress());
-            ps.setString(3, t.getEmail());
+            ps.setString(1, p.getName());
+            ps.setString(2, p.getAddress());
+            ps.setString(3, p.getEmail());
 
             byte[] salt = getSalt();
-            
-            ps.setString(4, hashPassword(t.getPassword(), salt));
-
-            ps.setInt(5, t.getNumero());
-            ps.setString(6, t.getRole());
-            ps.setInt(7, t.getCredit());
+//            cryptage de mot de passe
+            ps.setString(4, hashPassword(p.getPassword(), salt));
+            ps.setInt(5, p.getNumero());
+            ps.setString(6, "Member");
+            ps.setInt(7, p.getCredit());
             ps.setString(8, Base64.getEncoder().encodeToString(salt));
-            ps.executeUpdate();
-            System.out.println("User added");
+            int n = ps.executeUpdate();
+            System.out.println("Member added");
+            if (n==1){
+                //chercher utlisateur ajouter dans DB 
+                req = "SELECT * FROM `user` WHERE email = '" + p.getEmail() + "' and name = '" + p.getName() + "'";
+                Statement st = cnx.createStatement();
+                ResultSet rs = st.executeQuery(req);
+                while (rs.next()) {
+                    addSession(rs.getInt(1));
+                    p = (Member)getOneById(rs.getInt(1));
+                }
+//                 
+            }
+            
         } catch (SQLException | NoSuchAlgorithmException ex) {
             System.err.println(ex.getMessage());
         }
+        return p;
     }
 
-    private static String hashPassword(String password, byte[] salt) {
+    private String hashPassword(String password, byte[] salt) {
         try {
             int iterations = 10000;
             char[] chars = password.toCharArray();
@@ -72,7 +86,7 @@ public class MemberServices implements UServices<User> {
         }
     }
 
-    private static byte[] getSalt() throws NoSuchAlgorithmException {
+    private byte[] getSalt() throws NoSuchAlgorithmException {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
         byte[] salt = new byte[16];
         sr.nextBytes(salt);
@@ -94,16 +108,17 @@ public class MemberServices implements UServices<User> {
 
     @Override
     public void modifierUser(User t) {
+        Member p = (Member)t;
         try {
             String req = "UPDATE `user` SET `name`=?,`address`=?,`email`=?,`password`=?,`numero`=?,`role`=?,`credit`=? WHERE idUser = " + t.getIdUser();
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, t.getName());
-            ps.setString(2, t.getAddress());
-            ps.setString(3, t.getEmail());
-            ps.setString(4, t.getPassword());
-            ps.setInt(5, t.getNumero());
-            ps.setString(6, t.getRole());
-            ps.setInt(7, t.getCredit());
+            ps.setString(1, p.getName());
+            ps.setString(2, p.getAddress());
+            ps.setString(3, p.getEmail());
+            ps.setString(4, p.getPassword());
+            ps.setInt(5, p.getNumero());
+            ps.setString(6, "Member");
+            ps.setInt(7, p.getCredit());
             ps.executeUpdate();
             System.out.println("User updated");
         } catch (SQLException ex) {
@@ -119,7 +134,13 @@ public class MemberServices implements UServices<User> {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                p = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+                if(rs.getString(7).equals("Member")){
+                   p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8));
+                }
+                else{
+                   p = new Admin(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+
+                }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -135,8 +156,10 @@ public class MemberServices implements UServices<User> {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                User p = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getNString(7), rs.getInt(8));
+                 if(rs.getString(7).equals("Member")){
+                User p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8));
                 result.add(p);
+                 }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -145,31 +168,30 @@ public class MemberServices implements UServices<User> {
         return result;
     }
 
-    @Override
-    public User authenticateUser(User t) {
+    
+    public User authenticateUser(String email,String password) {
         User p = null;
 
         try {
-            String req = "SELECT * FROM `user` WHERE email = '" + t.getEmail() + "'";
+            // chercher et recuperer utlisateur par email
+            String req = "SELECT * FROM `user` WHERE email = '" + email + "'";
+
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
+            //si utlisateur existe 
             while (rs.next()) {
-                String attemptedPassword = hashPassword(t.getPassword(), Base64.getDecoder().decode(rs.getString(9)));
-
+                String attemptedPassword = hashPassword(password, Base64.getDecoder().decode(rs.getString(9)));
+                // tester le password crypté dans la base de données avec le password saisie par user
                 if (rs.getString(5).equals(attemptedPassword)) {
-                    p = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
-                    req = "INSERT INTO `sessionuser`(`id`, `username`, `useradresse`, `emailuser`, `userpassword`, `usernumero`, `userole`, `usercredit`, `usersalt`) VALUES (?,?,?,?,?,?,?,?,?)";
-                    PreparedStatement ps = cnx.prepareStatement(req);
-                    ps.setInt(1, p.getIdUser());
-                    ps.setString(2, p.getName());
-                    ps.setString(3, p.getAddress());
-                    ps.setString(4, p.getEmail());
-                    ps.setString(5, p.getPassword());
-                    ps.setInt(6, p.getNumero());
-                    ps.setString(7, p.getRole());
-                    ps.setInt(8, p.getCredit());
-                    ps.setString(9, rs.getString(9));
-                    ps.executeUpdate();
+                    if(rs.getString(7).equals("Member")){
+                    p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8));
+                    }
+                    else{
+                    p = new Admin(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+
+                    }
+                    // ajouter session dans la DB si le password est correcte
+                     addSession(p.getIdUser());
                     System.out.println("successful authentication");
                 } else {
                     System.out.println("failed authentication");
@@ -183,27 +205,38 @@ public class MemberServices implements UServices<User> {
         return p;
     }
 
+
+    public void addSession(int idUser) throws SQLException{
+        String req = "INSERT INTO `session` (`idUser`, `loginTime`) VALUES (?,?)";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1,idUser);
+        ps.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+        ps.executeUpdate();
+    }
+// tester si l'utlisateur ne quitte pas son compte
     public User verifSession() {
         User p = null;
-
         try {
-            String req = "SELECT * FROM `sessionuser`";
+            String req = "SELECT * FROM `session`";
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-
-            if (rs.next()) {
-                p = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
-                System.out.println("Welcome " + rs.getString(2));
+            if (rs.next()){
+                
+                p = getOneById(rs.getInt(2));
+                System.out.println("Welcome " + p.getName());
+                
+                
+            } else {
             }
-
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+        
         return p;
     }
 
     public void logOut(int id) {
-        String req = "DELETE FROM `sessionuser` WHERE id = " + id;
+        String req = "DELETE FROM `session` WHERE idUser = " + id;
 
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -213,6 +246,15 @@ public class MemberServices implements UServices<User> {
             System.out.println(ex.getMessage());
         }
 
+    }
+// chercher l'utlisateur avec le nom passer en parametre
+
+    public List<User> findUserByNom(String name) {
+
+        List<User> result = getAllById().stream().filter((p) -> p.getName().equals(name))
+                .collect(Collectors.toList());
+
+        return result;
     }
 
 }
