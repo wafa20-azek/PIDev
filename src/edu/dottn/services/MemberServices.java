@@ -40,14 +40,18 @@ public class MemberServices implements UServices<User> {
     public Member ajouterUser(User t) {
         Member p = (Member)t;
         try {
-            String req = "INSERT INTO `user`(`name`, `address`, `email`, `password`, `numero`, `role`, `credit`, `salt`) VALUES (?,?,?,?,?,?,?,?)";
+            String req = "SELECT * FROM `user` WHERE email = '" + p.getEmail() + "'";
+            Statement stt = cnx.createStatement();
+            ResultSet rss = stt.executeQuery(req);
+           if(!rss.next()){
+            req = "INSERT INTO `user`(`name`, `address`, `email`, `password`, `numero`, `role`, `credit`, `salt`) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, p.getName());
             ps.setString(2, p.getAddress());
             ps.setString(3, p.getEmail());
 
             byte[] salt = getSalt();
-//            cryptage de mot de passe
+         // cryptage de mot de passe
             ps.setString(4, hashPassword(p.getPassword(), salt));
             ps.setInt(5, p.getNumero());
             ps.setString(6, "Member");
@@ -55,17 +59,18 @@ public class MemberServices implements UServices<User> {
             ps.setString(8, Base64.getEncoder().encodeToString(salt));
             int n = ps.executeUpdate();
             System.out.println("Member added");
-            if (n==1){
-                //chercher utlisateur ajouter dans DB 
-                req = "SELECT * FROM `user` WHERE email = '" + p.getEmail() + "' and name = '" + p.getName() + "'";
-                Statement st = cnx.createStatement();
-                ResultSet rs = st.executeQuery(req);
-                while (rs.next()) {
-                    addSession(rs.getInt(1));
-                    p = (Member)getOneById(rs.getInt(1));
-                }
-//                 
-            }
+                    if (n==1){
+                //chercher utlisateur ajouteé dans DB pour lui ajouter dans la session
+                     req = "SELECT * FROM `user` WHERE email = '" + p.getEmail() + "' and name = '" + p.getName() + "'";
+                     Statement st = cnx.createStatement();
+                     ResultSet rs = st.executeQuery(req);
+                     while (rs.next()) {
+                         addSession(rs.getInt(1));
+                         p = (Member)getOneById(rs.getInt(1)); }
+                             }
+           }else{
+                System.out.println("email exist");
+                p =null; }
             
         } catch (SQLException | NoSuchAlgorithmException ex) {
             System.err.println(ex.getMessage());
