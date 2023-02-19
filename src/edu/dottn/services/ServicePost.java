@@ -12,8 +12,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -58,7 +61,7 @@ public class ServicePost implements PService<Post> {
         try {
             String req = "UPDATE `post` SET `titlePost` = ?, `description` = ? WHERE idPost=?";
             PreparedStatement statement = cnx.prepareStatement(req);
-            
+
             statement.setString(1, p.getTitlePost());
             statement.setString(2, p.getDescription());
             statement.setInt(3, p.getIdPost());
@@ -76,7 +79,7 @@ public class ServicePost implements PService<Post> {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                Post p = new Post(rs.getString("titlePost"), rs.getString("description"));
+                Post p = new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"));
                 list.add(p);
             }
         } catch (SQLException ex) {
@@ -94,7 +97,7 @@ public class ServicePost implements PService<Post> {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                post = new Post(rs.getString("titlePost"), rs.getString("description"));
+                post = new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"));
             }
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la récupération du post avec l'id " + id + ": " + ex.getMessage());
@@ -103,23 +106,37 @@ public class ServicePost implements PService<Post> {
         return post;
     }
 
-    public List<Post> getPostsByAssociation(int idAssociation) {
-        List<Post> posts = new ArrayList<>();
-        // while (resultSet.next()) {
-        //     int idPost = resultSet.getInt("id_post");
-        //     int idAssociation = resultSet.getInt("id_association");
-        //     String titlePost = resultSet.getString("title_post");
-        //     String description = resultSet.getString("description");
-        //     Date dateCreated = resultSet.getDate("date_created");
-        //     Date dateUpdated = resultSet.getDate("date_updated");
-        //     Post post = new Post(idPost, idAssociation, titlePost, description, dateCreated, dateUpdated);
-        //     posts.add(post);    return posts;
-        return posts;
-    }
-
     public Post getRecentPost() {
         Post recentPost = null;
-//yyyyyyyyyyyyyyyyy
+        try {
+            String req = "SELECT * FROM post ORDER BY date_created DESC LIMIT 1";
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+
+            List<Post> posts = Stream.of(rs)
+                    .flatMap(resultSet -> {
+                        try {
+                            List<Post> resultList = new ArrayList<>();
+                            while (resultSet.next()) {
+                                resultList.add(new Post(
+                                        resultSet.getString("title"),
+                                        resultSet.getString("description"),
+                                        resultSet.getTimestamp("date_created")
+                                ));
+                            }
+                            return resultList.stream();
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    })
+                    .collect(Collectors.toList());
+
+            if (!posts.isEmpty()) {
+                recentPost = posts.get(0);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur " + ex.getMessage());
+        }
         return recentPost;
     }
 
@@ -130,29 +147,33 @@ public class ServicePost implements PService<Post> {
             String req = "SELECT * FROM post";
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            for (Post p : posts) {
-                if (p.getTitlePost().contains(keyword) || p.getDescription().contains(keyword)) {
-                    result.add(p);
-                }
+            while (rs.next()) {
+                posts.add(new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created")));
             }
         } catch (SQLException ex) {
             System.out.println("Erreur" + ex.getMessage());
         }
 
-        return result;
+        result = posts.stream()
+                .filter(p -> p.getTitlePost().contains(keyword) || p.getDescription().contains(keyword))
+                .collect(Collectors.toList());
 
+        return result;
     }
 
     public List<Post> getAllPostsSortedByDate(boolean isAscending) {
         List<Post> posts = new ArrayList<>();
         try {
-            String req = "SELECT * FROM post";
+            String req = "SELECT * FROM post ORDER BY date_created " + (isAscending ? "ASC" : "DESC");
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
-            if (isAscending) {
-                posts.sort((p1, p2) -> p1.getDate_created().compareTo(p2.getDate_created()));
-            } else {
-                posts.sort((p1, p2) -> p2.getDate_created().compareTo(p1.getDate_created()));
+            while (rs.next()) {
+                String title = rs.getString("titlePost");
+                String description = rs.getString("description");
+                Timestamp dateCreated = rs.getTimestamp("date_created");
+                Post post = new Post(title, description, dateCreated);
+                posts.add(post);
+                
             }
         } catch (SQLException ex) {
             System.out.println("Erreur " + ex.getMessage());

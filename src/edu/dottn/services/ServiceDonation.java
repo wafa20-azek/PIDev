@@ -17,30 +17,36 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author rajhi
  */
-public class ServiceDonation implements PService<Donation> {
+public class ServiceDonation implements DService<Donation> {
 
     Connection cnx = MyConnection.getInstance().getConnection();
 //Ajout avec verification
 
     public void ajouter(Donation d) {
         try {
-                String insertReq = "INSERT INTO donation (idDon, status) VALUES (?, ?)";
-                PreparedStatement stInsert = cnx.prepareStatement(insertReq);
-                stInsert.setInt(1, d.getIdDon());
-                stInsert.setString(2, d.getEtatDonation().toString());
-                stInsert.executeUpdate();
-                System.out.println("Votre don a été ajouté !");
-            
+            String insertReq = "INSERT INTO donation (idUser,idAssociation,ID_Product,idPost, status) VALUES (?,?,?,?,?)";
+            PreparedStatement stInsert = cnx.prepareStatement(insertReq);
+            stInsert.setInt(1, d.getIdUser());
+            stInsert.setInt(2, d.getIdAssociation());
+            stInsert.setInt(3, d.getIdProduct());
+            stInsert.setInt(4, d.getPost().getIdPost());
+
+            stInsert.setString(5, d.getEtatDonation().toString());
+            stInsert.executeUpdate();
+            System.out.println("Votre don a été ajouté !");
+
         } catch (SQLException ex) {
             System.out.println("Erreur lors de l'ajout du don : " + ex.getMessage());
         }
     }
 // Méthode supprimer des dons 
+
     @Override
     public void supprimerParId(int id) {
         try {
@@ -51,23 +57,6 @@ public class ServiceDonation implements PService<Donation> {
             System.out.println("Donation supprimée avec succès !");
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la suppression du don : " + ex.getMessage());
-        }
-    }
-    
-    //Modification des dons
-
-    @Override
-    public void modifier(Donation d) {
-        try {
-            String req = "UPDATE `donation` SET `date_donation` = ?, `status` = ? WHERE`idDon` = ?";
-            PreparedStatement st = cnx.prepareStatement(req);
-            st.setTimestamp(1, d.getDateDonation());
-            st.setString(2, d.getEtatDonation().toString());
-            st.setInt(3, d.getIdDon());
-            st.executeUpdate();
-            System.out.println("Donation updated !");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
     }
 
@@ -89,7 +78,6 @@ public class ServiceDonation implements PService<Donation> {
 
         return list;
     }
-
 
     public Donation getOneById(int id) {
         Donation d = null;
@@ -118,22 +106,20 @@ public class ServiceDonation implements PService<Donation> {
         return "utilisateur";
     }
 
-    public List<Integer> findTopDonors(List<Donation> donations, int topCount) {
-        Map<Integer, Double> donationAmounts = new HashMap<>();
-        for (Donation donation : donations) {
-            int idUser = donation.getIdUser();
-            if (!donationAmounts.containsKey(idUser)) {
-                donationAmounts.put(idUser, 0.0);
-            }
-            donationAmounts.put(idUser, donationAmounts.get(idUser) + donation.getIdProduct());
-        }
-        List<Map.Entry<Integer, Double>> sortedDonations = new ArrayList<>(donationAmounts.entrySet());
-        sortedDonations.sort(Collections.reverseOrder(Map.Entry.comparingByValue()));
-        List<Integer> topDonors = new ArrayList<>();
-        for (int i = 0; i < Math.min(topCount, sortedDonations.size()); i++) {
-            topDonors.add(sortedDonations.get(i).getKey());
-        }
-        return topDonors;
-    }
+/*public List<Integer> findTopDonors() {
+    ServiceDonation serviceDonation = new ServiceDonation();
+    List<Donation> donations = serviceDonation.getAll();
+    int topCount = 5; // par exemple, on peut définir le nombre de top donateurs par défaut ici
+    Map<Integer, Long> donationCounts = donations.stream()
+        .collect(Collectors.groupingBy(Donation::getIdUser, Collectors.counting()));
+    List<Integer> topDonors = donationCounts.entrySet().stream()
+        .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+        .limit(topCount)
+        .map(Map.Entry::getKey)
+        .collect(Collectors.toList());
+    return topDonors;
+}
+*/
+
 
 }

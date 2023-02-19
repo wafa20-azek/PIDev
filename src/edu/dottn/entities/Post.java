@@ -5,6 +5,8 @@
  */
 package edu.dottn.entities;
 
+import com.sun.nio.sctp.Association;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -23,19 +25,22 @@ public class Post {
     public Post() {
 
     }
-
-    public Post(String titlePost, String description) {
+    
+    public Post(String titlePost, String description, Timestamp date_created) {
         this.titlePost = titlePost;
         this.description = description;
-
+        this.date_created = date_created;
     }
+    
 
-    public Post(int idPost, String titlePost, String description) {
-        this.idPost = idPost;
+
+    public Post(String titlePost, String description, Association association) {
         this.titlePost = titlePost;
         this.description = description;
     }
     
+
+
 
     public Post(int idPost, int idAssociation, String titlePost, String description, Timestamp date_created, Timestamp date_updated) {
         this.idPost = idPost;
@@ -45,6 +50,8 @@ public class Post {
         this.date_created = date_created;
         this.date_updated = date_updated;
     }
+
+   
 
     public int getIdPost() {
         return idPost;
