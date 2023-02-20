@@ -6,9 +6,10 @@
 package edu.dottn.entities;
 
 import java.sql.Timestamp;
-
-
-
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.List;
 
 /**
  *
@@ -17,35 +18,43 @@ import java.sql.Timestamp;
 public class Offre {
 
     private int idUser, id_Offre, ID_Product;
-    private  Timestamp date_offre;
+    private String name;
+    private Timestamp date_offre;
     private String status;
-
-  
-   private enum status {
-        Accept, Denied, On_Hold
-    };
+    List<String> st = new ArrayList();
 
     public Offre() {
     }
 
-    public Offre(int idUser, int id_Offre, int ID_Product, Timestamp date_offre, String status) {
-        this.idUser = idUser;
+    public Offre(int id_Offre, int ID_Product, int idUser, String name, String status) {
+
         this.id_Offre = id_Offre;
         this.ID_Product = ID_Product;
-        this.date_offre = date_offre;
+        this.idUser = idUser;
+        this.name = name;
         this.status = status;
+        this.date_offre = Timestamp.valueOf(LocalDateTime.now());
+
     }
 
-    public Offre(int idUser, int ID_Product, Timestamp date_offre, String status) {
-        this.idUser = idUser;
+    public Offre(int ID_Product, int idUser, String name, String status) {
+        st.add("Accepted");
+        st.add("Declined");
+        st.add("On_Hold");
         this.ID_Product = ID_Product;
-        this.date_offre = date_offre;
+        this.idUser = idUser;
+        this.name = name;
+        this.date_offre = Timestamp.valueOf(LocalDateTime.now());
         this.status = status;
-        
+
     }
 
     public int getIdUser() {
         return idUser;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getId_Offre() {
@@ -59,7 +68,6 @@ public class Offre {
     public Timestamp getDate_offre() {
         return date_offre;
     }
-    
 
     public String getStatus() {
         return status;
@@ -71,9 +79,9 @@ public class Offre {
 
     @Override
     public String toString() {
-        return "Offre{" + "date_offre=" + date_offre + ", status=" + status + '}';
+        return "Offre{" + "idUser=" + idUser + ", ID_Product=" + ID_Product + ", name=" + name + ", date_offre=" + date_offre + ", status=" + status + '}';
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -97,6 +105,5 @@ public class Offre {
         }
         return true;
     }
-    
 
 }

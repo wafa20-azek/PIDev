@@ -17,6 +17,6 @@ public interface AvisService<A> {
 
     public void supprimerAvisOffer(A a);
 
-    public A getAvisOffeById(int id_offer);
+    public A getAvisOffeById(int idavis);
 
 }

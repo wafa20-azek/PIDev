@@ -17,11 +17,12 @@ public interface Oservice<O> {
 
     public void supprimerOffre(int id_Offre);
 
-    public void modifierOffre(O o);
+    public void modifierOffre(O o, String a);
 
-    public void AccepterOffre(O o);
-
-    public void RefuserOffer(O o);
+    public List<O> getBYStatus(String status);
+//public void AccepterOffre(O o);
+//
+//    public void RefuserOffer(O o);
 
     public O getOneById(int id_Offre);
 

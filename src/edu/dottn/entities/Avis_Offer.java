@@ -10,24 +10,27 @@ package edu.dottn.entities;
  * @author bochr
  */
 public class Avis_Offer {
-    
+
+    private int idavis;
     private int id_offer;
     private int ID_Product;
     private int idUser;
-    private String ratting;
+    private int ratting	;
     private String description;
 
     public Avis_Offer() {
     }
 
-    public Avis_Offer(int ID_Product, int idUser, String ratting, String description) {
+    public Avis_Offer(int id_offer, int ID_Product, int idUser, int ratting, String description) {
+        this.id_offer = id_offer;
         this.ID_Product = ID_Product;
         this.idUser = idUser;
         this.ratting = ratting;
         this.description = description;
     }
 
-    public Avis_Offer(int id_offer, int ID_Product, int idUser, String ratting, String description) {
+    public Avis_Offer(int idavis, int id_offer, int ID_Product, int idUser, int ratting, String description) {
+        this.idavis = idavis;
         this.id_offer = id_offer;
         this.ID_Product = ID_Product;
         this.idUser = idUser;
@@ -47,7 +50,7 @@ public class Avis_Offer {
         return idUser;
     }
 
-    public String getRatting() {
+    public int getRatting() {
         return ratting;
     }
 
@@ -55,7 +58,11 @@ public class Avis_Offer {
         return description;
     }
 
-    public void setRatting(String ratting) {
+    public int getIdavis() {
+        return idavis;
+    }
+
+    public void setRatting(int ratting) {
         this.ratting = ratting;
     }
 
@@ -97,5 +104,5 @@ public class Avis_Offer {
         }
         return true;
     }
-    
+
 }
