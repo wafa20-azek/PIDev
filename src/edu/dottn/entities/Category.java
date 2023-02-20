@@ -20,10 +20,7 @@ public class Category {
     public Category() {
     }
 
-//    public Category(String name, String subcategories) {
-//        this.name = name;
-//        this.subcategories = subcategories;
-//    }
+
 
     public Category(String name) {
         this.name = name;

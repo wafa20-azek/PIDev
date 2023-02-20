@@ -6,6 +6,7 @@
 package edu.dottn.services;
 
 import edu.dottn.entities.Category;
+import edu.dottn.entities.Product;
 import edu.dottn.entities.SubCategory;
 import edu.dottn.util.MyConnection;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -23,7 +25,7 @@ import java.util.List;
 public class SubCategoryServices implements IservicesSubCategory<SubCategory>{
     
       Connection cnx = MyConnection.getInstance().getConnection();
-    ArrayList lc = new ArrayList();
+    List lc = new ArrayList();
 
     @Override
     public void addSubCategory(SubCategory s) {
@@ -31,7 +33,7 @@ public class SubCategoryServices implements IservicesSubCategory<SubCategory>{
   try {
             PreparedStatement pr = cnx.prepareStatement("INSERT INTO `subcategory`(`name`,`ID_Category`) VALUES (?,?)");
             pr.setString(1, s.getName());
-            pr.setInt(2, s.getIdcategory());
+            pr.setInt(2, s.getCategory().getId());
             pr.executeUpdate();
             System.out.println("subcategory added");
         } catch (SQLException ex) {
@@ -87,7 +89,7 @@ public class SubCategoryServices implements IservicesSubCategory<SubCategory>{
     }
 
     @Override
-    public List<SubCategory> getAllById() {
+    public List<SubCategory> getAll() {
   try {
             Statement st = cnx.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM subcategory");
@@ -101,5 +103,21 @@ public class SubCategoryServices implements IservicesSubCategory<SubCategory>{
         return lc;
     }
     
-    
+     public List<SubCategory> getAllByIdCategory(int id) {
+  try {     
+            lc=this.getAll().stream().filter(s->s.getCategory().getId()==id).collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lc;
+    }
+     
+    public List<SubCategory> getByName(String name) {
+         try {     
+            lc=this.getAll().stream().filter(s->s.getName().contains(name)).collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lc;
+    }
 }

@@ -22,22 +22,24 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        ProductServices ps = new ProductServices();
-//        Product p= new Product("product","oifzqio f i","image1",128.5f);
+     ProductServices ps = new ProductServices();
+       //Product p= new Product("product byciclette","oifzqio f i","image1",128.5f);
 //        Product p1= new Product("product2","oifzqio f i","image1",128f);
-//        Product p2= new Product("product3","oifzqio f i","image1",12.5f);
+        //Product p2= new Product("product3 byciclette","oifzqio f i","image1",12.5f);
 //        Product p3= new Product("product4","oifzqio f i","image1",18.5f);
 //        ps.addProduct(p);
 //        ps.addProduct(p1);
 //        ps.addProduct(p2);
 //        ps.addProduct(p3);
+   //     ps.getByName("byciclette");
+  //      System.out.println(ps.getById(16));
         //ps.removeProduct(1);
         // ps.modifyProduct(p);
         //System.out.println(ps.getById(8));
         //System.out.println(ps.getAllById());
-        CategoryServices cs = new CategoryServices();
+     //   CategoryServices cs = new CategoryServices();
 //        Category c1 = new Category("déco");
-      Category c2 = new Category("maison");
+     // Category c2 = new Category("maison");
 //        Category c3 = new Category("jouets");
 //        Category c4 = new Category("painture");
 //        cs.addCategory(c1);
@@ -46,11 +48,11 @@ public class Main {
 //        cs.addCategory(c4);
    //     cs.removeCategory(1);
         SubCategoryServices cc= new SubCategoryServices();
-SubCategory c = new SubCategory("meuble", 2);
-cc.addSubCategory(c);
+//SubCategory c = new SubCategory("meuble", 2);
+//cc.addSubCategory(c);
+System.out.println(cc.getAllByIdCategory(2)); 
 
-
-        System.out.println(cs.getById(2));
+//        System.out.println(cs.getById(2));
 //        System.out.println(cs.getAllById());
     }
 

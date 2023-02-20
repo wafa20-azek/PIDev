@@ -19,10 +19,10 @@ public interface IservicesCategory<C> {
 
     public void modifyCategory(C p);
 
-    public List<C> getAllSubCategories(int id);
+
 
     public C getById(int id);
 
-    public List<C> getAllById();
+    public List<C> getAll();
 
 }

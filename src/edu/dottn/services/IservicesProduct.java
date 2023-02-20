@@ -16,8 +16,8 @@ public interface IservicesProduct<P> {
     public void addProduct(P p);
     public void removeProduct(int id);
     public void modifyProduct(P p);
-    public P getById(int id);
-    public List<P> getAllById();
+    public P getById(int id);  
+    public List<P> getAll();
     
     
     

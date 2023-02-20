@@ -21,6 +21,6 @@ public interface IservicesSubCategory<S> {
 
     public S getById(int id);
 
-    public List<S> getAllById();
+    public List<S> getAll();
 
 }

@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -23,7 +24,7 @@ import java.util.List;
 public class CategoryServices implements IservicesCategory<Category>{
 
      Connection cnx = MyConnection.getInstance().getConnection();
-    ArrayList lc = new ArrayList();
+    List<Category> lc = new ArrayList();
     
     @Override
     public void addCategory(Category p) {
@@ -87,7 +88,7 @@ public class CategoryServices implements IservicesCategory<Category>{
     }
 
     @Override
-    public List<Category> getAllById() {
+    public List<Category> getAll() {
          try {
             Statement st = cnx.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM Category");
@@ -101,19 +102,14 @@ public class CategoryServices implements IservicesCategory<Category>{
         return lc;
     }
 
-    @Override
-    public List<Category> getAllSubCategories(int id) {
-         try {
-            PreparedStatement pr = cnx.prepareStatement("SELECT * FROM Category WHERE ID_Category=?");
-            pr.setInt(1, id);
-            ResultSet result = pr.executeQuery();
-            while (result.next()) {
-                SubCategory p = new SubCategory(result.getInt(1), result.getString(2), result.getInt(3));
-                lc.add(p);
-            }
-        } catch (SQLException sqlEx) {
-            System.out.println(sqlEx.getMessage());
+   
+     public List<Category> getByName(String name) {
+          try {     
+            lc=this.getAll().stream().filter(s->s.getName().contentEquals(name)).collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+       
         return lc;
     }
     

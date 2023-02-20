@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -23,17 +24,19 @@ public class ProductServices implements IservicesProduct<Product>{
 
     
      Connection cnx = MyConnection.getInstance().getConnection();
-    ArrayList lp = new ArrayList();
+    List<Product> lp = new ArrayList();
     
     @Override
     public void addProduct(Product p) {
 
          try {
-            PreparedStatement pr = cnx.prepareStatement("INSERT INTO `Product`(`name`, `description`, `image`, `price`) VALUES (?,?,?,?)");
+            PreparedStatement pr = cnx.prepareStatement("INSERT INTO `Product`(`name`, `description`, `image`, `price`, `idsubcategory`,`iduser`) VALUES (?,?,?,?,?,?)");
             pr.setString(1, p.getName());
             pr.setString(2, p.getDescription());
             pr.setString(3, p.getImage());
             pr.setFloat(4, p.getPrice());
+            pr.setInt(5,p.getSubCategory().getId() );
+            pr.setInt(6,p.getIduser() );
             pr.executeUpdate();
             System.out.println("Product added");
         } catch (SQLException ex) {
@@ -67,12 +70,14 @@ public class ProductServices implements IservicesProduct<Product>{
     public void modifyProduct(Product p) {
         
          try {
-            PreparedStatement pr = cnx.prepareStatement("UPDATE `Product` SET `name`=?,`description`=?, `image`=?, `price`=? WHERE ID_Product=?");
+            PreparedStatement pr = cnx.prepareStatement("UPDATE `Product` SET `name`=?,`description`=?, `image`=?, `price`=?, `idsubcategory`=?, `iduser`=? WHERE ID_Product=?");
             pr.setString(1, p.getName());
             pr.setString(2, p.getDescription());
             pr.setString(3, p.getImage());
             pr.setFloat(4, p.getPrice());
-            pr.setInt(5, p.getId());
+            pr.setInt(5,  p.getSubCategory().getId());
+            pr.setInt(6, p.getIduser());
+             pr.setInt(7, p.getId());
             pr.executeUpdate();
             System.out.println("Product with id:  "+p.getId()+" has been modified ");
         }catch(SQLException sqlEx){
@@ -87,7 +92,7 @@ public class ProductServices implements IservicesProduct<Product>{
             pr.setInt(1, id);
             ResultSet result = pr.executeQuery();
             while (result.next()) {
-                return new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5));
+                return new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6), result.getInt(7));
             }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
@@ -96,14 +101,14 @@ public class ProductServices implements IservicesProduct<Product>{
     }
 
     @Override
-    public List<Product> getAllById() {
+    public List<Product> getAll() {
         
         
         try {
             Statement st = cnx.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM Product");
             while (result.next()) {
-                Product p = new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5));
+                Product p = new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6), result.getInt(7));
                 lp.add(p);
             }
         } catch (SQLException sqlEx) {
@@ -111,6 +116,42 @@ public class ProductServices implements IservicesProduct<Product>{
         }
         return lp;
     }
+
+
+    public List<Product> getByName(String name) {
+         try {     
+            lp=this.getAll().stream().filter(s->s.getName().contains(name)).collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lp;
+    }
+public List<Product> getByCategory(String category) {
+         try {     
+            lp=this.getAll().stream().filter(s->s.getSubCategory().getCategory().getName().contentEquals(category)).collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lp;
+    }
+
+    public List<Product> getBySubCategory(String subcategory) {
+         try {     
+            lp=this.getAll().stream().filter(s->s.getSubCategory().getName().contentEquals(subcategory)).collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lp;
+    }
+     public List<Product> getByIdUser(int iduser) {
+         try {     
+            lp=this.getAll().stream().filter(s->s.getIduser()==iduser).collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lp;
+    }
+    
     
     
 }
