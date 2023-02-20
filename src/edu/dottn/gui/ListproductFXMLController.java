@@ -18,7 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -92,7 +94,10 @@ public class ListproductFXMLController implements Initializable {
     }    
 
      private void ondeleteclick(Product p1) {
-         ps.removeProduct(p1.getId());
+          Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this product", ButtonType.YES,ButtonType.NO);
+        a.showAndWait().ifPresent(type -> {
+        if (type == ButtonType.YES) {
+            ps.removeProduct(p1.getId());
          FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/listproductFXML.fxml"));
         Parent root = null;
         try {
@@ -102,6 +107,12 @@ public class ListproductFXMLController implements Initializable {
         }
 
         btnaddproduct.getScene().setRoot(root);
+        } else if (type == ButtonType.NO) {
+            a.close();
+        } ;
+});
+ 
+         
      }
     @FXML
     private void goaddproduct(ActionEvent event) {

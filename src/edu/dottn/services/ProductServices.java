@@ -153,5 +153,27 @@ public List<Product> getByCategory(String category) {
     }
     
     
-    
+     public Product exist(Product p) {
+        try {
+            boolean b=false;
+            PreparedStatement pr = cnx.prepareStatement("SELECT * FROM `Product` WHERE EXISTS (SELECT * FROM `Product` WHERE `name`=? AND `description`=? AND `image`=? AND `price`=? AND `idsubcategory`=? AND `iduser`=?)");
+            pr.setString(1, p.getName());
+            pr.setString(2, p.getDescription());
+            pr.setString(3, p.getImage());
+            pr.setFloat(4, p.getPrice());
+            pr.setInt(5,  p.getSubCategory().getId());
+            pr.setInt(6, p.getIduser());
+             ResultSet result =pr.executeQuery();
+             while (result.next()) {
+               b=true;
+            }
+             if (b==true){
+            System.out.println("Product already exists ");
+            return p;
+             }
+        }catch(SQLException sqlEx){
+            System.out.println(sqlEx.getMessage());
+        };
+        return null;
+    }
 }

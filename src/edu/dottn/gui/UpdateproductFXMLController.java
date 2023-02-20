@@ -159,13 +159,21 @@ public class UpdateproductFXMLController implements Initializable {
         p.setImage(imagename);
         p.setSubcategory(l.get(0));
         System.out.println(p);
-        
-        ps.modifyProduct(p);
+         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to update this product", ButtonType.YES,ButtonType.NO);
+        a.showAndWait().ifPresent(type -> {
+        if (type == ButtonType.YES) {
+            ps.modifyProduct(p);
 
-        Alert a = new Alert(Alert.AlertType.INFORMATION, "Product modified !", ButtonType.FINISH);
-        a.showAndWait();
-        gotolistproduct(event);
+        Alert a1 = new Alert(Alert.AlertType.INFORMATION, "Product modified !", ButtonType.FINISH);
+        a1.showAndWait();
+       gotolistproduct(event);
         }
+        else if (type == ButtonType.NO) {
+            a.close();
+        } ;
+         
+        });}
+       
     }
  @FXML
     private void addimage(ActionEvent event) {

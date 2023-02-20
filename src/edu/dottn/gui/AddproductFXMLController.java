@@ -144,10 +144,13 @@ inputcontrol.setText("");
         Product p = new Product(tfName.getText(), tfDescription.getText(), imagename,value , l.get(0),1);
         System.out.println(p);
         ProductServices ps = new ProductServices();
+        if (ps.exist(p)==null){
         ps.addProduct(p);
 
         Alert a = new Alert(Alert.AlertType.INFORMATION, "Product added !", ButtonType.FINISH);
-        a.showAndWait();
+        a.showAndWait();}
+        else {inputcontrol.setText("Product already exists!");}
+        
         }
     }
 
