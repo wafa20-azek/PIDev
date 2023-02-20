@@ -7,40 +7,43 @@ package edu.dottn.gui;
 
 import edu.dottn.entities.User;
 import edu.dottn.services.MemberServices;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.text.Text;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author WALID
  */
-public class HomePageController implements Initializable {
-
-    @FXML
-    private Text labelWelcome;
-    User P = null;
+public class LoadingPageController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         // TODO
-    }    
-
-    @FXML
-    private void btnLogOut(ActionEvent event) {
-      MemberServices m1 = new MemberServices();
-      m1.logOut(P.getIdUser());
-      NavigationController.changeLoginPage(event,"LoginPage.fxml");
+        
+       
+            
+           
+            
+            
+//             MemberServices m1 = new MemberServices();
+//             User P = m1.verifSession();
+//             if(P!=null){
+//                 NavigationController.changeHomePage(event, p1, "HomePage.fxml");
+//             }
+            
+        
     }
-    public void setInformation(User o){
-        P = o;
-    labelWelcome.setText(labelWelcome.getText()+" "+o.getName());}
+
 }

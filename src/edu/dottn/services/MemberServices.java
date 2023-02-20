@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import javax.crypto.SecretKeyFactory;
@@ -37,13 +38,16 @@ public class MemberServices implements UServices<User> {
     Connection cnx = MyConnection.getInstance().getConnection();
 
     @Override
-    public Member ajouterUser(User t) {
+    public boolean ajouterUser(User t) {
         Member p = (Member)t;
+        boolean add = false;
         try {
+            // on va chercher si membre existe deja dans la base de donneés
             String req = "SELECT * FROM `user` WHERE email = '" + p.getEmail() + "'";
             Statement stt = cnx.createStatement();
             ResultSet rss = stt.executeQuery(req);
            if(!rss.next()){
+               // if n'existe pas on va l'insérer
             req = "INSERT INTO `user`(`name`, `address`, `email`, `password`, `numero`, `role`, `credit`, `salt`) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, p.getName());
@@ -60,22 +64,14 @@ public class MemberServices implements UServices<User> {
             int n = ps.executeUpdate();
             System.out.println("Member added");
                     if (n==1){
-                //chercher utlisateur ajouteé dans DB pour lui ajouter dans la session
-                     req = "SELECT * FROM `user` WHERE email = '" + p.getEmail() + "' and name = '" + p.getName() + "'";
-                     Statement st = cnx.createStatement();
-                     ResultSet rs = st.executeQuery(req);
-                     while (rs.next()) {
-                         addSession(rs.getInt(1));
-                         p = (Member)getOneById(rs.getInt(1)); }
+                        add = true;
                              }
-           }else{
-                System.out.println("email exist");
-                p =null; }
+           }
             
         } catch (SQLException | NoSuchAlgorithmException ex) {
             System.err.println(ex.getMessage());
         }
-        return p;
+        return add;
     }
 
     private String hashPassword(String password, byte[] salt) {
@@ -241,6 +237,7 @@ public class MemberServices implements UServices<User> {
     }
 
     public void logOut(int id) {
+        //on va fermer la session pour l'utilisateur par idUser
         String req = "DELETE FROM `session` WHERE idUser = " + id;
 
         try {
@@ -260,6 +257,13 @@ public class MemberServices implements UServices<User> {
                 .collect(Collectors.toList());
 
         return result;
+    }
+    public TreeSet<User> SortUserByNom(String name) {
+
+        TreeSet<User> users = getAllById().stream().collect(Collectors
+                .toCollection(()->new TreeSet<User>((a,b)->a.getName().compareTo(b.getName()))));
+
+        return users;
     }
 
 }
