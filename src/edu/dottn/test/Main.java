@@ -5,7 +5,6 @@
  */
 package edu.dottn.test;
 
-import com.sun.nio.sctp.Association;
 import edu.dottn.entities.Comment;
 import edu.dottn.entities.Donation;
 import edu.dottn.entities.Donation.DonationStatus;
@@ -14,6 +13,7 @@ import edu.dottn.services.ServiceComment;
 import edu.dottn.services.ServiceDonation;
 import edu.dottn.services.ServicePost;
 import edu.dottn.util.MyConnection;
+import static java.sql.JDBCType.NULL;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -55,7 +55,7 @@ public class Main {
      //post1.supprimerParId(2);
      //don1.modifier(new Donation(3,new java.sql.Timestamp(System.currentTimeMillis()),DonationStatus.REJECTED));
      //don.ajouter(d2);
-    // Donation d3 =new Donation(1,1,10,1,DonationStatus.REJECTED);
+     Donation d3 =new Donation(1,1,10,1,DonationStatus.REJECTED);
      //don1.ajouter(d3);
      Post p3 = new Post("first post","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
       Post p4 = new Post("second test","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
@@ -77,15 +77,47 @@ public class Main {
     //System.out.println(don1.findTopDonors());
     
         System.out.println("****------*******-------*****");
-        Comment c1 = new Comment(p5, "hello its me",new java.sql.Timestamp(System.currentTimeMillis()));
-        //com1.ajouterComment(c1);
+      Comment c1 = new Comment(p5, "hello");
+      //  com1.ajouterComment(c1);
        // System.out.println(com1.getAll());
        // System.out.println(com1.getOneById(5));
       // com1.supprimerParId(5);
-        Comment c2= new Comment(p5,"xxxxx",new java.sql.Timestamp(System.currentTimeMillis()));
-        com1.ajouterComment(c2);
-    
-    }
+       // Comment c2= new Comment(p5,"xxxxx",new java.sql.Timestamp(System.currentTimeMillis()));
+      //  com1.ajouterComment(c2);
+        //User user = new User("ahmed", "ben arrous", "rajhiamna2@gmail.com", "hello", 12345678);
+       // don1.sendDonationThankYouEmail(user,d3);
+      //  don1.ajouter(d3);
+        //System.out.println(don1.getDonationsSortedByEtatDonation(DonationStatus.ACCEPTED));
+        
+       
+        //System.out.println( post1.getRecentPost());
+        //don1.ajouter(d3);
+       // System.out.println(don1);
+        
+       // com1.ajouterComment(c2);
+       com1.ajouterComment(c1);
+        System.out.println(com1.getAll());
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            }
+     
     
     
     

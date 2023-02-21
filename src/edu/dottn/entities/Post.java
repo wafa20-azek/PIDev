@@ -34,7 +34,7 @@ public class Post {
     
 
 
-    public Post(String titlePost, String description, Association association) {
+    public Post(String titlePost, String description) {
         this.titlePost = titlePost;
         this.description = description;
     }

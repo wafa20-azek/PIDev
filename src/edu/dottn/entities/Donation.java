@@ -16,6 +16,8 @@ public class Donation {
     private ServicePost pos = new ServicePost();
     
     // Les Constructeuurs :D 
+    
+    
 
     public Donation() {
     }
@@ -27,6 +29,18 @@ public class Donation {
         this.post = pos.getOneById(idPost);
         this.etatDonation = etatDonation;
     }
+
+    public Donation(Timestamp date_Donation, DonationStatus etatDonation) {
+        this.date_Donation = date_Donation;
+        this.etatDonation = etatDonation;
+    }
+
+    public Donation(DonationStatus etatDonation) {
+        this.etatDonation = etatDonation;
+    }
+       
+       
+       
        
        // Définition des Getters et Setters :D
 
@@ -70,12 +84,12 @@ public class Donation {
     }
 
     public enum DonationStatus {
-        ACCEPTED, REJECTED
+        ACCEPTED, REJECTED, ON_HOLD
     }
 
     @Override
     public String toString() {
-        return "Donation{" + "post=" + post + ", date_Donation=" + date_Donation + ", etatDonation=" + etatDonation + '}';
+        return "Donation{" + "post=" + post + ", 0=" + date_Donation + ", etatDonation=" + etatDonation + '}';
     }
 
     

@@ -5,15 +5,17 @@
  */
 package edu.dottn.entities;
 
+import edu.dottn.services.ServicePost;
 import java.sql.Timestamp;
-import edu.dottn.util.MyConnection;
 /**
  *
  * @author rajhi
  */
 public class Comment {
+    private int id_comment;
     private int idUser;
     private Post post;
+    ServicePost sp = new ServicePost();
     private String contenu;
     private Timestamp dateComment;
 
@@ -31,6 +33,11 @@ public class Comment {
         this.dateComment = dateComment;
     }
 
+    public Comment(Post post, String contenu) {
+        this.post = post;
+        this.contenu = contenu;
+    }
+    
     public int getIdUser() {
         return idUser;
     }
@@ -56,6 +63,11 @@ public class Comment {
         this.dateComment = dateComment;
     }
 
+    public int getId_comment() {
+        return id_comment;
+    }
+
+    
     @Override
     public String toString() {
         return "Comment{" + "contenu=" + contenu + ", dateComment=" + dateComment + '}';
