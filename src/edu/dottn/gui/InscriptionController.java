@@ -61,28 +61,27 @@ public class InscriptionController implements Initializable {
                     Alert email = new Alert(Alert.AlertType.ERROR, "email doesn't contain @ ", ButtonType.CLOSE);
                     email.showAndWait();
                 } else {
-                    passwordId.setStyle("-fx-border-color: #c0c0c0;");
-                    repeatpassId.setStyle("-fx-border-color: #c0c0c0;");
-                }
-
-                //convertir la chaine en number
-                int numberid = Integer.parseInt(numberId.getText());
-                if (numberId.getText().length() != 8) {
-                    Alert b = new Alert(Alert.AlertType.ERROR, "Only 8 digit", ButtonType.CLOSE);
-                    b.showAndWait();
-                } else {
-                    User p1 = new Member(nameId.getText(), addressId.getText(), emailId.getText(), passwordId.getText(), numberid, 0);
-                    MemberServices m1 = new MemberServices();
-                    boolean add = m1.ajouterUser(p1);
-                    if (add) {
-                        Alert a = new Alert(Alert.AlertType.INFORMATION, nameId.getText(), ButtonType.OK);
-                        Optional<ButtonType> result = a.showAndWait();
-                        if(result.get() == ButtonType.OK){
-                        NavigationController.changeLoginPage(event, "LoginPage.fxml");}
+                    //convertir la chaine en number
+                    
+                    if (!numberId.getText().matches("\\d{8}")) {
+                        numberId.setStyle("-fx-border-color: red;");
+                        Alert b = new Alert(Alert.AlertType.ERROR, "Only 8 digit", ButtonType.CLOSE);
+                        b.showAndWait();
                     } else {
-                        emailId.setStyle("-fx-border-color: red;");
-                        Alert email = new Alert(Alert.AlertType.ERROR, "email exist ", ButtonType.CLOSE);
-                        email.showAndWait();
+                        int numberid = Integer.parseInt(numberId.getText());
+                        User p1 = new Member(nameId.getText(), addressId.getText(), emailId.getText(), passwordId.getText(), numberid, 0);
+                        MemberServices m1 = new MemberServices();
+                        boolean add = m1.ajouterUser(p1);
+                        if (add) {
+                            Alert a = new Alert(Alert.AlertType.INFORMATION, nameId.getText(), ButtonType.OK);
+                            Optional<ButtonType> result = a.showAndWait();
+                            if (result.get() == ButtonType.OK) {
+                                NavigationController.changeLoginPage(event, "LoginPage.fxml");
+                            }
+                        } else {
+                            emailId.setStyle("-fx-border-color: red;");
+                            
+                        }
                     }
                 }
             } else {

@@ -13,7 +13,7 @@
                   <Image url="@../assets/troctnLogo.png" />
                </image>
        </ImageView>
-      <Text fill="#fafafaac" layoutX="392.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Join &amp; Let's exchange..." wrappingWidth="268.09814453125">
+      <Text fx:id="idText" fill="#fafafaac" layoutX="392.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Join &amp; Let's exchange..." wrappingWidth="268.09814453125">
          <font>
             <Font size="22.0" />
          </font>

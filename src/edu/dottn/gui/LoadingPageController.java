@@ -9,14 +9,21 @@ import edu.dottn.entities.User;
 import edu.dottn.services.MemberServices;
 import java.io.IOException;
 import java.net.URL;
+
 import java.util.ResourceBundle;
+
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+
+import javafx.scene.text.Text;
+
 
 /**
  * FXML Controller class
@@ -25,25 +32,39 @@ import javafx.stage.Stage;
  */
 public class LoadingPageController implements Initializable {
 
+    @FXML
+    private Text idText;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         // TODO
-        
-       
-            
-           
-            
-            
-//             MemberServices m1 = new MemberServices();
-//             User P = m1.verifSession();
-//             if(P!=null){
-//                 NavigationController.changeHomePage(event, p1, "HomePage.fxml");
-//             }
-            
-        
+        Timeline timeline = new Timeline();
+
+        MemberServices m1 = new MemberServices();
+        User P = m1.verifSession();
+        if (P != null) {
+            timeline.getKeyFrames().add(new KeyFrame(javafx.util.Duration.seconds(2),
+                    e -> NavigationController.openSession("HomePage.fxml", P, idText)));
+
+        } else {
+            timeline.getKeyFrames().add(new KeyFrame(javafx.util.Duration.seconds(2),
+                    e -> {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource("Inscription.fxml"));
+                            Parent root = loader.load();
+                            idText.getScene().setRoot(root);
+                        } catch (IOException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }));
+
+        }
+        timeline.play();
+
     }
 
 }

@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -59,6 +60,18 @@ public class NavigationController {
             primaryStage.setScene(scene);
             primaryStage.setTitle("SignUpPage");
             primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    public static void openSession(String fxmlFile,User P,Text t){
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            Parent root = loader.load();
+            HomePageController Home = loader.getController();
+            Home.setInformation(P);
+            t.getScene().setRoot(root);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }

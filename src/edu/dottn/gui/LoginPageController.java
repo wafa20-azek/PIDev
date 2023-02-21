@@ -65,8 +65,7 @@ public class LoginPageController implements Initializable {
                 }
                 else {
                     passwordId.setStyle("-fx-border-color: red;");
-                    Alert password = new Alert(Alert.AlertType.ERROR, "password incorrect", ButtonType.CLOSE);
-                    password.showAndWait();
+                    
                 }
             }
         } else {

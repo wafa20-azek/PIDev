@@ -25,6 +25,8 @@ import java.util.Base64;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -66,6 +68,10 @@ public class MemberServices implements UServices<User> {
                     if (n==1){
                         add = true;
                              }
+           }
+           else{
+               Alert email = new Alert(Alert.AlertType.ERROR, "email exist ", ButtonType.CLOSE);
+                            email.showAndWait();
            }
             
         } catch (SQLException | NoSuchAlgorithmException ex) {
@@ -195,7 +201,8 @@ public class MemberServices implements UServices<User> {
                      addSession(p.getIdUser());
                     System.out.println("successful authentication");
                 } else {
-                    System.out.println("failed authentication");
+                    Alert passwordmsg = new Alert(Alert.AlertType.ERROR, "password incorrect", ButtonType.CLOSE);
+                    passwordmsg.showAndWait();
 
                 }
 
@@ -258,7 +265,7 @@ public class MemberServices implements UServices<User> {
 
         return result;
     }
-    public TreeSet<User> SortUserByNom(String name) {
+    public TreeSet<User> SortUserByNom() {
 
         TreeSet<User> users = getAllById().stream().collect(Collectors
                 .toCollection(()->new TreeSet<User>((a,b)->a.getName().compareTo(b.getName()))));
