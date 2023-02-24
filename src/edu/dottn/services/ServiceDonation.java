@@ -7,7 +7,6 @@ package edu.dottn.services;
 
 import edu.dottn.entities.Donation;
 import edu.dottn.entities.Donation.DonationStatus;
-import edu.dottn.entities.Post;
 import edu.dottn.entities.User;
 import edu.dottn.util.MyConnection;
 import java.sql.Connection;
@@ -16,18 +15,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
-
-import javax.mail.Authenticator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -51,9 +49,9 @@ public class ServiceDonation implements DService<Donation> {
         try {
             String insertReq = "INSERT INTO donation (idUser,idAssociation,ID_Product,idPost, status) VALUES (?,?,?,?,?)";
             PreparedStatement stInsert = cnx.prepareStatement(insertReq);
-            stInsert.setInt(1, d.getIdUser());
-            stInsert.setInt(2, d.getIdAssociation());
-            stInsert.setInt(3, d.getIdProduct());
+            stInsert.setInt(1, d.getUser().getIdUser());
+            stInsert.setInt(2, d.getAssociation().getId());
+            stInsert.setInt(3, d.getProduct().getId());
             stInsert.setInt(4, d.getPost().getIdPost());
             stInsert.setString(5, d.getEtatDonation().toString());
             stInsert.executeUpdate();
@@ -119,84 +117,71 @@ public class ServiceDonation implements DService<Donation> {
         return d;
     }
 
-    public void sendDonationThankYouEmail(User user, Donation donation) {
-        // Adresse e-mail du destinataire
-        String recipientEmail = user.getEmail();
-
-        // Sujet du message
-        String subject = "Merci pour votre donation !";
-
-        // Corps du message
-        String body = "Bonjour " + user.getName() + ",\n\n"
-                + "Nous tenions à vous remercier pour votre généreuse donation  "
-                + "Grâce à votre soutien, nous pouvons continuer à aider ceux qui en ont le plus besoin. "
-                + "Nous apprécions vraiment votre contribution à notre cause.\n\n"
-                + "Cordialement,\n"
-                + "L'équipe de notre organisation";
-
-        // Configurer les propriétés JavaMail
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
+    public  void envoyer(User user) throws MessagingException {
 
         String username = "emna.rajhi@esprit.tn";
         String password = "223AFT1684";
+        // Etape 1 : Création de la session
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
 
-        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
             }
         });
 
+        Message message = prepareMessage(session, username, user.getEmail(), user.getName());
+        Transport.send(message);
+        System.out.println("Message envoyé !!");
+    }
+    
+
+    private static Message prepareMessage(Session session, String username, String userEmail, String userName) throws MessagingException {
         try {
-            // Créer un objet de message
-            MimeMessage message = new MimeMessage(session);
+            Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
-            message.setSubject(subject);
-            message.setText(body);
-
-            // Envoyer le message
-            Transport.send(message);
-
-            System.out.println("E-mail sent " + recipientEmail);
-        } catch (MessagingException ex) {
-            System.err.println("Error " + ex.getMessage());
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+            message.setSubject("Merci pour votre donation !");
+            message.setText("Bonjour " + userName + ",\n\n"
+                + "Nous tenions à vous remercier pour votre généreuse donation  "
+                + "Grâce à votre soutien, nous pouvons continuer à aider ceux qui en ont le plus besoin. "
+                + "Nous apprécions vraiment votre contribution à notre cause.\n\n"
+                + "Cordialement,\n"
+                + "L'équipe de notre organisation");
+            return message;
+        } catch (AddressException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
-    public List<Donation> getDonationsSortedByEtatDonation(DonationStatus etatDonation) {
-        List<Donation> list = new ArrayList<>();
+
+    
+
+    public void confirmDonation(Donation donation) {
         try {
-            String req = "SELECT * FROM donation WHERE status = ?";
+            // Confirm the donation and update the database accordingly
+            donation.setEtatDonation(DonationStatus.ACCEPTED);
+            String req = "UPDATE donation SET status = ? WHERE idDonation = ?";
             PreparedStatement st = cnx.prepareStatement(req);
-            st.setString(1, etatDonation.toString());
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Donation d = new Donation();
-                d.setDateDonation(rs.getTimestamp("date_donation"));
-                d.setEtatDonation(DonationStatus.valueOf(rs.getString("status")));
+            st.setString(1, donation.getEtatDonation().toString());
+            st.setInt(2, donation.getIdDon());
+            st.executeUpdate();
 
-                // Récupérer l'objet Post associé au don
-                int idPost = rs.getInt("idPost");
-                Post post = new ServicePost().getOneById(idPost);
-                d.setPost(post);
-
-                list.add(d);
+            // Send the thank-you email
+            User user = donation.getUser();
+            try {
+                envoyer(user);
+            } catch (MessagingException ex) {
+                Logger.getLogger(ServiceDonation.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
-        // Trier la liste des dons par date de donation décroissante
-        List<Donation> sortedList = list.stream()
-                .sorted(Comparator.comparing(Donation::getDateDonation).reversed())
-                .collect(Collectors.toList());
-
-        return sortedList;
     }
 
 }

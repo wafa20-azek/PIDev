@@ -1,60 +1,60 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.dottn.entities;
 
-import com.sun.nio.sctp.Association;
-import java.sql.Date;
 import java.sql.Timestamp;
 
-/**
- *
- * @author rajhi
- */
 public class Post {
 
     private int idPost;
-    private int idAssociation;
+    private Association association;
     private String titlePost;
     private String description;
-    private  Timestamp date_created;
+    private Timestamp date_created;
     private Timestamp date_updated;
+    private int likes;
+    private int dislikes;
 
     public Post() {
 
     }
-    
+
     public Post(String titlePost, String description, Timestamp date_created) {
         this.titlePost = titlePost;
         this.description = description;
         this.date_created = date_created;
     }
-    
-
 
     public Post(String titlePost, String description) {
         this.titlePost = titlePost;
         this.description = description;
+        this.likes=0;
+        this.dislikes=0;
     }
-    
 
-
-
-    public Post(int idPost, int idAssociation, String titlePost, String description, Timestamp date_created, Timestamp date_updated) {
+    public Post(int idPost, Association association, String titlePost, String description, Timestamp date_created, Timestamp date_updated, int likes, int dislikes) {
         this.idPost = idPost;
-        this.idAssociation = idAssociation;
+        this.association = association;
         this.titlePost = titlePost;
         this.description = description;
         this.date_created = date_created;
         this.date_updated = date_updated;
+        this.likes = likes;
+        this.dislikes = dislikes;
     }
-
-   
 
     public int getIdPost() {
         return idPost;
+    }
+
+    public void setIdPost(int idPost) {
+        this.idPost = idPost;
+    }
+
+    public Association getAssociation() {
+        return association;
+    }
+
+    public void setAssociation(Association association) {
+        this.association = association;
     }
 
     public String getTitlePost() {
@@ -89,13 +89,44 @@ public class Post {
         this.date_updated = date_updated;
     }
 
-    public int getIdAssociation() {
-        return idAssociation;
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
+    }
+    
+    public void addLike() {
+        this.likes++;
+    }
+
+    public void addDislike() {
+        this.dislikes++;
+    }
+    
+    public void removeLike() {
+        if (likes > 0) {
+            likes--;
+        }
+    }
+    public void removeDisLike() {
+        if (dislikes > 0) {
+            dislikes--;
+        }
     }
 
     @Override
     public String toString() {
-        return "Post{" + "titlePost=" + titlePost + ", description=" + description + ", date_created=" + date_created + ", date_updated=" + date_updated + '}';
+        return "Post{" + "titlePost=" + titlePost + ", description=" + description + ", date_created=" + date_created + ", date_updated=" + date_updated + ", likes=" + likes + ", dislikes=" + dislikes + '}';
     }
 
     @Override
@@ -122,5 +153,4 @@ public class Post {
         }
         return true;
     }
-
 }

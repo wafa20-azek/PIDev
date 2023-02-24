@@ -1,5 +1,6 @@
 package edu.dottn.entities;
 
+import edu.dottn.services.AssociationServices;
 import edu.dottn.services.ServiceDonation;
 import edu.dottn.services.ServicePost;
 import java.sql.Timestamp;
@@ -7,72 +8,63 @@ import java.sql.Timestamp;
 public class Donation {
 
     private int idDon;
-    private int idUser;
-    private int idAssociation;
-    private int ID_Product;
-    private Post post=new Post( );
-    private Timestamp date_Donation;
+    private User user;
+    private Association association;
+    private Product product;
+    private Post post;
+    private Timestamp dateDonation;
     private DonationStatus etatDonation;
     private ServicePost pos = new ServicePost();
-    
-    // Les Constructeuurs :D 
-    
-    
+    private AssociationServices asso = new AssociationServices();
 
     public Donation() {
     }
-    
-       public Donation(int idUser, int idAssociation, int ID_Product, int idPost, DonationStatus etatDonation) {
-        this.idUser = idUser;
-        this.idAssociation = idAssociation;
-        this.ID_Product = ID_Product;
-        this.post = pos.getOneById(idPost);
+
+    public Donation(User user, Association association, Product product,Post post, Timestamp dateDonation, DonationStatus etatDonation) {
+        this.user = user;
+        this.association = association;
+        this.product = product;
+        this.post = post;
+        this.dateDonation = dateDonation;
         this.etatDonation = etatDonation;
     }
-
-    public Donation(Timestamp date_Donation, DonationStatus etatDonation) {
-        this.date_Donation = date_Donation;
+    
+    public Donation(Timestamp dateDonation, DonationStatus etatDonation) {
+        this.dateDonation = dateDonation;
         this.etatDonation = etatDonation;
     }
 
     public Donation(DonationStatus etatDonation) {
         this.etatDonation = etatDonation;
     }
-       
-       
-       
-       
-       // Définition des Getters et Setters :D
 
     public int getIdDon() {
         return idDon;
     }
 
-    public int getIdUser() {
-        return idUser;
+
+    public User getUser() {
+        return user;
     }
 
-    public int getIdAssociation() {
-        return idAssociation;
+    public Association getAssociation() {
+        return association;
     }
-    public int getIdProduct() {
-        return ID_Product;
+
+    public Product getProduct() {
+        return product;
     }
 
     public Post getPost() {
         return post;
     }
     
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
     public Timestamp getDateDonation() {
-        return date_Donation;
+        return dateDonation;
     }
 
-    public void setDateDonation(Timestamp date_Donation) {
-        this.date_Donation = date_Donation;
+    public void setDateDonation(Timestamp dateDonation) {
+        this.dateDonation = dateDonation;
     }
 
     public DonationStatus getEtatDonation() {
@@ -89,10 +81,9 @@ public class Donation {
 
     @Override
     public String toString() {
-        return "Donation{" + "post=" + post + ", 0=" + date_Donation + ", etatDonation=" + etatDonation + '}';
+        return "Donation{" + "post=" + post + ", dateDonation=" + dateDonation + ", etatDonation=" + etatDonation + '}';
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 7;
