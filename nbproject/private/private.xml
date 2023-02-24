@@ -5,9 +5,11 @@
         <group>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/AfficheOffreFXML.fxml</file>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/services/Oservice.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/entities/Offre.java</file>
+            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/Offermain.java</file>
+            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/CreationOfferFXML.fxml</file>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/main/Main.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/main/offermain.java</file>
+            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/entities/Offre.java</file>
+            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/CreationOfferFXMLController.java</file>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/AfficheOffreFXMLController.java</file>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/services/ServiceOffre.java</file>
         </group>

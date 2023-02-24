@@ -17,9 +17,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -41,46 +45,22 @@ public class AfficheOffreFXMLController implements Initializable {
     private Button btnAddProduct;
     @FXML
     private Button btnMyOffer;
+
+    private Button btncreationOffer;
+    @FXML
+    private Button createOffer;
+
 // @FXML
 // private TextField tfoffer;
 // @FXML
 //   private TextField tfdescription;
-// 
-
     /**
      * Initializes the controller class.
      */
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-    }
-//     @FXML 
-//   private void btnConfirmerAction(ActionEvent event) {
-//        
-//// Offre o = new Offre(0, 0, name, status);
-//        System.out.println(o);
-//        ServiceOffre so = new ServiceOffre();
-//        so.ajouterOffre(o);
-//        
-//        Alert a = new Alert(Alert.AlertType.ERROR, "Personne added !", ButtonType.FINISH);
-//        a.showAndWait();
-//    }   
-
-    private void consulterOffer(ActionEvent event) {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            System.out.println("Error :" + e.getMessage());
-        }
-
-        btnMyOffer.getScene().setRoot(root);
-        Offre o = new Offre(0, 0, 0, "", "");
-        ServiceOffre oc = new ServiceOffre();
-        oc.getAll();
     }
 
     @FXML
@@ -94,13 +74,31 @@ public class AfficheOffreFXMLController implements Initializable {
         }
 
         btnOn_Hold.getScene().setRoot(root);
-        Offre o1 = new Offre(0, 0, "", "");
+        Offre o1 = new Offre();
         ServiceOffre so = new ServiceOffre();
-      so.getBYStatus("On_Hold");
+        so.getBYStatus("On_Hold");
 
     }
+
     @FXML
-     private void offerStatus2(ActionEvent event) {
+    private void offerStatus1(ActionEvent event) {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            System.out.println("Error :" + e.getMessage());
+        }
+
+        btnAccepted.getScene().setRoot(root);
+        Offre o1 = new Offre();
+        ServiceOffre so = new ServiceOffre();
+        so.getBYStatus("Accepted");
+
+    }
+
+    @FXML
+    private void offerStatus2(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
         Parent root = null;
         try {
@@ -110,31 +108,101 @@ public class AfficheOffreFXMLController implements Initializable {
         }
 
         btnDeclined.getScene().setRoot(root);
-        Offre o1 = new Offre(0, 0, "", "");
+        Offre o1 = new Offre();
         ServiceOffre so = new ServiceOffre();
         so.getBYStatus("Declined");
 
     }
+
     @FXML
-      private void offerStatus1(ActionEvent event) {
+    private void consulterOffers(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
         Parent root = null;
         try {
             root = loader.load();
+            ServiceOffre serviceOffre = new ServiceOffre();
+            Offre o = new Offre();
+            List<Offre> offres = serviceOffre.getAll();
+
         } catch (IOException e) {
             System.out.println("Error :" + e.getMessage());
         }
 
-        btnAccepted.getScene().setRoot(root);
-        Offre o1 = new Offre(0, 0, "", "");
-        ServiceOffre so = new ServiceOffre();
-       so.getBYStatus("Accepted");
+        btnMyOffer.getScene().setRoot(root);
 
     }
 
     @FXML
-    private void ajouteroffer(ActionEvent event) {
+    private void createoffer(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CreationOfferFXML.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+            Scene nv = new Scene(root);
+            Stage s = (Stage) createOffer.getScene().getWindow();
+            s.setScene(nv);
+            s.show();
+        } catch (IOException e) {
+            System.out.println("Error :" + e.getMessage());
+        }
+    }
+    
+@FXML
+private void Acceptedoffer(MouseEvent event) {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
+    Parent root = null;
+    try {
+        root = loader.load();
+    } catch (IOException e) {
+        System.out.println("Error :" + e.getMessage());
     }
 
+
+    Offre o1 = new Offre();
+    ServiceOffre so = new ServiceOffre();
+    so.AccepterOffre(o1);
+}
+
+private void handleButtonClicked(MouseEvent event) {
+    if (event.getButton() == MouseButton.PRIMARY) {
+        // code à exécuter lorsque le bouton est cliqué avec le bouton gauche de la souris
+        Acceptedoffer(event);
+    }
+}
+
+//    @FXML
+//    private void offerStatus1(MouseEvent event) {
+//          FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
+//        Parent root = null;
+//        try {
+//            root = loader.load();
+//        } catch (IOException e) {
+//            System.out.println("Error :" + e.getMessage());
+//        }
+//
+//        btnDeclined.getScene().setRoot(root);
+//        Offre o1 = new Offre();
+//        ServiceOffre so = new ServiceOffre();
+//        so.AccepterOffre(o1);
+//    }
+//     
+//
+//    @FXML
+//    private void offerStatus2(MouseEvent event) {
+//          FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
+//        Parent root = null;
+//        try {
+//            root = loader.load();
+//        } catch (IOException e) {
+//            System.out.println("Error :" + e.getMessage());
+//        }
+//
+//        btnDeclined.getScene().setRoot(root);
+//        Offre o1 = new Offre();
+//        ServiceOffre so = new ServiceOffre();
+////        so.
+//    }
+
+    
 
 }

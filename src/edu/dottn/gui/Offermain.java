@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -30,14 +31,13 @@ public class Offermain extends Application {
             primaryStage.setScene(scene);
             primaryStage.setTitle("Gestion d'offre");
             primaryStage.show();
+     
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
         }
-        
     }
-
     /**
      * @param args the command line arguments
      */

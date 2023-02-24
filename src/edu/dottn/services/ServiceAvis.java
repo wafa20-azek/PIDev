@@ -30,7 +30,7 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
         try {
             String req = "INSERT INTO `avis_offre` (`id_offre`,`ID_Product`, `idUser`,`ratting`,`description`) VALUES (?,?,?,?,?)";
             PreparedStatement as = con.prepareStatement(req);
-            as.setInt(1, a.getId_offer());
+            as.setInt(1,a.getOffer().getId_Offre());
             as.setInt(2, a.getID_Product());
             as.setInt(3, a.getIdUser());
             as.setInt(4, a.getRatting());
@@ -45,7 +45,7 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
     @Override
     public void modifierAvisOffer(Avis_Offer a) {
         try {
-            String req = "UPDATE `avis_offre` SET `id_offre`='" + a.getId_offer() + "',`ID_Product`='" + a.getID_Product() + "',`idUser`='" + a.getIdUser() + "',`ratting`='" + a.getRatting() + "',`description`='" + a.getDescription() + "' WHERE `avis_offre`= " + a.getIdavis() + "";
+            String req = "UPDATE `avis_offre` SET `id_offre`='" + a.getOffer().getId_Offre()+ "',`ID_Product`='" + a.getID_Product() + "',`idUser`='" + a.getIdUser() + "',`ratting`='" + a.getRatting() + "',`description`='" + a.getDescription() + "' WHERE `avis_offre`= " + a.getIdavis() + "";
             Statement st = con.createStatement();
             st.executeUpdate(req);
             System.out.println("Offer updated !");
@@ -58,7 +58,8 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
     @Override
     public void supprimerAvisOffer(Avis_Offer a) {
         try {
-            String req = "DELETE FROM `avis_offre` WHERE  `idavis` = " + a.getIdavis();
+            System.out.println(a);
+            String req = "DELETE FROM `avis_offre` WHERE  `idavis` =" +a.getIdavis();
             Statement st = con.createStatement();
             st.executeUpdate(req);
             System.out.println(" Offer deleted !");
@@ -72,19 +73,21 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
 
     @Override
     public Avis_Offer getAvisOffeById(int idavis) {
-        Avis_Offer a = null;
+        
         try {
-            String req = "SELECT * FROM `avis_offre` WHERE idavis= " + a.getIdavis();
+            String req = "SELECT * FROM `avis_offre` WHERE idavis= " + idavis;
             PreparedStatement st = con.prepareStatement(req);
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                a = new Avis_Offer(rs.getInt(3), rs.getInt(1), rs.getInt(2), rs.getInt(4), rs.getString(5));
+               ServiceOffre so = new ServiceOffre();
+                Offre offer = so.getOneById(rs.getInt(2));
                 System.out.println("Offer getted ");
+                return new Avis_Offer(rs.getInt(1), offer,rs.getInt(3),rs.getInt(3),rs.getInt(4), rs.getString(5));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return a;
+        return null;
 
     }
 

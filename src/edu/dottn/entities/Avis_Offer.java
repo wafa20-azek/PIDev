@@ -12,7 +12,7 @@ package edu.dottn.entities;
 public class Avis_Offer {
 
     private int idavis;
-    private int id_offer;
+    private Offre offer;
     private int ID_Product;
     private int idUser;
     private int ratting	;
@@ -21,26 +21,28 @@ public class Avis_Offer {
     public Avis_Offer() {
     }
 
-    public Avis_Offer(int id_offer, int ID_Product, int idUser, int ratting, String description) {
-        this.id_offer = id_offer;
+    public Avis_Offer( Offre offer, int ID_Product, int idUser, int ratting, String description) {
+        this.offer = offer;
         this.ID_Product = ID_Product;
         this.idUser = idUser;
         this.ratting = ratting;
         this.description = description;
     }
 
-    public Avis_Offer(int idavis, int id_offer, int ID_Product, int idUser, int ratting, String description) {
+    public Avis_Offer(int idavis,Offre offer, int ID_Product, int idUser, int ratting, String description) {
         this.idavis = idavis;
-        this.id_offer = id_offer;
+        this.offer = offer;
         this.ID_Product = ID_Product;
         this.idUser = idUser;
         this.ratting = ratting;
         this.description = description;
     }
 
-    public int getId_offer() {
-        return id_offer;
+    public Offre getOffer() {
+        return offer;
     }
+
+  
 
     public int getID_Product() {
         return ID_Product;
@@ -72,7 +74,7 @@ public class Avis_Offer {
 
     @Override
     public String toString() {
-        return "Avis_Offer{" + "ID_Product=" + ID_Product + ", idUser=" + idUser + ", ratting=" + ratting + ", description=" + description + '}';
+        return "Avis_Offer{" + "offer=" + offer + ", ID_Product=" + ID_Product + ", idUser=" + idUser + ", ratting=" + ratting + ", description=" + description + '}';
     }
 
     @Override
@@ -93,7 +95,7 @@ public class Avis_Offer {
             return false;
         }
         final Avis_Offer other = (Avis_Offer) obj;
-        if (this.id_offer != other.id_offer) {
+        if (this.offer != other.offer) {
             return false;
         }
         if (this.ID_Product != other.ID_Product) {

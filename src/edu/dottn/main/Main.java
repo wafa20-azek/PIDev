@@ -20,10 +20,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Avis_Offer a = new Avis_Offer(10, 7, 1222, 3, "parfait");
-        ServiceAvis sa = new ServiceAvis();
-        sa.ajouterAvisOffer(a);
-        
+//        Avis_Offer a = new Avis_Offer();
+//        ServiceAvis sa = new ServiceAvis();
+////        sa.ajouterAvisOffer(a);
+//a=sa.getAvisOffeById(2);
+//        System.out.println(a);
+//        System.out.println(a.getIdavis());
 //        sa.supprimerAvisOffer(a);
 
 //
@@ -33,23 +35,37 @@ public class Main {
 ////        so.ajouterOffre(o);
 ////        
 ////         ///System.out.println(so.getAll()); 
-//        Offre o = new Offre(10, 1222, 7, "nimport", "On_Hold");
+     Offre o = new Offre(10, 1222, 7, "nimport", "On_Hold");
 //
-//        o.setStatus("Accepted");
-//        Offre o1 = new Offre(14778, 8, "adnen", "Accepted");
-//        Offre o2 = new Offre(14778, 8, "adnen", "Accepted");
-//        Offre o3 = new Offre(741852,9,"anouar", "Declined");
+////        o.setStatus("Accepted");
+////        Offre o1 = new Offre(14778, 8, "adnen", "Accepted");
+//////        Offre o2 = new Offre(14778, 8, "adnen", "Accepted");
+//         Offre o3 = new Offre(11,741852,9,"anouar", "Declined");
+//        Of
+////        
+Offre o4= new Offre(14478,17889,15633,74896,"Mahmoud", "On_Hold");
+
+  ServiceOffre so = new ServiceOffre();
+  so.AccepterOffre(o4);
+  
+////        so.supprimerOffre(12);
+////        
+////////        so.modifierOffre(o, "Accepted");
+////////
+//  so.getBYStatus("On_Hold");
+//  so.getBYStatus("Accepted");
+
+//       if ( so.verifierOffre(o4)==null){
+//          so.ajouterOffre(o4);
+//       }else{
+//           System.out.println("already exist");
+//       }
 //        
-//
-//        ServiceOffre so = new ServiceOffre();
-////        so.modifierOffre(o, "Accepted");
-////
-////        so.getBYStatus("On_Hold");
-////        so.sortByDate();
-//          so.ajouterOffre(o3);
-////        so.getOneById(8);
-////        so.getByName("adnen");
-////        so.sortByStatus("On_Hold");
-////        so.ajouterOffre(o);
-    }
+////////        so.sortByDate();
+//        so.ajouterOffre(o4);
+//////        so.getOneById(8);
+//////        so.getByName("adnen");
+//////        so.sortByStatus("On_Hold");
+//////        so.ajouterOffre(o);
+   }
 }

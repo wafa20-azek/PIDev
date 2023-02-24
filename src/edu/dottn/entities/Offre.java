@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Offre {
 
-    private int idUser, id_Offre, ID_Product;
+    private int idUser, id_Offre, ID_Product,idUser1,ID_Product1;
     private String name;
     private Timestamp date_offre;
     private String status;
@@ -37,16 +37,26 @@ public class Offre {
 
     }
 
-    public Offre(int ID_Product, int idUser, String name, String status) {
+    public Offre(int ID_Product, int idUser,int idUser1 ,int ID_Product1,String name, String status) {
         st.add("Accepted");
         st.add("Declined");
         st.add("On_Hold");
         this.ID_Product = ID_Product;
         this.idUser = idUser;
+        this.ID_Product1 = ID_Product1;
+        this.idUser1 = idUser1;
         this.name = name;
         this.date_offre = Timestamp.valueOf(LocalDateTime.now());
         this.status = status;
 
+    }
+
+    public int getIdUser1() {
+        return idUser1;
+    }
+
+    public int getID_Product1() {
+        return ID_Product1;
     }
 
     public int getIdUser() {
