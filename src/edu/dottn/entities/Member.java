@@ -17,13 +17,15 @@ public class Member extends User {
     private int credit;
     private List FavoritesList;
     private List ProductsList;
+    private boolean activated;
 
     public Member() {
     }
 
-    public Member(int idUser, String Name, String Address, String Email, String Password, int Numero, int credit) {
+    public Member(int idUser, String Name, String Address, String Email, String Password, int Numero, int credit,boolean activated) {
         super(idUser, Name, Address, Email, Password, Numero);
         this.credit = credit;
+        this.activated = activated;
         this.FavoritesList = new ArrayList();
         this.ProductsList = new ArrayList();
     }
@@ -42,6 +44,16 @@ public class Member extends User {
     public void setCredit(int credit) {
         this.credit = credit;
     }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+    
+    
 
     public List getFavoritesList() {
         return FavoritesList;

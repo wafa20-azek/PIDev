@@ -20,9 +20,9 @@ public class Main {
     public static void main(String[] args) {
 //        int choice;
 //        int decision = 0;
-//        boolean add;
+    boolean add;
 //        while (true) {
-//            MemberServices m1 = new MemberServices();
+           MemberServices m1 = new MemberServices();
 //            User p6 = m1.verifSession();
 //            if (p6 != null) {
 //                decision = 1;
@@ -60,8 +60,8 @@ public class Main {
 //                    System.out.println("Enter your numero");
 //                    int numero = myObj5.nextInt();
 //
-//                    User p5 = new Member(name, addresse, email, password, numero, 0);
-//                    add = m1.ajouterUser(p5);
+                   User p5 = new Member("walid","radeq","walidtouj@gmail.com", "aaa", 69369789, 0);
+                 add = m1.ajouterUser(p5);
 //                    decision = 1;
 //                }
 //            }

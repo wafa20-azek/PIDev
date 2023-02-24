@@ -60,8 +60,7 @@ public class LoginPageController implements Initializable {
                     NavigationController.changeHomePage(event, p1, "HomePage.fxml");
                 }
                 else if(p1 != null && p1 instanceof Admin){
-                    Alert admin = new Alert(Alert.AlertType.CONFIRMATION, "welcome Admin ", ButtonType.CLOSE);
-                      admin.showAndWait();
+                   NavigationController.AdminHomePage(event, p1, "AdminDashboard.fxml");
                 }
                 else {
                     passwordId.setStyle("-fx-border-color: red;");

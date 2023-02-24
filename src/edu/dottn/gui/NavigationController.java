@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -36,6 +37,22 @@ public class NavigationController {
             System.out.println(ex.getMessage());
         }
     }
+    public static void AdminHomePage(ActionEvent event,User P, String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            AdminDashboardController a= loader.getController();
+            a.setInformation(P);
+            Scene scene = new Scene(root);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("AdminHomePage");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     public static void changeLoginPage(ActionEvent event,String fxmlFile){
         Parent root = null;
         try {
@@ -49,7 +66,21 @@ public class NavigationController {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-    }
+    } 
+    public static void changeLoginPage(MouseEvent event,String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            Scene scene = new Scene(root);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("LoginPage");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    } 
     public static void changeSignUpPage(ActionEvent event,String fxmlFile){
         Parent root = null;
         try {

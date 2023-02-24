@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.AdminDashboardController">
+   <left>
+      <AnchorPane prefHeight="800.0" prefWidth="300.0" style="-fx-background-color: #003192;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="48.0" fitWidth="182.0" layoutX="59.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/troctn.png" />
+               </image></ImageView>
+            <ImageView fx:id="image" fitHeight="41.0" fitWidth="145.0" layoutX="79.0" layoutY="691.0" onMouseClicked="#adminLogout" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/logout.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="99.0" fitWidth="98.0" layoutX="98.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/software-engineer.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nameAdmin" alignment="CENTER" layoutX="62.0" layoutY="252.0" prefHeight="21.0" prefWidth="159.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <VBox prefHeight="800.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="75.0" prefWidth="720.0" />
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #c0c0c0;" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="10.0" right="20.0" />
+               </VBox.margin>
+               <content>
+                  <GridPane fx:id="CardGrid">
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
