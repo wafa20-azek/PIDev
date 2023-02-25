@@ -102,5 +102,22 @@ public class SidebarController implements Initializable {
                     System.out.println(ex.getMessage());
                    }
     }
+
+    @FXML
+    private void goToProfile(MouseEvent event) {
+        try {
+                    Stage stage = (Stage) homebtn.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("userprofile.fxml"));
+                    Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+                    Scene scene = new Scene(root, 1280, 700);
+                    stage.setScene(scene);
+                    stage.setTitle("Troctn Desktop App ");
+                     scene.getStylesheets().add("styles.css");
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                   }
+    }
     
 }

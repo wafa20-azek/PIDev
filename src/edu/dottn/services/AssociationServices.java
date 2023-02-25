@@ -117,6 +117,7 @@ public class AssociationServices implements IController<Association> {
     }
 
     
+    @Override
     public void delete(int id) {
         Connection conn = cnx.getConnection();
         try{
@@ -134,6 +135,7 @@ public class AssociationServices implements IController<Association> {
     }
 
     
+    @Override
     public Association Signin(String username,String password) {
         Connection conn = cnx.getConnection();
 //        System.out.println("Enter your username = ");
@@ -181,61 +183,35 @@ public class AssociationServices implements IController<Association> {
     }
         
     
-   public void update(int id) {
+   @Override
+   public void update(Association association) {
     Connection conn = cnx.getConnection();
-    Scanner sc = new Scanner(System.in);
-
-    System.out.println("------------Update----------------: ");
-    System.out.println("Enter the new values for the Association. Leave blank if you don't want to update a field.");
-
-    System.out.println("Enter Association Name: ");
-    String assocName = sc.nextLine();
-
-    System.out.println("Enter username: ");
-    String username = sc.nextLine();
-
-    System.out.println("Enter email: ");
-    String email = sc.nextLine();
-
-    System.out.println("Enter location: ");
-    String location = sc.nextLine();
-
-    System.out.println("Enter number: ");
-     int number = 0;
-    try {
-        String numberInput = sc.nextLine();
-        if (!numberInput.isEmpty()) {
-            number = Integer.parseInt(numberInput);
-        }
-    } catch (NumberFormatException ex) {
-        System.out.println("Invalid input for number. It must be an integer.");
-    }
     
     // Initialize update query
     String updateQuery = "UPDATE association SET ";
 
     // Check if Association Name is provided and add to update query
-    if (!assocName.isEmpty()) {
+    if (association.getAssocName() != null) {
         updateQuery += "assoName = ?, ";
     }
 
     // Check if username is provided and add to update query
-    if (!username.isEmpty()) {
+    if (association.getUsername() != null) {
         updateQuery += "username = ?, ";
     }
 
     // Check if email is provided and add to update query
-    if (!email.isEmpty()) {
+    if (association.getEmail() != null) {
         updateQuery += "email = ?, ";
     }
 
     // Check if location is provided and add to update query
-    if (!location.isEmpty()) {
+    if (association.getLocation() != null) {
         updateQuery += "assoAddress = ?, ";
     }
 
     // Check if number is provided and add to update query
-    if (number != 0) {
+    if (association.getNumber() != 0) {
         updateQuery += "assoPhone = ?, ";
     }
 
@@ -245,27 +221,27 @@ public class AssociationServices implements IController<Association> {
 
     try (PreparedStatement pr = conn.prepareStatement(updateQuery)) {
         int i = 1;
-        if (!assocName.isEmpty()) {
-            pr.setString(i++, assocName);
+        if (association.getAssocName() != null) {
+            pr.setString(i++, association.getAssocName());
         }
 
-        if (!username.isEmpty()) {
-            pr.setString(i++, username);
+        if (association.getUsername() != null) {
+            pr.setString(i++, association.getUsername());
         }
 
-        if (!email.isEmpty()) {
-            pr.setString(i++, email);
+        if (association.getEmail() != null) {
+            pr.setString(i++, association.getEmail());
         }
 
-        if (!location.isEmpty()) {
-            pr.setString(i++, location);
+        if (association.getLocation() != null) {
+            pr.setString(i++, association.getLocation());
         }
 
-        if (number != 0) {
-            pr.setInt(i++, number);
+        if (association.getNumber() != 0) {
+            pr.setInt(i++, association.getNumber());
         }
 
-        pr.setInt(i++, id);
+        pr.setInt(i++, association.getId());
 
         int result = pr.executeUpdate();
         if (result > 0) {
@@ -275,7 +251,9 @@ public class AssociationServices implements IController<Association> {
         }
     } catch (SQLException sqlEx) {
         System.out.println(sqlEx.getMessage());
-                }}
+    }
+}
+
    
     
    public List<Association> getAll(){
@@ -378,7 +356,7 @@ public class AssociationServices implements IController<Association> {
                     System.out.println("You have been logged out.");
                     
                 }else if (choice ==1){
-                     as.update(loggedInAssociation.getId());
+                     //as.update(loggedInAssociation.getId());
                 }else if(choice ==2){
                 displayMessageBySender(loggedInAssociation.getId());
             }else{

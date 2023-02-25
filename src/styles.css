@@ -56,7 +56,7 @@
     -fx-background-radius: 20;
     -fx-text-fill:white;  
 }
-#homebtn ,#messagesbtn{
+#homebtn ,#messagesbtn, #updatebtn{
     -fx-background-color:transparent;
     -fx-border-color: #BF5CFF;
     -fx-border-radius: 15;
@@ -64,7 +64,7 @@
 
 }
 
-#homebtn:hover ,#messagesbtn:hover{
+#homebtn:hover ,#messagesbtn:hover ,#updatebtn:hover{
     -fx-background-color: #BF5CFF;
       -fx-background-radius: 15;
 }
