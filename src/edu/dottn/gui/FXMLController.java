@@ -2,6 +2,10 @@
 package edu.dottn.gui;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
 import edu.dottn.entities.Association;
 import java.io.IOException;
 import java.net.URL;
@@ -10,6 +14,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import edu.dottn.services.AssociationServices;
+<<<<<<< HEAD
+=======
+import java.util.logging.Level;
+import java.util.logging.Logger;
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,7 +28,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+<<<<<<< HEAD
 import javafx.scene.input.KeyCode;
+=======
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
 import javafx.stage.Stage;
 
 
@@ -36,6 +48,7 @@ public class FXMLController implements Initializable {
     private Button signupbtn;
     @FXML
     private Label forgottext;
+<<<<<<< HEAD
     
     private ActionEvent event;
   
@@ -54,6 +67,15 @@ public class FXMLController implements Initializable {
     }  
     
     public void goToSignup(ActionEvent event){
+=======
+  
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+    }  
+    
+        public void goToSignup(ActionEvent event){
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
             
                 try {
                     Stage stage = (Stage) signinbtn.getScene().getWindow();
@@ -66,13 +88,21 @@ public class FXMLController implements Initializable {
                     stage.setResizable(false);
                     stage.show();
                 } catch (IOException ex) {
+<<<<<<< HEAD
                     System.out.println(ex.getMessage());    
+=======
+                    Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
                 }
         
         }
     
     @FXML
+<<<<<<< HEAD
     public void signinn(ActionEvent event){
+=======
+       public void signinn(ActionEvent event){
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
            
             String username1 = this.username.getText();
             String password2 = this.password.getText();
@@ -101,7 +131,11 @@ public class FXMLController implements Initializable {
         
        }
       
+<<<<<<< HEAD
     public Association authenticate(String username, String password) {
+=======
+      public Association authenticate(String username, String password) {
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
             AssociationServices as = new AssociationServices();
             Association association = as.Signin(username, password);
             return association;

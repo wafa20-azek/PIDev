@@ -11,7 +11,27 @@
 
 <AnchorPane id="AnchorPane" prefHeight="692.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.InventoryController">
    <children>
+<<<<<<< HEAD
        <fx:include source="sidebar.fxml"/>
+=======
+      <AnchorPane layoutY="-1.0" prefHeight="721.0" prefWidth="286.0" style="-fx-background-color: #002885;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="42.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../logohome.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="homebtn" layoutX="31.0" layoutY="220.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="223.0" text="Home" />
+            <Button fx:id="homebtn" layoutX="32.0" layoutY="300.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="223.0" text="Profile" />
+            <Button fx:id="homebtn" layoutX="31.0" layoutY="380.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="51.0" prefWidth="223.0" text="Inventory" />
+            <Label fx:id="logouttext" layoutX="91.0" layoutY="601.0" onMouseClicked="#logout" prefHeight="44.0" prefWidth="106.0" text="LOGOUT" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
       <Label layoutX="1144.0" layoutY="62.0" text="Hello , user" />
       <ImageView fitHeight="44.0" fitWidth="50.0" layoutX="1090.0" layoutY="49.0" opacity="0.57" pickOnBounds="true" preserveRatio="true">
          <image>

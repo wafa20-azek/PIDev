@@ -65,6 +65,33 @@ public class InventoryController implements Initializable {
                    }
     }
 
+<<<<<<< HEAD
   
+=======
+    @FXML
+    private void logout(MouseEvent event) {
+        AssociationServices as = new AssociationServices();
+        if (as.logoutAssociation()){
+            try {
+                    Stage stage = (Stage) addPostbtn.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));
+                    Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+                    Scene scene = new Scene(root, 1280, 700);
+                    stage.setScene(scene);
+                    stage.setTitle("Troctn Desktop App ");
+                     scene.getStylesheets().add("styles.css");
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                   }
+             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Have A Good Day");
+            alert.setHeaderText("See you soon my friend");
+            alert.showAndWait();
+           
+        }
+    }
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
     
 }

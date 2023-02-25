@@ -16,12 +16,15 @@ public class user {
     public user() {
     }
 
+<<<<<<< HEAD
     public user(int idUser,String Name) {
         this.idUser = idUser;
         this.Name = Name;
     }
     
 
+=======
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
     public user(int idUser, String Name, String Address, String Email, String Password, int Numero) {
         this.idUser = idUser;
         this.Name = Name;
@@ -126,7 +129,10 @@ public class user {
         }
         return true;
     }
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> 78467244155aebe847fb951d6f473a7bce939133
 
 }
