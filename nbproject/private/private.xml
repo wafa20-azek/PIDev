@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/main/Main.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/messages.fxml</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/services/MessageServices.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/main/sceneMain.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/entities/Message.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/MessagesController.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/SignupAssociationController.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/inventory.fxml</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/sidebar.fxml</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/styles.css</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/FXMLController.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/logohome.png</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/ProfileController.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/addpost.fxml</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/entities/Association.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/services/AssociationServices.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/InventoryController.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/entities/user.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/SidebarController.java</file>
+            <file>file:/D:/Nouveau%20dossier/PIDev/src/edu/dottn/gui/profile.fxml</file>
+        </group>
+    </open-files>
+</project-private>

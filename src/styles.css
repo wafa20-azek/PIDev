@@ -1,0 +1,177 @@
+.text-field {
+    -fx-border-radius: 10;
+    -fx-background-color: transparent;
+    -fx-border-color:gray;
+    
+}
+.text-area{
+    -fx-border-radius: 10;
+    -fx-background-color: transparent;
+    -fx-border-color:gray;
+    -fx-focus-color: transparent;
+    
+}
+.text-area:focused {
+     -fx-border-color:transparent;
+    -fx-border-color:#BF5CFF; 
+}
+
+
+.text-field:focused {
+    
+    -fx-border-color:#BF5CFF;
+    
+}
+#forgottext:hover{
+    
+    -fx-text-decoration: underline;
+    -fx-underline: true;
+}
+
+#signinbtn{
+    -fx-background-color:#BF5CFF;
+    -fx-background-radius: 15;
+    
+}
+
+#signupbtn{
+    -fx-background-color:transparent;
+    -fx-border-color: #BF5CFF;
+    -fx-border-radius: 15;
+    -fx-text-fill:white;  
+
+}
+
+#uploadbtn{
+    -fx-background-color:#BF5CFF;
+    
+   
+    -fx-background-radius: 15;
+    -fx-text-fill:white;  
+}
+
+#uploadbtn:hover{
+    -fx-background-color:#002885;
+    
+    -fx-background-radius: 20;
+    -fx-text-fill:white;  
+}
+#homebtn ,#messagesbtn{
+    -fx-background-color:transparent;
+    -fx-border-color: #BF5CFF;
+    -fx-border-radius: 15;
+    -fx-text-fill:white;  
+
+}
+
+#homebtn:hover ,#messagesbtn:hover{
+    -fx-background-color: #BF5CFF;
+      -fx-background-radius: 15;
+}
+
+
+#signinbtn:hover {
+    -fx-background-color: #002885;
+    -fx-text-fill: white;
+}
+
+#logouttext:hover{
+    -fx-text-fill: #BF5CFF;
+}
+#signupbtn:hover{
+   -fx-background-radius: 15;
+    -fx-background-color:#BF5CFF;
+}
+
+.chat-bubble {
+    -fx-background-color: #E6E6E6;
+    -fx-padding: 10;
+    -fx-border-radius: 10;
+    -fx-max-width: 70%;
+    -fx-word-wrap: break-word;
+}
+
+.chat-bubble-left {
+    -fx-background-color: #F1F0F0;
+    -fx-background-radius: 0 10 10 10;
+    -fx-text-fill: black;
+    -fx-alignment: baseline-left;
+}
+
+.chat-bubble-right {
+    -fx-background-color: #0077FF;
+    -fx-background-radius: 10 0 10 10;
+    -fx-text-fill: white;
+    -fx-alignment: baseline-right;
+}
+.message-container {
+    -fx-background-color: #f1f0f0;
+    -fx-padding: 8px;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-max-width: 50%;
+    -fx-wrap-text: true;
+}
+
+.sent-message-container {
+    -fx-background-color: #00bfff;
+    -fx-text-fill: white;
+}
+
+.received-message-container {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: black;
+}
+
+.message-bubble {
+    -fx-background-color: #E6E6E6;
+    -fx-border-radius: 10;
+    -fx-padding: 10;
+    -fx-font-size: 14;
+}
+
+.user {
+    -fx-background-color: #BF5CFF;
+    -fx-background-insets: 0, 0 1 1 0;
+    -fx-background-radius: 10 10 10 0;
+}
+
+.association {
+    -fx-background-color: #FFF;
+    -fx-background-insets: 0, 1 0 0 1;
+    -fx-background-radius: 10 10 0 10;
+}
+
+.conversation-list-view {
+    -fx-background-color: #BF5CFF;
+}
+
+.conversation-list-view .list-cell:hover {
+    -fx-background-color: #8e44ad;
+}
+
+.conversation-list-view .list-cell {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-color: white;
+    -fx-border-width: 0 0 1 0;
+}
+.conversation-list-view .cell:selected {
+    -fx-background-color: #BF5CFF;
+    -fx-text-fill: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
