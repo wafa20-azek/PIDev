@@ -5,15 +5,20 @@
  */
 package edu.dottn.test;
 
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Version;
 import edu.dottn.entities.Donation;
 import edu.dottn.entities.Donation.DonationStatus;
 import edu.dottn.entities.Post;
-import edu.dottn.entities.User;
+//import edu.dottn.entities.User;
 import edu.dottn.services.ServiceComment;
 import edu.dottn.services.ServiceDonation;
 import edu.dottn.services.ServicePost;
 import edu.dottn.util.MyConnection;
+import java.io.IOException;
 import javax.mail.MessagingException;
+import com.restfb.types.User;
 
 
 /**
@@ -21,13 +26,15 @@ import javax.mail.MessagingException;
  * @author rajhi
  */
 public class Main {
-    public static void main(String[] args) throws MessagingException {
+    public static void main(String[] args) throws MessagingException, IOException {
        MyConnection.getInstance();
        ServicePost post1 = new ServicePost();
        ServiceDonation don1= new ServiceDonation();
        ServiceComment com1 = new ServiceComment();
       Post p1 = new Post("first post","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
       Post p2 = new Post("second test","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
+      Post p3 = new Post("second test","This Post is from API",new java.sql.Timestamp(System.currentTimeMillis()));
+
 
       
       //post1.ajouter(p1);
@@ -83,7 +90,7 @@ public class Main {
       // com1.supprimerParId(5);
        // Comment c2= new Comment(p5,"xxxxx",new java.sql.Timestamp(System.currentTimeMillis()));
       //  com1.ajouterComment(c2);
-        User user = new User("Emna", "ben arrous", "emna.rajhi@esprit.tn", "hello", 12345678);
+      //  User user = new User("Emna", "ben arrous", "emna.rajhi@esprit.tn", "hello", 12345678);
        // don1.sendDonationThankYouEmail(user,d3);
       //  don1.ajouter(d3);
         //System.out.println(don1.getDonationsSortedByEtatDonation(DonationStatus.ACCEPTED));
@@ -96,10 +103,13 @@ public class Main {
        // com1.ajouterComment(c2);
        //com1.ajouterComment(c1);
        // System.out.println(com1.getAll());
-       don1.envoyer(user);
+       //don1.envoyer(user);
+        post1.shareOnPage(p3);
         
         
-
+        
+        
+  
         
         
         

@@ -5,8 +5,16 @@
  */
 package edu.dottn.services;
 
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Parameter;
+import com.restfb.Version;
+import com.restfb.exception.FacebookOAuthException;
+import com.restfb.types.FacebookType;
 import edu.dottn.entities.Post;
+import edu.dottn.entities.User;
 import edu.dottn.util.MyConnection;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -282,5 +290,27 @@ public class ServicePost implements PService<Post> {
 
         return posts;
     }
+    public void shareOnPage(Post p) throws IOException {
+    String accessToken = "EAAH9TpnJbM0BAJe91KkxOdHvY3fcSXenSQGJb9sRlGbeWh4hAjcGfN5C9UoFMsSE8uG5sxf5QVs0A860uGRFiwpBZChrdyUDlUGfbqRFEbSJ0iY2aMxk49ZASEsYM8NS8C53MZCPVKajjVmCJsxiCOMKpPHXdRnenZCSpZCrZBwkXj9YLdaVIV5n6khyuvlWveZAYLDXNsBXrIEChKiA1wDSclbwrNurcQZD";
+    String pageId = "118272547833787";
+    String message =p.getDescription();
+    FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.LATEST);
+    
+    try {
+        FacebookType result = fbClient.publish(pageId + "/feed", FacebookType.class,
+                Parameter.with("message", message));
+        System.out.println("Post published on page: " + result.getId());
+    } catch (FacebookOAuthException ex) {
+        System.err.println("Failed to post on page: " + ex.getMessage());
+    }
+}
 
 }
+
+
+
+
+
+
+
+
