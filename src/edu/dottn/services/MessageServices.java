@@ -3,19 +3,18 @@ package edu.dottn.services;
 
 import edu.dottn.entities.Association;
 import edu.dottn.entities.Message;
-<<<<<<< HEAD
+
 import edu.dottn.entities.user;
-=======
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
+
+
 import edu.dottn.util.MyConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
+
 import java.sql.Statement;
-=======
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,9 +27,9 @@ import java.util.stream.Collectors;
 
 public class MessageServices {
    
-<<<<<<< HEAD
+
 Connection conn = MyConnection.getInstance().getConnection();
-=======
+
 //    public String getSenderName (String senderId){
 //               Connection conn = MyConnection.getInstance().getConnection();
 //               String senderName=null;
@@ -48,7 +47,7 @@ Connection conn = MyConnection.getInstance().getConnection();
 //                    }
 //            return senderName;  
 //           }
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
+
     
     public static List<Message> retrieveAll(String loggedInAssociationId) {
         List<Message> messages = new ArrayList<>();
@@ -97,7 +96,7 @@ Connection conn = MyConnection.getInstance().getConnection();
         }
     }
     
-<<<<<<< HEAD
+
     public  void sendAssociationMessage(String senderId, String recipientId, String messageText) {
     Connection conn = MyConnection.getInstance().getConnection();
     AssociationServices as = new AssociationServices();
@@ -195,7 +194,7 @@ Connection conn = MyConnection.getInstance().getConnection();
 }
 
 
-=======
+
     public static void sendAssociationMessage(String id ) {
         Connection conn = MyConnection.getInstance().getConnection();
         Scanner scanner = new Scanner(System.in);
@@ -228,7 +227,7 @@ Connection conn = MyConnection.getInstance().getConnection();
             pr.executeUpdate();
             
         }catch(SQLException sqlEx){
-            System.out.println(sqlEx.getMessage());
+             System.out.println(sqlEx.getMessage());
         }
     }
 
@@ -237,7 +236,7 @@ Connection conn = MyConnection.getInstance().getConnection();
     
         
     
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
+
 
     }
 

@@ -56,11 +56,7 @@
     -fx-background-radius: 20;
     -fx-text-fill:white;  
 }
-<<<<<<< HEAD
 #homebtn ,#messagesbtn{
-=======
-#homebtn{
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
     -fx-background-color:transparent;
     -fx-border-color: #BF5CFF;
     -fx-border-radius: 15;
@@ -68,11 +64,7 @@
 
 }
 
-<<<<<<< HEAD
 #homebtn:hover ,#messagesbtn:hover{
-=======
-#homebtn:hover{
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
     -fx-background-color: #BF5CFF;
       -fx-background-radius: 15;
 }
@@ -89,7 +81,6 @@
 #signupbtn:hover{
    -fx-background-radius: 15;
     -fx-background-color:#BF5CFF;
-<<<<<<< HEAD
 }
 
 .chat-bubble {
@@ -184,8 +175,3 @@
 
 
 
-=======
-      
-
-}
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133

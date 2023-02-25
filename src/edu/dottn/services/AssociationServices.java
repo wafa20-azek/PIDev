@@ -1,18 +1,18 @@
 package edu.dottn.services;
 
 import edu.dottn.entities.Association;
-<<<<<<< HEAD
+
 import edu.dottn.entities.user;
 import static edu.dottn.services.MessageServices.displayMessageBySender;
 import edu.dottn.util.MyConnection;
 
-=======
+
 import static edu.dottn.services.MessageServices.displayMessageBySender;
 import edu.dottn.util.MyConnection;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
+
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
@@ -31,7 +31,7 @@ public class AssociationServices implements IController<Association> {
     MyConnection cnx = MyConnection.getInstance();
     List L = new ArrayList();
 
-    @Override
+    
     public boolean Signup(Association a ) {
 
         Connection conn = cnx.getConnection();
@@ -116,7 +116,7 @@ public class AssociationServices implements IController<Association> {
         return salt;
     }
 
-    @Override
+    
     public void delete(int id) {
         Connection conn = cnx.getConnection();
         try{
@@ -133,7 +133,7 @@ public class AssociationServices implements IController<Association> {
             }
     }
 
-    @Override
+    
     public Association Signin(String username,String password) {
         Connection conn = cnx.getConnection();
 //        System.out.println("Enter your username = ");
@@ -180,7 +180,7 @@ public class AssociationServices implements IController<Association> {
         return null;
     }
         
-    @Override
+    
    public void update(int id) {
     Connection conn = cnx.getConnection();
     Scanner sc = new Scanner(System.in);
@@ -277,7 +277,7 @@ public class AssociationServices implements IController<Association> {
         System.out.println(sqlEx.getMessage());
                 }}
    
-    @Override
+    
    public List<Association> getAll(){
        Connection conn = cnx.getConnection();
        try{
@@ -296,7 +296,7 @@ public class AssociationServices implements IController<Association> {
        return L;
    }
    
-    @Override
+   
    public Association getById(int id ){
        Connection conn = cnx.getConnection();
        try{
@@ -323,10 +323,10 @@ public class AssociationServices implements IController<Association> {
         Scanner sc = new Scanner(System.in);
         Connection conn =MyConnection.getInstance().getConnection();
         Association loggedInAssociation = null;
-<<<<<<< HEAD
+
         loggedInAssociation= getLoggedInAssociation();
         
-=======
+
             try  {
                 String selectSessionSql = "SELECT * FROM session";
                 PreparedStatement selectSessionStatement = conn.prepareStatement(selectSessionSql);
@@ -352,7 +352,7 @@ public class AssociationServices implements IController<Association> {
                 System.out.println("No session present for now please Login: ");
             }
 
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
+
             if (loggedInAssociation != null) {
                 System.out.println("Welcome back, " + loggedInAssociation.getAssocName());
                 
@@ -388,7 +388,7 @@ public class AssociationServices implements IController<Association> {
             }
    }
    
-<<<<<<< HEAD
+
    
    public Association getLoggedInAssociation() {
        Connection conn =MyConnection.getInstance().getConnection();
@@ -420,8 +420,7 @@ public class AssociationServices implements IController<Association> {
 
    
    
-=======
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
+
    public boolean logoutAssociation (){
        Connection conn =MyConnection.getInstance().getConnection();
        try {
@@ -444,10 +443,10 @@ public class AssociationServices implements IController<Association> {
                 System.out.println("Error clearing session: " + sqlEx.getMessage());
             }
        
-           return false;         
+          return false;         
    }
    
-<<<<<<< HEAD
+
       public user getOneById(int id) {
           Connection conn = cnx.getConnection();
         user p = null;
@@ -466,8 +465,7 @@ public class AssociationServices implements IController<Association> {
         return p;
     }
    
-=======
->>>>>>> 78467244155aebe847fb951d6f473a7bce939133
+
     
 }
 
