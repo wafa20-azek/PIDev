@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="721.0" prefWidth="286.0" style="-fx-background-color: #002885;" stylesheets="@../../../../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.SideBarController">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="41.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../logohome.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="homebtn" layoutX="31.0" layoutY="220.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="223.0" text="Home" />
+      <Button fx:id="homebtn" layoutX="32.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#goToProfile" prefHeight="51.0" prefWidth="223.0" text="Profile" />
+      <Button fx:id="homebtn" layoutX="31.0" layoutY="380.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="51.0" prefWidth="223.0" text="Inventory" />
+      <Label fx:id="logouttext" layoutX="91.0" layoutY="612.0"  prefHeight="44.0" prefWidth="106.0" text="LOGOUT" textFill="WHITE">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <Button fx:id="messagesbtn" layoutX="31.0" layoutY="459.0" mnemonicParsing="false" onAction="#goToMessages" prefHeight="51.0" prefWidth="223.0" text="Messages" />
+   </children>
+</AnchorPane>
