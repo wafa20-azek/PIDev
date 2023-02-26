@@ -10,6 +10,7 @@ public class Association extends user  {
     private String username;
     private String password;
     private String email;
+    private String image;
     private String location;
     private int number;
 
@@ -17,12 +18,22 @@ public class Association extends user  {
         
     }
 
-    public Association(String assocName, String username, String email, String location, int number) {
+     public Association(String assocName, String username, String email, String location, int number ){
         this.assocName = assocName;
         this.username = username;
         this.email = email;
         this.location = location;
         this.number = number;
+        
+    }
+    
+    public Association(String assocName, String username, String email, String location, int number, String image) {
+        this.assocName = assocName;
+        this.username = username;
+        this.email = email;
+        this.location = location;
+        this.number = number;
+        this.image = image;
     }
 
     
@@ -88,6 +99,15 @@ public class Association extends user  {
     public String getPassword() {
         return password;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
 
     public void setPassword(String password) {
         this.password = password;

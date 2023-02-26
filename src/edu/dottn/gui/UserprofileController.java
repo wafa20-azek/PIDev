@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.dottn.gui;
 
 import edu.dottn.entities.Association;
@@ -24,12 +20,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.imageio.stream.FileImageInputStream;
 
-/**
- * FXML Controller class
- *
- * @author Saif
- */
+
+
 public class UserprofileController implements Initializable {
 
     AssociationServices associationServices = new AssociationServices();
@@ -47,6 +41,16 @@ public class UserprofileController implements Initializable {
     boolean isFirstClick = true;
     @FXML
     private Button updatebtn;
+    @FXML
+    private TextField passwordfield;
+    @FXML
+    private TextField repeatpassword;
+    @FXML
+    private TextField addressfield;
+    @FXML
+    private TextField phonefield;
+    
+    public static String imageurl;
 
    
     @Override
@@ -55,7 +59,21 @@ public class UserprofileController implements Initializable {
         imageuser.setFitHeight(120);
         loggedInAssociation = associationServices.getLoggedInAssociation();
         nametext.setText(loggedInAssociation.getAssocName());
-        
+        imageurl=loggedInAssociation.getImage();
+        System.out.println(loggedInAssociation.getImage());
+        try {
+       String imagePath = loggedInAssociation.getImage();
+        File file = new File(imagePath);
+         url = file.toURI().toURL();
+        Image image = new Image(url.toString());
+        imageuser.setImage(image);
+
+        } catch (Exception e) {
+            // Handle the exception
+            e.printStackTrace();
+        }
+
+      
         imageuser.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -76,11 +94,12 @@ public class UserprofileController implements Initializable {
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 Image newImage = new Image(selectedFile.toURI().toString());
-                imageuser.setImage(newImage);
+                System.out.println(selectedFile.toURI().toString());
+                imageurl = selectedFile.toURI().toString();
                 imageuser.setImage(newImage);
                 imageuser.setPreserveRatio(true);
                 imageuser.setSmooth(true);
-                imageuser.setFitWidth(120); // set the desired width of the ImageView
+                imageuser.setFitWidth(120); 
                 imageuser.setFitHeight(120 * newImage.getHeight() / newImage.getWidth());
                 Rectangle clip = new Rectangle(imageuser.getFitWidth(), imageuser.getFitHeight());
                 clip.setArcWidth(50);
@@ -91,30 +110,67 @@ public class UserprofileController implements Initializable {
         
         usernamefield.setPromptText(loggedInAssociation.getUsername());
         
-        usernamefield.setOnMouseClicked(event ->{
-            if (isFirstClick) {
-                usernamefield.setText(usernamefield.getPromptText());
-                isFirstClick = false;
-            }
+        usernamefield.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue && usernamefield.getText().isEmpty()) {
+                usernamefield.setPromptText(usernamefield.getPromptText());
+            } 
         });
         
         emailfield.setPromptText(loggedInAssociation.getEmail());
         
-        emailfield.setOnMouseClicked(event ->{
-            if (isFirstClick) {
-                emailfield.setText(emailfield.getPromptText());
-                isFirstClick = false;
-            }
+        emailfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue && emailfield.getText().isEmpty()) {
+                emailfield.setPromptText(emailfield.getPromptText());
+              
+            } 
         });
+        
+        addressfield.setPromptText(loggedInAssociation.getLocation());
+        
+        addressfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue && addressfield.getText().isEmpty()) {
+                addressfield.setPromptText(addressfield.getPromptText());
+               
+            } 
+        });
+        
+         phonefield.setPromptText(String.valueOf(loggedInAssociation.getNumber()));
+        
+        phonefield.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue && phonefield.getText().isEmpty()) {
+                phonefield.setPromptText(phonefield.getPromptText());
+               
+            } 
+        });
+        
 
+        passwordfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
+             repeatpassword.setPromptText("Please confirm your password");
+            if (oldValue && passwordfield.getText().isEmpty()) {
+                passwordfield.setPromptText(passwordfield.getPromptText()); 
+                repeatpassword.setPromptText("");
+            } 
+        });
+   
     }    
 
     @FXML
     private void updateassociation(ActionEvent event) {
         Association a = new Association();
+       
         a.setId(loggedInAssociation.getId());
         a.setUsername(usernamefield.getText());
         a.setEmail(emailfield.getText());
+        if (imageurl.startsWith("file:/")) {
+            String img = imageurl.substring("file:/".length());
+             a.setImage(img);
+        }else{
+            a.setImage(imageurl);
+        }
+       
+         
+
+        System.out.println(a);
         associationServices.update(a);
         
     }

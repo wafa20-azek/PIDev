@@ -133,6 +133,8 @@ public class AssociationServices implements IController<Association> {
             System.out.println(sqlEx.getMessage());
             }
     }
+    
+    
 
     
     @Override
@@ -196,12 +198,12 @@ public class AssociationServices implements IController<Association> {
     }
 
     // Check if username is provided and add to update query
-    if (association.getUsername() != null) {
+    if (!association.getUsername().isEmpty()) {
         updateQuery += "username = ?, ";
     }
 
     // Check if email is provided and add to update query
-    if (association.getEmail() != null) {
+    if (!association.getEmail().isEmpty()) {
         updateQuery += "email = ?, ";
     }
 
@@ -214,6 +216,10 @@ public class AssociationServices implements IController<Association> {
     if (association.getNumber() != 0) {
         updateQuery += "assoPhone = ?, ";
     }
+    
+    if (!association.getImage().isEmpty()) {
+        updateQuery += "image = ?, ";
+    }
 
     // Remove trailing comma and space from update query
     updateQuery = updateQuery.substring(0, updateQuery.length() - 2);
@@ -225,11 +231,11 @@ public class AssociationServices implements IController<Association> {
             pr.setString(i++, association.getAssocName());
         }
 
-        if (association.getUsername() != null) {
+        if (!association.getUsername().isEmpty()) {
             pr.setString(i++, association.getUsername());
         }
 
-        if (association.getEmail() != null) {
+        if (!association.getEmail().isEmpty()) {
             pr.setString(i++, association.getEmail());
         }
 
@@ -239,6 +245,10 @@ public class AssociationServices implements IController<Association> {
 
         if (association.getNumber() != 0) {
             pr.setInt(i++, association.getNumber());
+        }
+        
+        if (!association.getImage().isEmpty()) {
+            pr.setString(i++, association.getImage());
         }
 
         pr.setInt(i++, association.getId());
@@ -387,7 +397,9 @@ public class AssociationServices implements IController<Association> {
                 loggedInAssociation.setAssocName(associationResult.getString("assoName"));
                 loggedInAssociation.setEmail(associationResult.getString("email"));
                 loggedInAssociation.setLocation(associationResult.getString("assoAddress"));
+                loggedInAssociation.setPassword(associationResult.getString("password"));
                 loggedInAssociation.setNumber(associationResult.getInt("assoPhone"));
+                loggedInAssociation.setImage(associationResult.getString("image"));
             }
         } 
     } catch (SQLException sqlEX ) {

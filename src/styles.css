@@ -28,7 +28,7 @@
     -fx-underline: true;
 }
 
-#signinbtn{
+#signinbtn ,#updatebtn{
     -fx-background-color:#BF5CFF;
     -fx-background-radius: 15;
     
@@ -56,7 +56,7 @@
     -fx-background-radius: 20;
     -fx-text-fill:white;  
 }
-#homebtn ,#messagesbtn, #updatebtn{
+#homebtn ,#messagesbtn{
     -fx-background-color:transparent;
     -fx-border-color: #BF5CFF;
     -fx-border-radius: 15;
@@ -64,13 +64,13 @@
 
 }
 
-#homebtn:hover ,#messagesbtn:hover ,#updatebtn:hover{
+#homebtn:hover ,#messagesbtn:hover {
     -fx-background-color: #BF5CFF;
       -fx-background-radius: 15;
 }
 
 
-#signinbtn:hover {
+#signinbtn:hover,#updatebtn:hover {
     -fx-background-color: #002885;
     -fx-text-fill: white;
 }
