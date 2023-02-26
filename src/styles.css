@@ -143,7 +143,7 @@
 }
 
 .conversation-list-view {
-    -fx-background-color: #BF5CFF;
+    -fx-border-color: #BF5CFF;
 }
 
 .conversation-list-view .list-cell:hover {
@@ -160,6 +160,19 @@
     -fx-background-color: #BF5CFF;
     -fx-text-fill: white;
 }
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.scroll-pane > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #BF5CFF; 
+}
+
 
 
 

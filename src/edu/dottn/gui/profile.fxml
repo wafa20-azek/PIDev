@@ -14,7 +14,7 @@
       <TextField layoutX="352.0" layoutY="72.0" prefHeight="31.0" prefWidth="337.0" />
       <DatePicker layoutX="699.0" layoutY="72.0" prefHeight="31.0" prefWidth="74.0" />
       <Label fx:id="hellouserText" layoutX="1110.0" layoutY="77.0" text="Hello , user" />
-      <ImageView fitHeight="44.0" fitWidth="50.0" layoutX="1057.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="userimage" fitHeight="44.0" fitWidth="50.0" layoutX="1055.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../homme.png" />
          </image>

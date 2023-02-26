@@ -11,7 +11,9 @@ import edu.dottn.entities.Message;
 import edu.dottn.entities.user;
 import edu.dottn.services.AssociationServices;
 import edu.dottn.services.MessageServices;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -23,6 +25,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,7 +38,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -70,7 +76,9 @@ public class MessagesController implements Initializable {
     @FXML
     private TextField messageInput;
     @FXML
-    private Button sendbtn;
+    private TextField searchField;
+    @FXML
+    private ImageView imageuser;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,6 +90,15 @@ public class MessagesController implements Initializable {
                 sendMessage();
             }
         });
+        try{
+        String imagePath = loggedInAssociation.getImage();
+        File file = new File(imagePath);
+         url = file.toURI().toURL();
+        Image image = new Image(url.toString());
+        imageuser.setImage(image);
+        } catch (MalformedURLException ex) {
+        }
+        
         
         
         
@@ -100,25 +117,48 @@ public class MessagesController implements Initializable {
     }
 
     ObservableList<user> users = FXCollections.observableArrayList();
-for (Integer userId : userIds) {
+    
+    for (Integer userId : userIds) {
     user user = associationServices.getOneById(userId);
     users.add(user);
-}
-conversationListView.setItems(users);
-
-conversationListView.setCellFactory(param -> new ListCell<user>() {
-    @Override
-    protected void updateItem(user item, boolean empty) {
-        super.updateItem(item, empty);
-        if (empty || item == null) {
-            setText(null);
-            setDisable(true);
-        } else {
-            setDisable(false);
-            setText(item.getName());
-        }
     }
-});
+
+     
+
+        FilteredList<user> filteredUsers = new FilteredList<>(users);
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredUsers.setPredicate(user -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true; 
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return user.getName().toLowerCase().contains(lowerCaseFilter); 
+            });
+        });
+        searchField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                
+                filteredUsers.setPredicate(user -> false);
+            }
+        });
+      
+
+        conversationListView.setItems(filteredUsers);
+        conversationListView.setCellFactory(param -> new ListCell<user>() {
+            @Override
+            protected void updateItem(user item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setDisable(true);
+                } else {
+                    setDisable(false);
+                    setText(item.getName());
+                }
+            }
+        });
+
 
 
     conversationListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -139,6 +179,7 @@ private void displayConversation(List<Message> messages) {
     root.setPadding(new Insets(10));
     root.setSpacing(10);
     messageArea.getChildren().clear();
+   
 
     for (Message message : messages) {
       
@@ -167,14 +208,14 @@ private void displayConversation(List<Message> messages) {
             contextMenu.show(label, event.getScreenX(), event.getScreenY());
         });
     }
+    
 
 }
 
-    @FXML
     public void sendMessage() {
     String messageText = messageInput.getText();
     if (!messageText.isEmpty()) {
-        // Get the selected user from the conversation list view
+        
         user selectedUser = conversationListView.getSelectionModel().getSelectedItem();
         
         if (selectedUser == null) {
@@ -182,17 +223,12 @@ private void displayConversation(List<Message> messages) {
             return;
         }
         
-        System.out.println(selectedUser.getIdUser());
-        // Send the message to the selected user
         messageServices.sendAssociationMessage(String.valueOf(loggedInAssociation.getId()), String.valueOf(selectedUser.getIdUser()), messageText);
 
-        // Retrieve the updated conversation for the selected user
         conversation = messageServices.getConversation(loggedInAssociation.getId(),selectedUser.getIdUser());
 
-        // Refresh the conversation display with the updated messages
         displayConversation(conversation);
 
-        // Clear the message input field
         messageInput.clear();
     }
 }
