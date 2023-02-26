@@ -29,6 +29,9 @@ import java.util.stream.Collectors;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -124,7 +127,7 @@ public class MemberServices implements UServices<User> {
             // if user information was found
             if (rs.next()) {
                 // update user account activation status
-                req = "UPDATE `user` SET activated = true WHERE activation_code = ?";
+                req = "UPDATE `user` SET `activated` = true WHERE activation_code = ?";
                 ps = cnx.prepareStatement(req);
                 ps.setString(1, activationCode);
 
@@ -178,6 +181,24 @@ public class MemberServices implements UServices<User> {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+    }
+    public String UpdatePassword(String email,String NewPass,String OldPass,String Pass){
+        try {
+            String salt ="";
+            String req = "SELECT * FROM `user` WHERE email = '" + email + "'";
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while(rs.next()){
+                salt = rs.getString(9);}
+            String attemptedPassword = hashPassword(Pass, Base64.getDecoder().decode(salt));
+            if(OldPass.equals(attemptedPassword)){
+                return hashPassword(NewPass, Base64.getDecoder().decode(salt));
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return "";
     }
 
     @Override
@@ -235,6 +256,7 @@ public class MemberServices implements UServices<User> {
                 String attemptedPassword = hashPassword(password, Base64.getDecoder().decode(rs.getString(9)));
                 // tester le password crypté dans la base de données avec le password saisie par user
                 if (rs.getString(5).equals(attemptedPassword)) {
+                    if(rs.getBoolean(11)){
                     if (rs.getString(7).equals("Member")) {
                         p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8), rs.getBoolean(10));
                     } else {
@@ -243,7 +265,11 @@ public class MemberServices implements UServices<User> {
                     }
                     // ajouter session dans la DB si le password est correcte
                     addSession(p.getIdUser());
-                    System.out.println("successful authentication");
+                    System.out.println("successful authentication");}
+                    else{
+                        Alert activemsg = new Alert(Alert.AlertType.ERROR, "Le compte est desactivé", ButtonType.CLOSE);
+                    activemsg.showAndWait();
+                    }
                 } else {
                     Alert passwordmsg = new Alert(Alert.AlertType.ERROR, "password incorrect", ButtonType.CLOSE);
                     passwordmsg.showAndWait();

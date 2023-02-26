@@ -3,18 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/ActivateAccount.fxml</file>
-            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/Inscription.fxml</file>
+            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/NavigationController.java</file>
             <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/AdminDashboard.fxml</file>
-            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/InscriptionController.java</file>
             <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/AdminDashboardController.java</file>
             <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/FxMain.java</file>
+            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/ProfilePageController.java</file>
+            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/main/Main.java</file>
+            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/ActivateAccount.fxml</file>
+            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/Inscription.fxml</file>
+            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/InscriptionController.java</file>
             <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/services/MemberServices.java</file>
             <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/ActivateAccountController.java</file>
-            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/main/Main.java</file>
             <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/UserCard.fxml</file>
             <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/UserCardController.java</file>
             <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/services/ActivationEmail.java</file>
+            <file>file:/C:/Users/WALID/Desktop/PIDev/src/edu/dottn/gui/ProfilePage.fxml</file>
         </group>
     </open-files>
 </project-private>

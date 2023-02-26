@@ -19,7 +19,7 @@
                   <Image url="@../assets/troctnLogo.png" />
                </image>
             </ImageView>
-            <Button layoutX="100.0" layoutY="580.0" maxWidth="214.0" minWidth="200.0" mnemonicParsing="false" onAction="" style="-fx-background-color: #003192; -fx-border-color: #BF5CFF; -fx-border-radius: 45; -fx-border-width: 3;" text="SIGN UP" textFill="#fbfbfb">
+            <Button layoutX="100.0" layoutY="580.0" maxWidth="214.0" minWidth="200.0" mnemonicParsing="false" onAction="#activateAcc" style="-fx-background-color: #003192; -fx-border-color: #BF5CFF; -fx-border-radius: 45; -fx-border-width: 3;" text="SIGN UP" textFill="#fbfbfb">
                <font>
                   <Font size="24.0" />
                </font>

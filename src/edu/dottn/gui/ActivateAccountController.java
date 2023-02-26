@@ -38,7 +38,7 @@ public class ActivateAccountController implements Initializable {
         MemberServices m1 = new MemberServices();
         if (!codeId.getText().isEmpty()) {
             if(m1.activateAccount(codeId.getText())){
-                System.out.println("verrified");
+                NavigationController.changeLoginPage(event,"LoginPage.fxml");
             }
         } else {
             Alert b = new Alert(Alert.AlertType.ERROR, "Field is empty", ButtonType.CLOSE);

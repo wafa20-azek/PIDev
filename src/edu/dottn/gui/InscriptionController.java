@@ -76,7 +76,8 @@ public class InscriptionController implements Initializable {
                             Alert a = new Alert(Alert.AlertType.INFORMATION, nameId.getText(), ButtonType.OK);
                             Optional<ButtonType> result = a.showAndWait();
                             if (result.get() == ButtonType.OK) {
-                                NavigationController.changeLoginPage(event, "LoginPage.fxml");
+                                NavigationController.changeActivatePage(event,"ActivateAccount.fxml");
+                               
                             }
                         } else {
                             emailId.setStyle("-fx-border-color: red;");

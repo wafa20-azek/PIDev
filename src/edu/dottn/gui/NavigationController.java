@@ -37,6 +37,21 @@ public class NavigationController {
             System.out.println(ex.getMessage());
         }
     }
+     public static void changeActivatePage(ActionEvent event, String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            
+            Scene scene = new Scene(root);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("ActivateAccount");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     public static void AdminHomePage(ActionEvent event,User P, String fxmlFile){
         Parent root = null;
         try {
