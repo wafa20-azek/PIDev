@@ -6,11 +6,17 @@
 package edu.dottn.services;
 
 import com.restfb.DefaultFacebookClient;
+
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.FacebookType;
+import com.twilio.Twilio;
+import static com.twilio.example.Example.ACCOUNT_SID;
+import static com.twilio.example.Example.AUTH_TOKEN;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.rest.lookups.v1.PhoneNumber;
 import edu.dottn.entities.Post;
 import edu.dottn.entities.User;
 import edu.dottn.util.MyConnection;
@@ -65,7 +71,7 @@ public class ServicePost implements PService<Post> {
             alert.setContentText("The title field must not exceed " + titleMaxLen + " characters");
             alert.showAndWait();
             return;
-            
+
         }
         if (p.getDescription().length() > descMaxLen) {
             Alert alert = new Alert(AlertType.WARNING);
@@ -101,7 +107,19 @@ public class ServicePost implements PService<Post> {
             alert.setContentText("Error adding post:" + ex.getMessage());
             alert.showAndWait();
         }
+        // Send an SMS message to notify users about the new post
+        String body = "A new post has been created. Please check it out!";
+        MemberServices member = new MemberServices();
+        List<User> users = member.getAllById(); 
+        users.forEach((user) -> {
+            String phoneNumber = String.valueOf(user.getNumero());
+            String messageText = "Hello, " + user.getName() + "! This is a test message.";
+            sendSms("987654321", phoneNumber, messageText, "AC5cdd383d413ed620eedf7dad1cb391fa", "632e9902034e972c36341a801050995e");
+        });
     }
+      public void sendSms(String from, String to, String body, String accountSid, String authToken) {
+        Twilio.init(accountSid, authToken);    }
+
 
     public void supprimerParId(int idPost) {
         // Vérifier que l'ID de l'article est valide
@@ -175,7 +193,6 @@ public class ServicePost implements PService<Post> {
             System.out.println("Error retrieving all posts: " + ex.getMessage());
         }
 
-        
         return list;
     }
 
@@ -197,11 +214,11 @@ public class ServicePost implements PService<Post> {
     }
 
     public Post getRecentPost() {
-       
+
         Post recentPost = null;
 
         try {
-            
+
             String req = "SELECT * FROM post ORDER BY date_created DESC LIMIT 1";
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
@@ -246,29 +263,28 @@ public class ServicePost implements PService<Post> {
         }
         // Retourner le post le plus récent ou null si aucun post n'est trouvé
         return recentPost;
-}
-
-
-    public List<Post> searchPostsByKeyword(String keyword) {
-    List<Post> posts = new ArrayList<>();  // Créer une liste vide pour stocker les objets Post
-    List<Post> result = new ArrayList<>();  // Créer une autre liste vide pour stocker les résultats de la recherche
-    try {
-        String req = "SELECT * FROM post";  
-        Statement st = cnx.createStatement();  
-        ResultSet rs = st.executeQuery(req);  
-        while (rs.next()) {  
-            posts.add(new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created")));
-        }
-    } catch (SQLException ex) {
-        System.out.println("Erreur" + ex.getMessage());  // 
     }
 
-    result = posts.stream()  // Utiliser Stream pour traiter les objets Post de la liste "posts"
-            .filter(p -> p.getTitlePost().contains(keyword) || p.getDescription().contains(keyword))  // Filtrer la liste pour ne garder que les objets Post contenant le mot-clé
-            .collect(Collectors.toList());  // Stocker les objets filtrés dans la liste "result"
+    public List<Post> searchPostsByKeyword(String keyword) {
+        List<Post> posts = new ArrayList<>();  // Créer une liste vide pour stocker les objets Post
+        List<Post> result = new ArrayList<>();  // Créer une autre liste vide pour stocker les résultats de la recherche
+        try {
+            String req = "SELECT * FROM post";
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                posts.add(new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created")));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur" + ex.getMessage());  // 
+        }
 
-    return result;  
-}
+        result = posts.stream() // Utiliser Stream pour traiter les objets Post de la liste "posts"
+                .filter(p -> p.getTitlePost().contains(keyword) || p.getDescription().contains(keyword)) // Filtrer la liste pour ne garder que les objets Post contenant le mot-clé
+                .collect(Collectors.toList());  // Stocker les objets filtrés dans la liste "result"
+
+        return result;
+    }
 
     public List<Post> getAllPostsSortedByDate(boolean isAscending) {
         List<Post> posts = new ArrayList<>();
@@ -290,27 +306,21 @@ public class ServicePost implements PService<Post> {
 
         return posts;
     }
+
     public void shareOnPage(Post p) throws IOException {
-    String accessToken = "EAAH9TpnJbM0BAJe91KkxOdHvY3fcSXenSQGJb9sRlGbeWh4hAjcGfN5C9UoFMsSE8uG5sxf5QVs0A860uGRFiwpBZChrdyUDlUGfbqRFEbSJ0iY2aMxk49ZASEsYM8NS8C53MZCPVKajjVmCJsxiCOMKpPHXdRnenZCSpZCrZBwkXj9YLdaVIV5n6khyuvlWveZAYLDXNsBXrIEChKiA1wDSclbwrNurcQZD";
-    String pageId = "118272547833787";
-    String message =p.getDescription();
-    FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.LATEST);
-    
-    try {
-        FacebookType result = fbClient.publish(pageId + "/feed", FacebookType.class,
-                Parameter.with("message", message));
-        System.out.println("Post published on page: " + result.getId());
-    } catch (FacebookOAuthException ex) {
-        System.err.println("Failed to post on page: " + ex.getMessage());
+        String accessToken = "EAAH9TpnJbM0BAAaHcDlhZAPd8Fq57N34jnHhTwSCKNLBFbs4UX5dZBqStxnBwNaKSgbI54LovNIRqIM11a3Sx7BPxGZCozdrMLKEWyNpi8pWAZABmPJBaZCU6MUfI5yKCAry6Ld8lMOvZBXZBVZC6YMm02Dw5OTT9lAM4r5oAx6QAoK2zS90uzvCV0jxnYaFZCTaLbZCX9ZCa3HIG516xtpVZA1FuM9WnG5YoQUZD";
+        String pageId = "118272547833787";
+        String message = p.getDescription();
+        FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.LATEST);
+
+        try {
+            FacebookType result = fbClient.publish(pageId + "/feed", FacebookType.class,
+                    Parameter.with("message", message));
+            System.out.println("Post published on page: " + result.getId());
+        } catch (FacebookOAuthException ex) {
+            System.err.println("Failed to post on page: " + ex.getMessage());
+        }
     }
+
+  
 }
-
-}
-
-
-
-
-
-
-
-

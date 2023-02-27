@@ -159,14 +159,13 @@ public class MemberServices implements UServices<User> {
     public List<User> getAllById() {
         List<User> result = new ArrayList();
         try {
-            String req = "Select * from `user`";
+            String req = "Select * from `user` where role='Member'";
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                 if(rs.getString(7).equals("Member")){
                 User p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8));
                 result.add(p);
-                 }
+             
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -174,7 +173,6 @@ public class MemberServices implements UServices<User> {
         }
         return result;
     }
-
     
     public User authenticateUser(String email,String password) {
         User p = null;

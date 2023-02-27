@@ -5,6 +5,8 @@
  */
 package edu.dottn.services;
 
+
+
 import edu.dottn.entities.Donation;
 import edu.dottn.entities.Donation.DonationStatus;
 import edu.dottn.entities.User;
@@ -117,7 +119,7 @@ public class ServiceDonation implements DService<Donation> {
         return d;
     }
 
-    public  void envoyer(User user) throws MessagingException {
+    public void envoyer(User user) throws MessagingException {
 
         String username = "emna.rajhi@esprit.tn";
         String password = "223AFT1684";
@@ -138,7 +140,6 @@ public class ServiceDonation implements DService<Donation> {
         Transport.send(message);
         System.out.println("Message envoyé !!");
     }
-    
 
     private static Message prepareMessage(Session session, String username, String userEmail, String userName) throws MessagingException {
         try {
@@ -147,20 +148,17 @@ public class ServiceDonation implements DService<Donation> {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             message.setSubject("Merci pour votre donation !");
             message.setText("Bonjour " + userName + ",\n\n"
-                + "Nous tenions à vous remercier pour votre généreuse donation  "
-                + "Grâce à votre soutien, nous pouvons continuer à aider ceux qui en ont le plus besoin. "
-                + "Nous apprécions vraiment votre contribution à notre cause.\n\n"
-                + "Cordialement,\n"
-                + "L'équipe de notre organisation");
+                    + "Nous tenions à vous remercier pour votre généreuse donation  "
+                    + "Grâce à votre soutien, nous pouvons continuer à aider ceux qui en ont le plus besoin. "
+                    + "Nous apprécions vraiment votre contribution à notre cause.\n\n"
+                    + "Cordialement,\n"
+                    + "L'équipe de notre organisation");
             return message;
         } catch (AddressException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
-
-    
 
     public void confirmDonation(Donation donation) {
         try {
@@ -183,5 +181,8 @@ public class ServiceDonation implements DService<Donation> {
             System.out.println(ex.getMessage());
         }
     }
+
+
+ 
 
 }

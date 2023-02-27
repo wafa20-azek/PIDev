@@ -19,6 +19,7 @@ import edu.dottn.util.MyConnection;
 import java.io.IOException;
 import javax.mail.MessagingException;
 import com.restfb.types.User;
+import edu.dottn.services.MemberServices;
 
 
 /**
@@ -33,7 +34,7 @@ public class Main {
        ServiceComment com1 = new ServiceComment();
       Post p1 = new Post("first post","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
       Post p2 = new Post("second test","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
-      Post p3 = new Post("second test","This Post is from API",new java.sql.Timestamp(System.currentTimeMillis()));
+      Post p3 = new Post("second test","TEST API SAIF",new java.sql.Timestamp(System.currentTimeMillis()));
 
 
       
@@ -105,6 +106,10 @@ public class Main {
        // System.out.println(com1.getAll());
        //don1.envoyer(user);
         post1.shareOnPage(p3);
+      // don1.sendDonationSms(d1);
+     // MemberServices mem = new MemberServices();
+      //  System.out.println(mem.getAllById());
+      
         
         
         
