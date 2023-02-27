@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.dottn.main;
 
 import java.io.File;
@@ -17,10 +12,7 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- *
- * @author Saif
- */
+
 public class imageAnalyse {
         public static void main(String args[]) throws IOException{
             System.out.println(imageAnalyse());

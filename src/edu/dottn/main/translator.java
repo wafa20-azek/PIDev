@@ -16,7 +16,7 @@ public class translator {
             OkHttpClient client = new OkHttpClient();
 
            RequestBody body = new FormBody.Builder()
-            .add("q", "why we are here ?")
+            .add("q", "how are you !")
             .add("target", "fr")
             .build();
 
