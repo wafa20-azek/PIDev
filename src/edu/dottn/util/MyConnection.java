@@ -5,45 +5,62 @@
  */
 package edu.dottn.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+/**
+ *
+ * @author rajhi
+ */
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
-/**
- *
- * @author WAFA
- */
+
 public class MyConnection {
-    
-    Properties properties;
-     private String url;
-    private String login;
-    private String password;
-    private static Connection instance;
-    
-    
-      private MyConnection() {
-            try {
-                properties = new Properties();
-                properties.load(new FileInputStream(new File("Configuration.properties")));
-                url = properties.getProperty("url");
-                login = properties.getProperty("utilisateur");
-                password = properties.getProperty("pwd");
-                instance= DriverManager.getConnection(url, login, password);
-                System.out.println("Connection established");
-            } catch (SQLException | IOException ex) {
-                System.out.println("not connected to DB");
-            }
+   // JDBC URL, username and password
+    private  final String url = "jdbc:mysql://localhost:3306/troctndb";
+    private  final String user = "root";
+    private  final String password = "";
+  
+    // JDBC  managing connection
+    private  Connection cnx;
+   
+    private  static MyConnection instance = null;
+
+    private MyConnection() {
+        try {
+            // opening database
+            cnx = DriverManager.getConnection(url, user, password);
+
+            System.out.println("Successfully connected to DB");
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
+            
         }
-    
-    public static Connection getInstance() {
+    }
+
+    public static MyConnection getInstance() {
         if (instance == null) {
-            new MyConnection();
+            instance = new MyConnection();
         }
         return instance;
     }
+
+    public Connection getConnection() {
+        return cnx;
+    }
+
+   
+    public void closeConnection() {
+        try {
+            cnx.close();
+            instance = null;
+            System.out.println("DB Closed");
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
+            
+        }
+    }
+  
+
 }

@@ -1,0 +1,104 @@
+
+.text-field {
+    -fx-border-radius: 10;
+    -fx-background-color: transparent;
+    -fx-border-color:gray;
+    
+}
+.text-area{
+    -fx-border-radius: 10;
+    -fx-background-color: transparent;
+    -fx-border-color:gray;
+    -fx-focus-color: transparent;
+    
+}
+.text-area:focused {
+     -fx-border-color:transparent;
+    -fx-border-color:#BF5CFF; 
+}
+
+
+.text-field:focused {
+    
+    -fx-border-color:#BF5CFF;
+    
+}
+#forgottext:hover{
+    
+    -fx-text-decoration: underline;
+    -fx-underline: true;
+}
+
+#signinbtn{
+    -fx-background-color:#BF5CFF;
+    -fx-background-radius: 15;
+    
+}
+
+#signupbtn{
+    -fx-background-color:transparent;
+    -fx-border-color: #BF5CFF;
+    -fx-border-radius: 15;
+    -fx-text-fill:white;  
+
+}
+
+#uploadbtn{
+    -fx-background-color:#BF5CFF;
+    
+   
+    -fx-background-radius: 15;
+    -fx-text-fill:white;  
+}
+
+#uploadbtn:hover{
+    -fx-background-color:#002885;
+    
+    -fx-background-radius: 20;
+    -fx-text-fill:white;  
+}
+#addpostbtn{
+      -fx-background-color:#BF5CFF;
+    
+   
+    -fx-background-radius: 15;
+    -fx-text-fill:white;  
+
+}
+#homebtn ,#messagesbtn {
+    -fx-background-color:transparent;
+    -fx-border-color: #BF5CFF;
+    -fx-border-radius: 15;
+    -fx-text-fill:white;  
+
+}
+
+
+#addpostbtn:hover {
+    -fx-background-color:#002885;
+    
+    -fx-background-radius: 20;
+    -fx-text-fill:white; 
+}
+
+
+#homebtn:hover , #messagesbtn:hover {
+    -fx-background-color: #BF5CFF;
+      -fx-background-radius: 15;
+}
+
+
+#signinbtn:hover {
+    -fx-background-color: #002885;
+    -fx-text-fill: white;
+}
+
+#logouttext:hover{
+    -fx-text-fill: #BF5CFF;
+}
+#signupbtn:hover{
+   -fx-background-radius: 15;
+    -fx-background-color:#BF5CFF;
+      
+
+}
