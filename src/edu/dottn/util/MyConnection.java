@@ -53,14 +53,5 @@ public class MyConnection {
     }
 
    
-    public void closeConnection() {
-        try {
-            con.close();
-            instance = null;
-            System.out.println("DB Closed");
-        } catch (SQLException sqlEx) {
-            System.out.println(sqlEx.getMessage());
-            
-        }
-    }
+  
 }

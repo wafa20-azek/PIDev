@@ -54,6 +54,9 @@ System.out.println(cc.getAllByIdCategory(2));
 
 //        System.out.println(cs.getById(2));
 //        System.out.println(cs.getAllById());
+
+
+
     }
 
 }

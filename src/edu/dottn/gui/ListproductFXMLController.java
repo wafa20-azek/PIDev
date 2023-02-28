@@ -78,18 +78,10 @@ public class ListproductFXMLController implements Initializable {
                 
             });
              btnupdate.setLayoutY(y+290);
-             btndelete.setLayoutY(y+320);
-              
-           
+             btndelete.setLayoutY(y+320);              
             anchorpane.getChildren().addAll(iv,title,Description,value,btndelete,btnupdate);
             feed.getChildren().addAll(anchorpane);
-            x+=300;
-           
-            
-          
-             
-           
-       
+            x+=300;       
         }
     }    
 
