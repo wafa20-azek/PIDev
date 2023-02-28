@@ -12,23 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="692.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.AddpostController">
    <children>
-      <AnchorPane layoutY="-1.0" prefHeight="721.0" prefWidth="286.0" style="-fx-background-color: #002885;">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="42.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../logohome.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="homebtn" layoutX="31.0" layoutY="220.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="223.0" text="Home" />
-            <Button fx:id="homebtn" layoutX="32.0" layoutY="300.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="223.0" text="Profile" />
-            <Button fx:id="homebtn" layoutX="31.0" layoutY="380.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="223.0" text="Inventory" />
-            <Label fx:id="logouttext" layoutX="91.0" layoutY="601.0" prefHeight="44.0" prefWidth="106.0" text="LOGOUT" textFill="WHITE">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
+       <fx:include source="sidebar.fxml" />
       <Label layoutX="674.0" layoutY="61.0" text="Add new post">
          <font>
             <Font size="37.0" />
@@ -38,15 +22,21 @@
       <TextArea fx:id="descpost" layoutX="628.0" layoutY="232.0" prefHeight="200.0" prefWidth="320.0" />
       <Label layoutX="581.0" layoutY="180.0" text="Title" />
       <Label layoutX="534.0" layoutY="322.0" text="Description" />
-      <Button fx:id="uploadbtn" layoutX="846.0" layoutY="469.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" text="Upload">
+      <Button fx:id="uploadbtn" layoutX="846.0" layoutY="483.0" mnemonicParsing="false" onAction="#uploadImage" prefHeight="31.0" prefWidth="106.0" text="Upload">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Label layoutX="630.0" layoutY="474.0" opacity="0.5" text="Insert your image" />
-      <Button fx:id="uploadbtn" layoutX="717.0" layoutY="573.0" mnemonicParsing="false" onAction="#addpost" prefHeight="44.0" prefWidth="143.0" text="POST">
+      <Label fx:id="urlImage" layoutX="628.0" layoutY="448.0" opacity="0.5" text="Insert your image" />
+      <Button fx:id="addpostbtn" layoutX="674.0" layoutY="573.0" mnemonicParsing="false" onAction="#addpost" prefHeight="44.0" prefWidth="143.0" text="POST">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <ImageView fx:id="sharebtn" fitHeight="38.0" fitWidth="50.0" layoutX="868.0" layoutY="576.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../share.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="sharetxt" layoutX="911.0" layoutY="585.0" opacity="0.33" text="Share on Facebook" />
       
       
    </children>

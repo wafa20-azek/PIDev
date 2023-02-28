@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 /**
  *
@@ -82,10 +83,11 @@ public class ServicePost implements PService<Post> {
             return;
         }
 
-        String sql = "INSERT INTO post (titlePost, description) VALUES (?, ?)";
+        String sql = "INSERT INTO post (titlePost, description,postimage) VALUES (?, ?,?)";
         try (PreparedStatement statement = cnx.prepareStatement(sql)) {
             statement.setString(1, p.getTitlePost());
             statement.setString(2, p.getDescription());
+            statement.setString(3, p.getPhotos());
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -110,17 +112,24 @@ public class ServicePost implements PService<Post> {
         // Send an SMS message to notify users about the new post
         String body = "A new post has been created. Please check it out!";
         MemberServices member = new MemberServices();
-        List<User> users = member.getAllById(); 
+        List<User> users = member.getAllById();
         users.forEach((user) -> {
             String phoneNumber = String.valueOf(user.getNumero());
             String messageText = "Hello, " + user.getName() + "! This is a test message.";
             sendSms("987654321", phoneNumber, messageText, "AC5cdd383d413ed620eedf7dad1cb391fa", "632e9902034e972c36341a801050995e");
         });
     }
-      public void sendSms(String from, String to, String body, String accountSid, String authToken) {
-        Twilio.init(accountSid, authToken);    }
 
+    public void sendSms(String from, String to, String body, String accountSid, String authToken) {
+        Twilio.init(accountSid, authToken);
+    }
 
+    /**
+     *
+     * @param idPost 
+     * Method supprimerParId 
+     */
+    @Override
     public void supprimerParId(int idPost) {
         // Vérifier que l'ID de l'article est valide
         if (idPost <= 0) {
@@ -146,6 +155,11 @@ public class ServicePost implements PService<Post> {
         }
     }
 
+    /**
+     *
+     * Modification Post
+     */
+    @Override
     public void modifier(Post p) {
         // Vérifier que les champs ne sont pas nuls
         if (p.getTitlePost().isEmpty()) {
@@ -179,6 +193,7 @@ public class ServicePost implements PService<Post> {
         }
     }
 
+    @Override
     public List<Post> getAll() {
         List<Post> list = new ArrayList<>();
         try {
@@ -196,6 +211,7 @@ public class ServicePost implements PService<Post> {
         return list;
     }
 
+    @Override
     public Post getOneById(int id) {
         Post post = null;
         try {
@@ -264,53 +280,89 @@ public class ServicePost implements PService<Post> {
         // Retourner le post le plus récent ou null si aucun post n'est trouvé
         return recentPost;
     }
-
+    /*
+      *Méthode de recherche par mots clé en utilisant Stream 
+    */
     public List<Post> searchPostsByKeyword(String keyword) {
-        List<Post> posts = new ArrayList<>();  // Créer une liste vide pour stocker les objets Post
-        List<Post> result = new ArrayList<>();  // Créer une autre liste vide pour stocker les résultats de la recherche
-        try {
-            String req = "SELECT * FROM post";
-            Statement st = cnx.createStatement();
-            ResultSet rs = st.executeQuery(req);
-            while (rs.next()) {
-                posts.add(new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created")));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erreur" + ex.getMessage());  // 
+    List<Post> posts = new ArrayList<>();  // Créer une liste vide pour stocker les objets Post
+    List<Post> result = new ArrayList<>();  // Créer une autre liste vide pour stocker les résultats de la recherche
+    try {
+        String req = "SELECT * FROM post";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        while (rs.next()) {
+            posts.add(new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created")));
         }
-
-        result = posts.stream() // Utiliser Stream pour traiter les objets Post de la liste "posts"
-                .filter(p -> p.getTitlePost().contains(keyword) || p.getDescription().contains(keyword)) // Filtrer la liste pour ne garder que les objets Post contenant le mot-clé
-                .collect(Collectors.toList());  // Stocker les objets filtrés dans la liste "result"
-
-        return result;
+    } catch (SQLException ex) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Erreur lors de la recherche des posts.");
+        alert.setContentText(ex.getMessage());
+        alert.showAndWait();
+        return result;  // Arrêter la méthode en cas d'erreur
     }
 
-    public List<Post> getAllPostsSortedByDate(boolean isAscending) {
-        List<Post> posts = new ArrayList<>();
-        try {
-            String req = "SELECT * FROM post ORDER BY date_created " + (isAscending ? "ASC" : "DESC");
-            Statement st = cnx.createStatement();
-            ResultSet rs = st.executeQuery(req);
-            while (rs.next()) {
-                String title = rs.getString("titlePost");
-                String description = rs.getString("description");
-                Timestamp dateCreated = rs.getTimestamp("date_created");
-                Post post = new Post(title, description, dateCreated);
-                posts.add(post);
-
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erreur " + ex.getMessage());
-        }
-
-        return posts;
+    if (keyword == null || keyword.isEmpty()) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Le mot-clé de recherche est vide.");
+        alert.setContentText("Veuillez saisir un mot-clé pour lancer la recherche.");
+        alert.showAndWait();
+        return result;  // Arrêter la méthode si le mot-clé est vide
     }
+
+    result = posts.stream() // Utiliser Stream pour traiter les objets Post de la liste "posts"
+            .filter(p -> p.getTitlePost().contains(keyword) || p.getDescription().contains(keyword)) // Filtrer la liste pour ne garder que les objets Post contenant le mot-clé
+            .collect(Collectors.toList());  // Stocker les objets filtrés dans la liste "result"
+
+    if (result.isEmpty()) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Résultats de la recherche");
+        alert.setHeaderText("Aucun post trouvé.");
+        alert.setContentText("Aucun post ne contient le mot-clé de recherche : " + keyword);
+        alert.showAndWait();
+    } else {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Résultats de la recherche");
+        alert.setHeaderText("La recherche a trouvé " + result.size() + " post(s).");
+        alert.setContentText("Les résultats sont affichés dans la table ci-dessous.");
+        alert.showAndWait();
+    }
+
+    return result;
+}
+
+
+  public List<Post> getAllPostsSortedByDate(boolean isAscending) {
+    List<Post> posts = new ArrayList<>();
+    try {
+        String req = "SELECT * FROM post ORDER BY date_created " + (isAscending ? "ASC" : "DESC");
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        while (rs.next()) {
+            String title = rs.getString("titlePost");
+            String description = rs.getString("description");
+            Timestamp dateCreated = rs.getTimestamp("date_created");
+            Post post = new Post(title, description, dateCreated);
+            posts.add(post);
+        }
+    } catch (SQLException ex) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(null);
+        alert.setContentText("Une erreur s'est produite lors de la récupération des publications.");
+        alert.showAndWait();
+        System.out.println("Erreur " + ex.getMessage());
+    }
+
+    return posts;
+}
+
 
     public void shareOnPage(Post p) throws IOException {
-        String accessToken = "EAAH9TpnJbM0BAAaHcDlhZAPd8Fq57N34jnHhTwSCKNLBFbs4UX5dZBqStxnBwNaKSgbI54LovNIRqIM11a3Sx7BPxGZCozdrMLKEWyNpi8pWAZABmPJBaZCU6MUfI5yKCAry6Ld8lMOvZBXZBVZC6YMm02Dw5OTT9lAM4r5oAx6QAoK2zS90uzvCV0jxnYaFZCTaLbZCX9ZCa3HIG516xtpVZA1FuM9WnG5YoQUZD";
+        String accessToken = "EAAH9TpnJbM0BALpwNnYsKVPCsRW6ZAGSFVnvtCg9sw1LpDtYSjc1PaTYyK7TNgBQXGC1kQhrzvlWBkKcx8F0fTxY4EIVYL3KZBiNZA2AuZBtVGVaGmaIGQK2JEmZBpsZAlUyAn1WDm5tz8uIynBbUHvw43WroBKy0N04nJZBucUWZCc938uWtuZCQ2mwv5f43YZBuhC8s4HNmlAQBFzWj0KU5W5f41YiCcn88ZD";
         String pageId = "118272547833787";
-        String message = p.getDescription();
+        String message =p.getTitlePost()+"\n"+ p.getDescription();
         FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.LATEST);
 
         try {
@@ -322,5 +374,4 @@ public class ServicePost implements PService<Post> {
         }
     }
 
-  
 }

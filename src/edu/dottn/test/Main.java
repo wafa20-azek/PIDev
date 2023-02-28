@@ -11,6 +11,7 @@ import com.restfb.Version;
 import edu.dottn.entities.Donation;
 import edu.dottn.entities.Donation.DonationStatus;
 import edu.dottn.entities.Post;
+import edu.dottn.entities.User;
 //import edu.dottn.entities.User;
 import edu.dottn.services.ServiceComment;
 import edu.dottn.services.ServiceDonation;
@@ -18,7 +19,7 @@ import edu.dottn.services.ServicePost;
 import edu.dottn.util.MyConnection;
 import java.io.IOException;
 import javax.mail.MessagingException;
-import com.restfb.types.User;
+//import com.restfb.types.User;
 import edu.dottn.services.MemberServices;
 
 
@@ -60,7 +61,7 @@ public class Main {
      //post1.supprimerParId(2);
      //don1.modifier(new Donation(3,new java.sql.Timestamp(System.currentTimeMillis()),DonationStatus.REJECTED));
      //don.ajouter(d2);
-   //  Donation d3 =new Donation(1,1,10,1,DonationStatus.REJECTED);
+     //Donation d3 =new Donation(1,1,10,1,DonationStatus.REJECTED);
     //onation d4 = new Donation(user, association, product, p2, dateDonation, DonationStatus.ACCEPTED)
 
      //don1.ajouter(d3);
@@ -91,8 +92,10 @@ public class Main {
       // com1.supprimerParId(5);
        // Comment c2= new Comment(p5,"xxxxx",new java.sql.Timestamp(System.currentTimeMillis()));
       //  com1.ajouterComment(c2);
-      //  User user = new User("Emna", "ben arrous", "emna.rajhi@esprit.tn", "hello", 12345678);
-       // don1.sendDonationThankYouEmail(user,d3);
+      User user1 = new User("Saif", "Tunis","saif.messaoudi@esprit.tn", "testest", 12345678);
+       // User user = new User("Saif Rajhi", "ben arrous", "saif.messaoudi@esprit.tn", "hello", 12345678);
+       Donation d3 = new Donation(DonationStatus.ACCEPTED);
+        don1.envoyer(user1);
       //  don1.ajouter(d3);
         //System.out.println(don1.getDonationsSortedByEtatDonation(DonationStatus.ACCEPTED));
         
@@ -105,7 +108,7 @@ public class Main {
        //com1.ajouterComment(c1);
        // System.out.println(com1.getAll());
        //don1.envoyer(user);
-        post1.shareOnPage(p3);
+      //  post1.shareOnPage(p3);
       // don1.sendDonationSms(d1);
      // MemberServices mem = new MemberServices();
       //  System.out.println(mem.getAllById());

@@ -134,4 +134,46 @@ public class ServiceComment implements CService<Comment> {
 
         return comments;
     }
+    public List<Comment> getCommentsByPostId(int postId) {
+    List<Comment> comments = new ArrayList<>();
+    try {
+        String req = "SELECT * FROM comment WHERE post_id = ?";
+        PreparedStatement statement = cnx.prepareStatement(req);
+        statement.setInt(1, postId);
+        ResultSet rs = statement.executeQuery();
+        while (rs.next()) {
+            Comment c = new Comment(rs.getString("Contenu"), rs.getTimestamp("dateComment"));
+            comments.add(c);
+        }
+    } catch (SQLException ex) {
+        System.out.println("Erreur lors de la récupération des commentaires pour le post avec l'id " + postId + ": " + ex.getMessage());
+    } catch (Exception ex) {
+        System.out.println("Une erreur est survenue : " + ex.getMessage());
+    }
+
+    return comments;
+}
+    
+    public void supprimerCommentairesByUserId(int idUser) {
+    // CS vérifier si l'ID utilisateur est valide
+    if (idUser <= 0) {
+        System.out.println("ID utilisateur invalide");
+        return;
+    }
+    try {
+        String req = "DELETE FROM `comment` WHERE idUser = ?";
+        PreparedStatement statement = cnx.prepareStatement(req);
+        statement.setInt(1, idUser);
+        int rowsAffected = statement.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Commentaires supprimés pour l'utilisateur avec l'ID " + idUser);
+        } else {
+            System.out.println("Aucun commentaire trouvé pour l'utilisateur avec l'ID " + idUser);
+        }
+    } catch (SQLException ex) {
+        System.err.println("Erreur lors de la suppression des commentaires de l'utilisateur avec l'ID " + idUser + ": " + ex.getMessage());
+    }
+}
+
+
 }

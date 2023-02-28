@@ -13,7 +13,7 @@ import java.sql.Timestamp;
  */
 public class Comment {
     private int id_comment;
-    private int idUser;
+    private User user;
     private Post post;
     ServicePost sp = new ServicePost();
     private String contenu;
@@ -39,7 +39,7 @@ public class Comment {
     }
     
     public int getIdUser() {
-        return idUser;
+        return user.getIdUser();
     }
 
 
