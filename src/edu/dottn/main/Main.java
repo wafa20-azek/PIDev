@@ -5,21 +5,59 @@
  */
 package edu.dottn.main;
 
+import static com.itextpdf.text.Annotation.FILE;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import edu.dottn.entities.Avis_Offer;
 import edu.dottn.entities.Offre;
 import edu.dottn.services.ServiceAvis;
 import edu.dottn.services.ServiceOffre;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author bochr
  */
 public class Main {
-
+// private static String FILE = "offre.pdf";
     public static void main(String[] args) {
-
+        
+       
+        
+//        Document document = new Document();
+//     try {
+//         PdfWriter.getInstance(document, new FileOutputStream(FILE));
+//         
+//         document.open();
+//         document.addTitle("TEST");
+//         addMeta(document);
+//          Paragraph paragraph = new Paragraph("This is a test paragraph.");
+//        document.add(paragraph);
+//         document.close();
+         
+                 
+//  Offre o4= new Offre(11,5,5,"Mahmoud", "On_Hold");
+//  Offre o5= new Offre(14478,17889,380, 11, "Mahmoud", "On_Hold");
+//  Offre o6= new Offre(14,178,3800, 101, "taha", "On_Hold");
+//  Offre o7= new Offre(14,178,3440, 1401, "taha", "On_Hold");
+//  
+//  
+//  
+//        ServiceOffre so = new ServiceOffre();
+////        so.ajouterOffre(o6);
+//        so.modifierOffre(o7);
+////        
+//      
+//        System.out.println(so.getBYStatus("Accepted"));
+//        String filepath = "‪offre.pdf";
+//        so.generatePDF(o4);
 //        Avis_Offer a = new Avis_Offer();
 //        ServiceAvis sa = new ServiceAvis();
 ////        sa.ajouterAvisOffer(a);
@@ -33,21 +71,21 @@ public class Main {
 ////       
 ////        ServiceOffre so = new ServiceOffre();
 ////        so.ajouterOffre(o);
-////        
+////
 ////         ///System.out.println(so.getAll()); 
-     Offre o = new Offre(10, 1222, 7, "nimport", "On_Hold");
+//     Offre o = new Offre(10, 1222, 7, "nimport", "On_Hold");
+////
+//////        o.setStatus("Accepted");
+//////        Offre o1 = new Offre(14778, 8, "adnen", "Accepted");
+////////        Offre o2 = new Offre(14778, 8, "adnen", "Accepted");
+////         Offre o3 = new Offre(11,741852,9,"anouar", "Declined");
+////        Of
+//////        
+//Offre o4= new Offre(14478,17889,15633,74896,"Mahmoud", "On_Hold");
 //
-////        o.setStatus("Accepted");
-////        Offre o1 = new Offre(14778, 8, "adnen", "Accepted");
-//////        Offre o2 = new Offre(14778, 8, "adnen", "Accepted");
-//         Offre o3 = new Offre(11,741852,9,"anouar", "Declined");
-//        Of
-////        
-Offre o4= new Offre(14478,17889,15633,74896,"Mahmoud", "On_Hold");
-
-  ServiceOffre so = new ServiceOffre();
-  so.AccepterOffre(o4);
-  
+//  ServiceOffre so = new ServiceOffre();
+//  so.AccepterOffre(o4);
+//  
 ////        so.supprimerOffre(12);
 ////        
 ////////        so.modifierOffre(o, "Accepted");
@@ -67,5 +105,16 @@ Offre o4= new Offre(14478,17889,15633,74896,"Mahmoud", "On_Hold");
 //////        so.getByName("adnen");
 //////        so.sortByStatus("On_Hold");
 //////        so.ajouterOffre(o);
-   }
-}
+//                 } catch (Exception ex) {
+//                 System.out.println(ex.getMessage());
+//                 }
+//                     
+//     
+//   }
+    
+//    private static void addMeta (Document document){
+//        document.addTitle("test");
+//        document.addSubject("Tessst");
+//        document.addAuthor("Saif");
+//    }
+}}

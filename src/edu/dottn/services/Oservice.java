@@ -17,7 +17,7 @@ public interface Oservice<O> {
 
     public void supprimerOffre(int id_Offre);
 
-    public void modifierOffre(O o, String a);
+    public void modifierOffre(O o);
 
     public List<O> getBYStatus(String status);
 //public void AccepterOffre(O o);
@@ -27,4 +27,5 @@ public interface Oservice<O> {
     public O getOneById(int id_Offre);
 
     public List<O> getAll();//interface ;arraylist,vector ce sont des classes
+    public void generatePDF(O o) ;
 }

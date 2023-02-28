@@ -5,8 +5,10 @@
  */
 package edu.dottn.services;
 
+import com.itextpdf.text.pdf.PdfWriter;
 import edu.dottn.entities.Offre;
 import edu.dottn.util.MyConnection;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,13 +17,31 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import com.itextpdf.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.Position;
+import javax.swing.text.Segment;
 import static sun.misc.MessageUtils.where;
+
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import java.awt.Desktop;
+import java.io.File;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /*
@@ -72,9 +92,10 @@ public class ServiceOffre implements Oservice<Offre> {
 //modifier
 
     @Override
-    public void modifierOffre(Offre o, String sta) {
+    public void modifierOffre(Offre o) {
         try {
-            String req = "UPDATE `offre` SET `ID_Product`='" + o.getID_Product() + "',`idUser`='" + o.getIdUser() + "', `date_offre`='" + o.getDate_offre() + "',`status`='" + sta + " ' WHERE `id_offre`='" + o.getId_Offre() + "'";
+            String req ="UPDATE `offre` SET `ID_Product`='"+o.getID_Product()+"',`idUser`='"+o.getIdUser()+"',`ID_Product1`='"+o.getID_Product1()+"',`idUser1`='"+o.getIdUser1()+"',`date_offre`='"+o.getDate_offre()+"'WHERE `status`='On_Hold' ";
+//            String req = "UPDATE `offre` SET `ID_Product`='" + o.getID_Product() + "',`idUser`='" + o.getIdUser() + "', `date_offre`='" + o.getDate_offre() + "'"" WHERE`status`='On_Hold' ";
             Statement st = con.createStatement();
             st.executeUpdate(req);
             System.out.println("Offer updated !");
@@ -85,43 +106,88 @@ public class ServiceOffre implements Oservice<Offre> {
     }
 
     public List<Offre> getBYStatus(String status) {
-        List<Offre> offre = null;
-        try {
+        List<Offre> offre = new ArrayList<>();
+        if (status.equals("Accepted")) {
 
-            String req = "SELECT * FROM `offre`";
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(req);
+            try {
+
+                String req = "SELECT * FROM `offre` where status='Accepted'";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(req);
 //            System.out.println(test);
-            while (rs.next()) {
-                
-                Offre of = new Offre(rs.getInt(1), rs.getInt(2),rs.getInt(3) ,rs.getString(6), rs.getString(8));
-                if (of.getStatus().equals(status)) {
-//                    offre.add(of);
-                    System.out.println(of);
+                while (rs.next()) {
+
+                    Offre of = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(6), rs.getString(8));
+
+                    offre.add(of);
+//                    System.out.println(of);
+
                 }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
+        if (status.equals("On_Hold")) {
+
+            try {
+
+                String req = "SELECT * FROM `offre` where status='On_Hold'";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(req);
+//            System.out.println(test);
+                while (rs.next()) {
+
+                    Offre of = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(6), rs.getString(8));
+
+                    offre.add(of);
+//                    System.out.println(of);
+
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        if (status.equals("Declined")) {
+
+            try {
+
+                String req = "SELECT * FROM `offre` where status='Declined'";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(req);
+//            System.out.println(test);
+                while (rs.next()) {
+
+                    Offre of = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(6), rs.getString(8));
+
+                    offre.add(of);
+//                    System.out.println(of);
+
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
         return offre;
     }
 
     @Override
 //
     public Offre getOneById(int id_Offre) {
-  
-       try {
+
+        try {
             String req = "SELECT * FROM `offre` WHERE id_Offre = " + id_Offre;
             PreparedStatement st = con.prepareStatement(req);
             ResultSet rst = st.executeQuery(req);
             while (rst.next()) {
-                 System.out.println("Offer getted ");
-                 return new Offre(rst.getInt(1),rst.getInt(2), rst.getInt(3), rst.getString(4), rst.getString(6));
+                System.out.println("Offer getted ");
+                return new Offre(rst.getInt(1), rst.getInt(2), rst.getInt(3), rst.getString(4), rst.getString(6));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-     return null;
+        return null;
     }
 
     @Override
@@ -174,29 +240,29 @@ public class ServiceOffre implements Oservice<Offre> {
         return rech1;
 
     }
-  
-    public Offre verifierOffre(Offre o){
-          try {
-              String req ="SELECT * FROM `offre` WHERE EXISTS (SELECT * FROM `offre` WHERE ID_Product=? AND ID_Product1=? AND idUser=? AND idUser1=?) ";
-         
-            PreparedStatement pst = con.prepareStatement(req);
-            pst.setInt(1,o.getID_Product());
-            pst.setInt(2,o.getID_Product1());
-            pst.setInt(3,o.getIdUser());
-            pst.setInt(4,o.getIdUser1());
-            ResultSet rs =pst.executeQuery();
-            while (rs.next()) {
-                Offre o1 = new Offre(rs.getInt(1), rs.getInt(2),rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6));
-           
-            return o1;
-        
-                }
-                System.out.println("offre created");
-        } catch (SQLException ex) {
-              System.out.println(ex.getMessage());
-        } return null;
-            }
 
+    public Offre verifierOffre(Offre o) {
+        try {
+            String req = "SELECT * FROM `offre` WHERE EXISTS (SELECT * FROM `offre` WHERE ID_Product=? AND ID_Product1=? AND idUser=? AND idUser1=?) ";
+
+            PreparedStatement pst = con.prepareStatement(req);
+            pst.setInt(1, o.getID_Product());
+            pst.setInt(2, o.getID_Product1());
+            pst.setInt(3, o.getIdUser());
+            pst.setInt(4, o.getIdUser1());
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Offre o1 = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6));
+
+                return o1;
+
+            }
+            System.out.println("offre created");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
 
     //trier un offre par status (les offres qui ont reste On Hold
     public List<Offre> sortByDate() {
@@ -211,30 +277,67 @@ public class ServiceOffre implements Oservice<Offre> {
         }
         return tr;
     }
+
     public void AccepterOffre(Offre o) {
         try {
-            String req = "SELECT * FROM `offre` WHERE id_offre = " +o.getId_Offre();
-             PreparedStatement pst= con.prepareStatement(req);
-             ResultSet rs = pst.executeQuery();
-             while (rs.next()){
-                 
-             }
+            String req = "UPDATE `offre` SET `status`='" + "Accepted" + " ' WHERE `id_offre`='" + o.getId_Offre() + "'";
+            Statement st = con.createStatement();
+            st.executeUpdate(req);
             System.out.println("Offer accepted !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
     }
-        //refuser
+
+    //refuser
     public void RefuserOffer(Offre o) {
         try {
-            String req = "SELECT * FROM `offre` WHERE 1 ";
+            String req = "UPDATE `offre` SET `status`='" + "Declined" + " ' WHERE `id_offre`='" + o.getId_Offre() + "'";
             Statement st = con.createStatement();
-   
-            System.out.println("Offer Denied ");
+            st.executeUpdate(req);
+            System.out.println("Offer Declined !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
-}
 
+    @Override
+    public void generatePDF(Offre o) {
+        Document document = new Document();
+          String offerFilePath = "offre.pdf";
+        try {
+            String req = "SELECT * FROM `offre` WHERE  id_offre = " + o.getId_Offre();
+
+            Statement statement = con.createStatement();
+            //statement.setInt(1, o.getId_Offre());
+            System.out.println(o.getId_Offre());
+            ResultSet resultSet = statement.executeQuery(req);
+            
+            // Loop through the result set and add data to PDF
+            while (resultSet.next()) {
+               
+                //System.out.println(true);
+                // Create a new paragraph and add content to it
+                PdfWriter.getInstance(document, new FileOutputStream(offerFilePath));
+                 document.open();
+                   document.addTitle("My offre");
+                System.out.println(o.getName());
+                String name = resultSet.getString("name");
+                String status = resultSet.getString("status");
+                System.out.println(name);
+               
+                Paragraph paragraph = new Paragraph("cher client " + o.getName() + " vous avez accpté l'offre de " + o.getIdUser1() + " de produit " + o.getID_Product1() + "");
+
+                document.add(paragraph);
+                document.close();
+           
+
+      
+            }}catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+     
+    }
+
+}

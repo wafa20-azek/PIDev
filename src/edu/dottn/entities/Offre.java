@@ -41,6 +41,7 @@ public class Offre {
         st.add("Accepted");
         st.add("Declined");
         st.add("On_Hold");
+        
         this.ID_Product = ID_Product;
         this.idUser = idUser;
         this.ID_Product1 = ID_Product1;

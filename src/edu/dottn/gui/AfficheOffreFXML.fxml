@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.AfficheOffreFXMLController">
-   <children>
+<AnchorPane id="AnchorPane" prefHeight="424.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.AfficheOffreFXMLController">
+ 
+    <children>
       <Line endX="323.0" layoutX="266.0" layoutY="90.0" startX="-68.0" />
-      <Label layoutX="176.0" layoutY="111.0" prefHeight="17.0" prefWidth="76.0" text="My Offer">
+      <Label layoutX="176.0" layoutY="97.0" prefHeight="17.0" prefWidth="76.0" text="My Offer">
          <font>
             <Font name="Verdana Bold" size="13.0" />
          </font>
       </Label>
       <Button fx:id="btnOn_Hold" layoutX="198.0" layoutY="134.0" mnemonicParsing="false" onAction="#offerStatus" prefHeight="26.0" prefWidth="92.0" text="On Hold">
-         <font>
+            
+      
+          <font>
             <Font name="Verdana Bold" size="13.0" />
          </font>
       </Button>
@@ -32,32 +36,6 @@
             <Font name="Verdana Bold" size="13.0" />
          </font>
       </Button>
-      <AnchorPane layoutX="167.0" layoutY="166.0" prefHeight="226.0" prefWidth="430.0">
-         <children>
-            <AnchorPane layoutX="13.0" layoutY="14.0" prefHeight="51.0" prefWidth="405.0" style="-fx-border-color: gray;">
-               <children>
-                  <Label layoutX="23.0" layoutY="17.0" prefHeight="17.0" prefWidth="92.0" text="user name" />
-                  <Label layoutX="180.0" layoutY="17.0" text="time" />
-                  <ImageView accessibleRole="BUTTON" fitHeight="26.0" fitWidth="24.0" layoutX="328.0" layoutY="14.0" onMouseClicked="#Acceptedoffer" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../331913680_2489949844485663_4749868781026670821_n.png" />
-                     </image></ImageView>
-                  <ImageView accessibleRole="BUTTON" fitHeight="24.0" fitWidth="24.0" layoutX="364.0" layoutY="14.0" onMouseClicked="#offerStatus2" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../331325598_530270349096012_5101557465361111528_n.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </AnchorPane>
-            <ImageView fitHeight="51.0" fitWidth="53.0" layoutX="59.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </AnchorPane>
       <Button fx:id="btnMyProduct" layoutX="206.0" layoutY="51.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="76.0" text="My Product">
          <font>
             <Font size="11.0" />
@@ -71,7 +49,7 @@
             <Font size="11.0" />
          </font></Button>
       <Label layoutX="536.0" layoutY="34.0" prefHeight="17.0" prefWidth="67.0" text="UserName" />
-      <AnchorPane prefHeight="400.0" prefWidth="163.0" style="-fx-background-color: #003192;">
+      <AnchorPane prefHeight="424.0" prefWidth="167.0" style="-fx-background-color: #003192;">
          <children>
             <Button layoutX="36.0" layoutY="115.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="99.0" text="Home">
                <font>
@@ -110,5 +88,11 @@
             <Font size="10.0" />
          </font>
       </Button>
+      <ListView fx:id="offreListView" layoutX="176.0" layoutY="172.0" prefHeight="243.0" prefWidth="422.0" />
+      <VBox fx:id="vbox" layoutX="176.0" layoutY="172.0" prefHeight="243.0" prefWidth="422.0">
+         <children>
+            <AnchorPane fx:id="feed" prefHeight="42.0" prefWidth="415.0" style="-fx-border-color: gray;" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
