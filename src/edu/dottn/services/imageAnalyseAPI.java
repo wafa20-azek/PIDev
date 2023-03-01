@@ -1,4 +1,4 @@
-package edu.dottn.main;
+package edu.dottn.services;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,21 +13,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-public class imageAnalyse {
-        public static void main(String args[]) throws IOException{
-            System.out.println(imageAnalyse());
-            
-        }
+public class imageAnalyseAPI {
+       
         
-        public static boolean imageAnalyse() throws IOException{
+        public static boolean imageAnalyse(String path) throws IOException{
             OkHttpClient client = new OkHttpClient();
-            
-            File file = new File("C:\\Users\\Saif\\Desktop\\2.jpg");
+            System.out.println(path);
+            File file = new File(path);
             byte[] fileContent = Files.readAllBytes(file.toPath());
 
         RequestBody body = new MultipartBody.Builder()
 	.setType(MultipartBody.FORM)
-	.addFormDataPart("image","C:\\Users\\Saif\\Desktop\\2.jpg" ,
+	.addFormDataPart("image",path ,
 	RequestBody.create(MediaType.parse("text/plain"),fileContent ))
 	.build();
 
@@ -47,13 +44,13 @@ public class imageAnalyse {
             JSONArray entities = firstResult.getJSONArray("entities");
             JSONObject firstEntity = entities.getJSONObject(0);
             JSONObject classes = firstEntity.getJSONObject("classes");
-            double nsfw = classes.getDouble("nsfw");
-            System.out.println(nsfw);
-            if (nsfw>0.8){
-                return false;
+            double sfw = classes.getDouble("sfw");
+            System.out.println(sfw);
+            if (sfw>0.5){
+                return true;
             }
          
-        return true;
+        return false;
         }
        
 }

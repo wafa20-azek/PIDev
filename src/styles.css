@@ -28,7 +28,7 @@
     -fx-underline: true;
 }
 
-#signinbtn ,#updatebtn{
+#signinbtn ,#updatebtn ,#allpostbtn,#myfeedbtn{
     -fx-background-color:#BF5CFF;
     -fx-background-radius: 15;
     
@@ -44,15 +44,12 @@
 
 #uploadbtn{
     -fx-background-color:#BF5CFF;
-    
-   
     -fx-background-radius: 15;
     -fx-text-fill:white;  
 }
 
 #uploadbtn:hover{
     -fx-background-color:#002885;
-    
     -fx-background-radius: 20;
     -fx-text-fill:white;  
 }
@@ -61,7 +58,6 @@
     -fx-border-color: #BF5CFF;
     -fx-border-radius: 15;
     -fx-text-fill:white;  
-
 }
 
 #homebtn:hover ,#messagesbtn:hover {
@@ -70,15 +66,16 @@
 }
 
 
-#signinbtn:hover,#updatebtn:hover {
+#signinbtn:hover,#updatebtn:hover ,#allpostbtn:hover,#myfeedbtn:hover{
     -fx-background-color: #002885;
     -fx-text-fill: white;
+    -fx-cursor:hand;
 }
 
 #logouttext:hover{
     -fx-text-fill: #BF5CFF;
 }
-#signupbtn:hover{
+#signupbtn:hover {
    -fx-background-radius: 15;
     -fx-background-color:#BF5CFF;
 }
@@ -172,6 +169,42 @@
 .scroll-pane > .scroll-bar:vertical > .thumb {
     -fx-background-color: #BF5CFF; 
 }
+
+/* Styles for the anchor pane */
+.post {
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+ 
+}
+
+/* Styles for the label */
+.post-label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+/* Styles for the label on hover */
+.post-label:hover {
+    -fx-text-fill: #FFFFFF;
+   
+}
+
+/* Styles for the anchor pane on hover */
+.post:hover {
+    -fx-cursor: hand;
+     -fx-background-radius: 15px;
+     -fx-border-color: blue;
+     -fx-background-color: #BF5CFF;
+}
+
+/* Styles for the anchor pane on click */
+.post:pressed {
+    -fx-background-color: #CCCCCC;
+}
+
 
 
 
