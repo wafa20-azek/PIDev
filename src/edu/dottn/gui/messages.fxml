@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
@@ -41,6 +42,8 @@
           
       </AnchorPane>
       <Separator layoutX="342.0" layoutY="92.0" prefHeight="6.0" prefWidth="847.0" />
-      <TextField fx:id="searchField" layoutX="308.0" layoutY="112.0" prefHeight="33.0" prefWidth="218.0" promptText="search a conversation" /> 
+      <TextField fx:id="searchField" layoutX="308.0" layoutY="112.0" prefHeight="33.0" prefWidth="218.0" promptText="search a conversation" />
+      <TextField fx:id="searchMessage" layoutX="614.0" layoutY="112.0"  prefHeight="33.0" prefWidth="341.0" promptText="search a message" />
+      <Button fx:id="searchMatchingMessage" layoutX="965.0" layoutY="113.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" text="search" /> 
    </children>
 </AnchorPane>

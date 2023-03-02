@@ -18,6 +18,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,8 @@ public class MessagesController implements Initializable {
     private TextField searchField;
     @FXML
     private ImageView imageuser;
+    @FXML
+    private TextField searchMessage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -98,6 +101,8 @@ public class MessagesController implements Initializable {
         imageuser.setImage(image);
         } catch (MalformedURLException ex) {
         }
+        
+        
         
         
         
@@ -167,6 +172,8 @@ public class MessagesController implements Initializable {
         // display conversation with selectedUser
         conversation = messageServices.getConversation( loggedInAssociation.getId(),selectedUser.getIdUser());
         displayConversation(conversation);
+    
+    
     }
 });
 
@@ -179,6 +186,7 @@ private void displayConversation(List<Message> messages) {
     root.setPadding(new Insets(10));
     root.setSpacing(10);
     messageArea.getChildren().clear();
+    
    
 
     for (Message message : messages) {
@@ -207,8 +215,9 @@ private void displayConversation(List<Message> messages) {
         messageBox.setOnContextMenuRequested(event ->{
             contextMenu.show(label, event.getScreenX(), event.getScreenY());
         });
+   
     }
-    
+   
 
 }
 
@@ -230,8 +239,7 @@ private void displayConversation(List<Message> messages) {
         displayConversation(conversation);
 
         messageInput.clear();
-    }
-}
+    }}
 
 
 }

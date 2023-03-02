@@ -133,10 +133,8 @@ public class ProfileController implements Initializable {
         String title = titleLabel.getText();
         boolean match = title.toLowerCase().contains(searchText.toLowerCase());
         feed1.setVisible(match);
-        feed1.setManaged(match);
-      
-        
-    }
+        feed1.setManaged(match);   
+        }
     }
     
     private void refreshPosts() {
@@ -169,9 +167,9 @@ public class ProfileController implements Initializable {
             }
 
             feedBox.getChildren().add(feed1);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
     }
 }
 

@@ -99,13 +99,13 @@ public class FXMLController implements Initializable {
         }
             
         
-       }
+    }
       
     public Association authenticate(String username, String password) {
             AssociationServices as = new AssociationServices();
             Association association = as.Signin(username, password);
             return association;
-}
+    }
 
     
 }

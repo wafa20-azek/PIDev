@@ -26,13 +26,10 @@ public class sceneMain extends Application {
             alert.setHeaderText("App is already running");
             alert.showAndWait();
              System.exit(0);
-            
         }else {
-            lockFile.createNewFile();   
-        }
-        loggedInAssociation = as.getLoggedInAssociation();
+            loggedInAssociation = as.getLoggedInAssociation();
         if (loggedInAssociation == null){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/FXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/hero.fxml"));
             Parent root = loader.load();
 
             Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
@@ -61,10 +58,11 @@ public class sceneMain extends Application {
         primaryStage.show();
         }
 
-     
         primaryStage.setOnCloseRequest(e -> {
              lockFile.delete();
         });
+            lockFile.createNewFile();   
+        }  
     }
 
     public static void main(String[] args) {
