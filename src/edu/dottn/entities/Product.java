@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,7 +7,9 @@
 package edu.dottn.entities;
 
 
+import edu.dottn.services.MemberServices;
 import edu.dottn.services.SubCategoryServices;
+
 
 /**
  *
@@ -22,20 +25,23 @@ public class Product {
     private float price;
     private SubCategory subcategory=new SubCategory();
     private SubCategoryServices cs= new SubCategoryServices();
-    private int iduser;
+    User user= new User();
+    MemberServices us = new MemberServices();
+   
+    
     
     //les constructeurs
 
     public Product() {
     }
 
-    public Product(String Name, String Description, String image, float price, SubCategory subcategory,int iduser) {
+    public Product(String Name, String Description, String image, float price, SubCategory subcategory, User user) {
         this.Name = Name;
         this.Description = Description;
         this.image = image;
         this.price = price;
         this.subcategory= subcategory;
-        this.iduser=iduser;
+        this.user=user;
     }
 
     public Product(int id, String Name, String Description, String image, float price, int idsbucategory, int iduser) {
@@ -45,7 +51,7 @@ public class Product {
         this.image = image;
         this.price = price;
         this.subcategory= cs.getById(idsbucategory);
-        this.iduser=iduser;
+        this.user=us.getOneById(iduser);
     }
     
     //les getters et setters
@@ -74,8 +80,8 @@ public class Product {
         return subcategory;
     }
 
-    public int getIduser() {
-        return iduser;
+    public User getUser() {
+        return user;
     }
     
 
@@ -99,6 +105,11 @@ public class Product {
     public void setSubcategory(SubCategory subcategory) {
         this.subcategory = subcategory;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
 
    
     

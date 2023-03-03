@@ -6,6 +6,7 @@
 package edu.dottn.gui;
 
 import edu.dottn.entities.Product;
+import edu.dottn.entities.User;
 import edu.dottn.services.ProductServices;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class ListproductFXMLController implements Initializable {
     private Button btnaddproduct;
     @FXML
     private Button btnhome;
-
+User user = new User();
     /**
      * Initializes the controller class.
      */
@@ -108,28 +109,12 @@ public class ListproductFXMLController implements Initializable {
      }
     @FXML
     private void goaddproduct(ActionEvent event) {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/addproductFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        btnaddproduct.getScene().setRoot(root);
+        NavigationController.changeAddproductPage(event, user, "addproductFXML.fxml");
     }
 
     @FXML
     private void home(ActionEvent event) {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/feedproductFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        btnhome.getScene().setRoot(root);
+        NavigationController.changeFeedPage(event, user, "feedproductFXML.fxml");
     }
 
     private void onupdateclick(Product pu) {
@@ -145,6 +130,10 @@ public class ListproductFXMLController implements Initializable {
         upc.setproduct(pu);
         
         btnaddproduct.getScene().setRoot(root);
+    }
+
+    void setInformation(User u) {
+        user =u;
     }
     
 }

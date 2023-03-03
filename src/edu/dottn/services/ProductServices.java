@@ -44,7 +44,7 @@ public class ProductServices implements IservicesProduct<Product>{
             pr.setString(3, p.getImage());
             pr.setFloat(4, p.getPrice());
             pr.setInt(5,p.getSubCategory().getId() );
-            pr.setInt(6,p.getIduser() );
+            pr.setInt(6,p.getUser().getIdUser() );
             pr.executeUpdate();
             System.out.println("Product added");
         } catch (SQLException ex) {
@@ -84,7 +84,7 @@ public class ProductServices implements IservicesProduct<Product>{
             pr.setString(3, p.getImage());
             pr.setFloat(4, p.getPrice());
             pr.setInt(5,  p.getSubCategory().getId());
-            pr.setInt(6, p.getIduser());
+            pr.setInt(6, p.getUser().getIdUser());
              pr.setInt(7, p.getId());
             pr.executeUpdate();
             System.out.println("Product with id:  "+p.getId()+" has been modified ");
@@ -153,7 +153,7 @@ public List<Product> getByCategory(String category) {
     }
      public List<Product> getByIdUser(int iduser) {
          try {     
-            lp=this.getAll().stream().filter(s->s.getIduser()==iduser).collect(Collectors.toList());
+            lp=this.getAll().stream().filter(s->s.getUser().getIdUser()==iduser).collect(Collectors.toList());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -170,7 +170,7 @@ public List<Product> getByCategory(String category) {
             pr.setString(3, p.getImage());
             pr.setFloat(4, p.getPrice());
             pr.setInt(5,  p.getSubCategory().getId());
-            pr.setInt(6, p.getIduser());
+            pr.setInt(6, p.getUser().getIdUser());
              ResultSet result =pr.executeQuery();
              while (result.next()) {
                b=true;

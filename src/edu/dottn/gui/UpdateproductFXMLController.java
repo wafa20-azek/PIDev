@@ -8,6 +8,7 @@ package edu.dottn.gui;
 import edu.dottn.entities.Category;
 import edu.dottn.entities.Product;
 import edu.dottn.entities.SubCategory;
+import edu.dottn.entities.User;
 import edu.dottn.services.CategoryServices;
 import edu.dottn.services.ProductServices;
 import edu.dottn.services.SubCategoryServices;
@@ -70,7 +71,7 @@ public class UpdateproductFXMLController implements Initializable {
     String imagename;
     @FXML
     private Button btncancel;
-
+User user = new User();
     /**
      * Initializes the controller class.
      */
@@ -90,9 +91,11 @@ public class UpdateproductFXMLController implements Initializable {
         
 
     }    
-
+public void setInformation(User u) {
+         user = u;
+    }
     public void setproduct(Product product){
-          p=new Product(product.getId(),product.getName(),product.getDescription(),product.getImage(),product.getPrice(),product.getSubCategory().getId(),product.getIduser());
+          p=new Product(product.getId(),product.getName(),product.getDescription(),product.getImage(),product.getPrice(),product.getSubCategory().getId(),user.getIdUser());
           System.out.println(p);
           inputcontrol.setText("");
         System.out.println(p);

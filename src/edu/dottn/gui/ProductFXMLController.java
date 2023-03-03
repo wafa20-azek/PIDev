@@ -6,6 +6,7 @@
 package edu.dottn.gui;
 
 import edu.dottn.entities.Product;
+import edu.dottn.entities.User;
 import edu.dottn.services.SubCategoryServices;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,7 +38,7 @@ public class ProductFXMLController implements Initializable {
     private Label subcategory;
     @FXML
     private ImageView image;
-  
+  User user = new User();
     /**
      * Initializes the controller class.
      */
@@ -47,7 +48,7 @@ public class ProductFXMLController implements Initializable {
     }
 
     void setproduct(Product p) {
-        p = new Product(p.getId(), p.getName(), p.getDescription(), p.getImage(), p.getPrice(), p.getSubCategory().getId(), p.getIduser());
+        p = new Product(p.getId(), p.getName(), p.getDescription(), p.getImage(), p.getPrice(), p.getSubCategory().getId(), user.getIdUser());
 
         title.setText(p.getName());
         description.setText(p.getDescription());
@@ -57,5 +58,9 @@ public class ProductFXMLController implements Initializable {
          Image image1 = new Image("file:src/assets/" + p.getImage());
          image.setImage(image1);
     }
+     public void setInformation(User u) {
+         user = u;
+    }
+
 
 }

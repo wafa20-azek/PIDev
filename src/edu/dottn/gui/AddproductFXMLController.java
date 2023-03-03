@@ -8,6 +8,7 @@ package edu.dottn.gui;
 import edu.dottn.entities.Category;
 import edu.dottn.entities.Product;
 import edu.dottn.entities.SubCategory;
+import edu.dottn.entities.User;
 import edu.dottn.services.CategoryServices;
 import edu.dottn.services.ProductServices;
 import edu.dottn.services.SubCategoryServices;
@@ -72,7 +73,7 @@ public class AddproductFXMLController implements Initializable {
     private Button btnlistproduct;
     @FXML
     private Button btnhome;
-
+  User user = new User();
     /**
      * Initializes the controller class.
      */
@@ -110,7 +111,9 @@ inputcontrol.setText("");
 
         subcategory.setItems(FXCollections.observableArrayList(l1));
     }
-
+ public void setInformation(User u) {
+         user = u;
+    }
     @FXML
     private void AddProduct(ActionEvent event) {
        
@@ -141,7 +144,7 @@ inputcontrol.setText("");
         List<SubCategory> l = (List<SubCategory>) scs.getByName(subcategory.getValue());
         float value=Float.parseFloat(tfValue.getText());
         
-        Product p = new Product(tfName.getText(), tfDescription.getText(), imagename,value , l.get(0),1);
+        Product p = new Product(tfName.getText(), tfDescription.getText(), imagename,value , l.get(0),user);
         System.out.println(p);
         ProductServices ps = new ProductServices();
         if (ps.exist(p)==null){

@@ -8,7 +8,9 @@ package edu.dottn.gui;
 import edu.dottn.entities.Category;
 import edu.dottn.entities.Product;
 import edu.dottn.entities.SubCategory;
+import edu.dottn.entities.User;
 import edu.dottn.services.CategoryServices;
+import edu.dottn.services.MemberServices;
 import edu.dottn.services.ProductServices;
 import edu.dottn.services.SubCategoryServices;
 import java.io.IOException;
@@ -52,7 +54,8 @@ public class FeedproductFXMLController implements Initializable {
      ProductServices ps = new ProductServices();
     CategoryServices cs = new CategoryServices();
     SubCategoryServices scs = new SubCategoryServices();
-
+    MemberServices us=new MemberServices();
+    User user = new User();
 
     @FXML
     private TextField tfserchbyname;
@@ -94,16 +97,8 @@ public class FeedproductFXMLController implements Initializable {
 
 
 
-    private void listproducts(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/listproductFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        feed.getScene().setRoot(root);
+    public void listproducts(ActionEvent event) {
+       NavigationController.changeMyproductsPage(event, user, "listproductFXML.fxml");
     }
 
     
@@ -238,6 +233,10 @@ public class FeedproductFXMLController implements Initializable {
         ProductFXMLController pc=loader.getController();
 pc.setproduct(p);
         feed.getScene().setRoot(root);
+    }
+
+    public void setInformation(User u) {
+        user=u;
     }
 
 }
