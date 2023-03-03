@@ -142,7 +142,6 @@ public class ListproductFXMLController implements Initializable {
         }
 
         UpdateproductFXMLController upc = loader.getController();
-        System.out.println(pu);
         upc.setproduct(pu);
         
         btnaddproduct.getScene().setRoot(root);

@@ -23,6 +23,7 @@ public class Main {
     public static void main(String[] args) {
 
      ProductServices ps = new ProductServices();
+        System.out.println(ps.getByName("j"));
        //Product p= new Product("product byciclette","oifzqio f i","image1",128.5f);
 //        Product p1= new Product("product2","oifzqio f i","image1",128f);
         //Product p2= new Product("product3 byciclette","oifzqio f i","image1",12.5f);
@@ -47,10 +48,10 @@ public class Main {
 //        cs.addCategory(c3);
 //        cs.addCategory(c4);
    //     cs.removeCategory(1);
-        SubCategoryServices cc= new SubCategoryServices();
+       // SubCategoryServices cc= new SubCategoryServices();
 //SubCategory c = new SubCategory("meuble", 2);
 //cc.addSubCategory(c);
-System.out.println(cc.getAllByIdCategory(2)); 
+//System.out.println(cc.getAllByIdCategory(2)); 
 
 //        System.out.println(cs.getById(2));
 //        System.out.println(cs.getAllById());

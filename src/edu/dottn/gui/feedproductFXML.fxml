@@ -9,10 +9,9 @@
 <BorderPane id="BorderPane" prefHeight="800.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.FeedproductFXMLController">
    
    <top>
-       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+       <AnchorPane prefHeight="200.0" prefWidth="1023.0" BorderPane.alignment="CENTER">
          <AnchorPane fx:id="filter" layoutX="310.0" layoutY="119.0" prefHeight="66.0" prefWidth="591.0" />
-         <Button fx:id="btnlistproduct" layoutX="938.0" layoutY="136.0" mnemonicParsing="false" onAction="#listproducts" prefHeight="31.0" prefWidth="127.0" text="my products" />      <Button fx:id="addproduct" layoutX="1090.0" layoutY="136.0" mnemonicParsing="false" onAction="#gotoaddproduct" prefHeight="31.0" prefWidth="120.0" text="Add product" />
-         <TextField fx:id="tfserchbyname" layoutX="376.0" layoutY="69.0" onAction="#searchbyname" prefHeight="31.0" prefWidth="379.0" promptText="type name,..." />
+         <TextField fx:id="tfserchbyname" layoutX="376.0" layoutY="69.0" prefHeight="31.0" prefWidth="379.0" promptText="type name,..." />
 </AnchorPane>
    </top>
    <center>
@@ -21,9 +20,10 @@
       </javafx.scene.control.ScrollPane>
    </center>
    <left>
-      <AnchorPane prefHeight="738.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="715.0" prefWidth="206.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnexplore" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" onAction="#showfilters" prefHeight="125.0" prefWidth="192.0" text="Explore" />
+            <Button fx:id="btninventory" layoutX="12.0" layoutY="208.0" mnemonicParsing="false" onAction="#listproducts" prefHeight="125.0" prefWidth="192.0" text="Inventory" />
          </children></AnchorPane>
    </left>
    

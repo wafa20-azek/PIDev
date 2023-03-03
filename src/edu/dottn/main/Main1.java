@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -21,11 +22,13 @@ public class Main1 extends Application {
     public void start(Stage primaryStage) throws Exception {
         
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/feedproductFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/dashboardproducFXML.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root,1250,800);
+     
             primaryStage.setScene(scene);
             primaryStage.setTitle("troctn");
+            
             primaryStage.show();
             
             

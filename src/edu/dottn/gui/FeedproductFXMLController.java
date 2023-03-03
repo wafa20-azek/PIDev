@@ -33,6 +33,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import org.json.JSONException;
 
 /**
@@ -42,18 +43,16 @@ import org.json.JSONException;
  */
 public class FeedproductFXMLController implements Initializable {
 
-    @FXML
-    private Button addproduct;
+   
     @FXML
     private AnchorPane feed;
     @FXML
     private AnchorPane filter;
 
-    private ProductServices ps = new ProductServices();
+     ProductServices ps = new ProductServices();
     CategoryServices cs = new CategoryServices();
     SubCategoryServices scs = new SubCategoryServices();
-    @FXML
-    private Button btnlistproduct;
+
 
     @FXML
     private TextField tfserchbyname;
@@ -69,13 +68,14 @@ public class FeedproductFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        feed.setStyle("-fx-background-color:#FFFFFF");
         l = ps.getAll();
         loadproducts(l);
-
+        tfserchbyname.setOnKeyTyped(e-> { searchbyname(tfserchbyname.getText());
+            });
+        
     }
 
-    @FXML
     private void initialiateSubCategory(String categoryname) {
         List<String> l2 = new ArrayList<>();
         subcategory.setItems(FXCollections.observableArrayList(l2));
@@ -92,21 +92,8 @@ public class FeedproductFXMLController implements Initializable {
         subcategory.setItems(FXCollections.observableArrayList(l2));
     }
 
-    @FXML
-    private void gotoaddproduct(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/addproductFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        addproduct.getScene().setRoot(root);
 
-    }
-
-    @FXML
     private void listproducts(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/listproductFXML.fxml"));
         Parent root = null;
@@ -116,17 +103,17 @@ public class FeedproductFXMLController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        addproduct.getScene().setRoot(root);
+        feed.getScene().setRoot(root);
     }
 
-    @FXML
-    private void searchbyname(ActionEvent event) {
+    
+    private void searchbyname(String t) {
+        System.out.println(t);
         l.clear();
-        l = ps.getByName(tfserchbyname.getText());
+        l = ps.getByName(t);
         loadproducts(l);
     }
 
-    @FXML
     private void searchbycategory(ActionEvent event) {
         initialiateSubCategory(category.getValue());
         l.clear();
@@ -134,7 +121,6 @@ public class FeedproductFXMLController implements Initializable {
         loadproducts(l);
     }
 
-    @FXML
     private void searchbysubcategory(ActionEvent event) {
         l.clear();
         l = ps.getBySubCategory(subcategory.getValue());
@@ -142,9 +128,13 @@ public class FeedproductFXMLController implements Initializable {
     }
 
     public void loadproducts(List<Product> l) {
+        GridPane gp= new GridPane();
+        gp.setPrefWidth(1044);
         feed.getChildren().clear();
         float x = 20, y = 20;
+        int k=0;
         for (int i = 0; i < l.size(); i++) {
+           
             AnchorPane anchorpane = new AnchorPane();
             Image image = new Image("file:src/assets/" + l.get(i).getImage(), 200, 200, false, false);
             ImageView iv = new ImageView(image);
@@ -155,14 +145,24 @@ public class FeedproductFXMLController implements Initializable {
             String s = String.valueOf(l.get(i).getPrice());
             Label value = new Label(s);
             anchorpane.setLayoutX(x);
+            
             iv.setLayoutY(y);
             title.setLayoutY(y + 210);
 
             value.setLayoutY(y + 240);
             Description.setLayoutY(y + 260);
+            Description.setWrapText(true);
+            Description.setMaxWidth(225);
             Translate.setLayoutY(y + 280);
             String t=l.get(i).getDescription();
-            
+            Product p=l.get(i);
+             anchorpane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    product(p);
+                }
+            });
+           
             Translate.setOnMouseClicked((MouseEvent MouseEvent) -> {
                 try {
                     System.out.println("hello");
@@ -176,16 +176,20 @@ public class FeedproductFXMLController implements Initializable {
                 }
             });
             anchorpane.getChildren().addAll(iv, title, Description, value,Translate);
-            feed.getChildren().addAll(anchorpane);
+            if (k==3)
+                k=0;
+            gp.addColumn(k,anchorpane);
+            k++;
+           
+            
             x += 300;
-
            
 
-        }
+        }        feed.getChildren().addAll(gp);
+
 
     }
 
-    @FXML
     public void showfilters(ActionEvent event) {
 
         List<Category> l1 = cs.getAll();
@@ -220,6 +224,20 @@ public class FeedproductFXMLController implements Initializable {
     private String translatedescription(String description) throws IOException, JSONException {
         
         return ps.translate(description);
+    }
+    
+    private void product(Product p) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/productFXML.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ProductFXMLController pc=loader.getController();
+pc.setproduct(p);
+        feed.getScene().setRoot(root);
     }
 
 }
