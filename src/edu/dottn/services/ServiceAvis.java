@@ -90,5 +90,15 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
         return null;
 
     }
+//      public static String getRatingStars(int rating) {
+//        StringBuilder stars = new StringBuilder();
+//        for (int i = 0; i < rating; i++) {
+//            stars.append("★"); // ajoute une étoile pleine
+//        }
+//        for (int i = rating; i < 5; i++) {
+//            stars.append("☆"); // ajoute une étoile vide
+//        }
+//        return stars.toString();
+//    }
 
 }

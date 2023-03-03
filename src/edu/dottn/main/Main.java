@@ -13,6 +13,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import edu.dottn.entities.Avis_Offer;
 import edu.dottn.entities.Offre;
 import edu.dottn.services.ServiceAvis;
+//import static edu.dottn.services.ServiceAvis.getRatingStars;
 import edu.dottn.services.ServiceOffre;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,8 +30,10 @@ public class Main {
 // private static String FILE = "offre.pdf";
     public static void main(String[] args) {
         
-       
-        
+//       
+//        int rating = 3;
+//        String stars = getRatingStars(rating);
+//        System.out.println(stars);
 //        Document document = new Document();
 //     try {
 //         PdfWriter.getInstance(document, new FileOutputStream(FILE));
@@ -43,15 +46,23 @@ public class Main {
 //         document.close();
          
                  
-//  Offre o4= new Offre(11,5,5,"Mahmoud", "On_Hold");
-//  Offre o5= new Offre(14478,17889,380, 11, "Mahmoud", "On_Hold");
-//  Offre o6= new Offre(14,178,3800, 101, "taha", "On_Hold");
-//  Offre o7= new Offre(14,178,3440, 1401, "taha", "On_Hold");
+  Offre o4= new Offre(11,5,5,"Mahmoud", "On_Hold");
+  Offre o5= new Offre(14478,17889,380, 11, "Nour", "On_Hold");
+  Offre o6= new Offre(14,178,3800, 101, "Maram", "On_Hold");
+  Offre o7= new Offre(14,178,3440, 1401, "taha", "On_Hold");
+  Offre o1= new Offre(14,178,3440, 1401, "adnen", "Accepted");
+  Offre o2= new Offre(14,178,3440, 1401, "Eya", "Accepted");
 //  
 //  
-//  
-//        ServiceOffre so = new ServiceOffre();
-////        so.ajouterOffre(o6);
+  
+        ServiceOffre so = new ServiceOffre();
+        so.ajouterOffre(o4);
+        so.ajouterOffre(o5);
+        so.ajouterOffre(o6);
+        so.ajouterOffre(o7);
+        so.ajouterOffre(o6);
+        so.ajouterOffre(o1);
+        so.ajouterOffre(o2);
 //        so.modifierOffre(o7);
 ////        
 //      
@@ -91,7 +102,7 @@ public class Main {
 ////////        so.modifierOffre(o, "Accepted");
 ////////
 //  so.getBYStatus("On_Hold");
-//  so.getBYStatus("Accepted");
+  so.getBYStatus("Accepted");
 
 //       if ( so.verifierOffre(o4)==null){
 //          so.ajouterOffre(o4);

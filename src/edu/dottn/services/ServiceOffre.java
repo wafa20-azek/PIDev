@@ -5,6 +5,7 @@
  */
 package edu.dottn.services;
 
+import com.itextpdf.text.Element;
 import com.itextpdf.text.pdf.PdfWriter;
 import edu.dottn.entities.Offre;
 import edu.dottn.util.MyConnection;
@@ -27,22 +28,28 @@ import javax.swing.event.UndoableEditListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import com.itextpdf.text.Document;
-import javax.swing.text.Element;
+
 import javax.swing.text.Position;
 import javax.swing.text.Segment;
 import static sun.misc.MessageUtils.where;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
+
 import com.itextpdf.text.Phrase;
 import java.awt.Desktop;
 import java.io.File;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+import java.io.FileOutputStream;
 
 /*
  * @author bochr
@@ -94,7 +101,7 @@ public class ServiceOffre implements Oservice<Offre> {
     @Override
     public void modifierOffre(Offre o) {
         try {
-            String req ="UPDATE `offre` SET `ID_Product`='"+o.getID_Product()+"',`idUser`='"+o.getIdUser()+"',`ID_Product1`='"+o.getID_Product1()+"',`idUser1`='"+o.getIdUser1()+"',`date_offre`='"+o.getDate_offre()+"'WHERE `status`='On_Hold' ";
+            String req = "UPDATE `offre` SET `ID_Product`='" + o.getID_Product() + "',`idUser`='" + o.getIdUser() + "',`ID_Product1`='" + o.getID_Product1() + "',`idUser1`='" + o.getIdUser1() + "',`date_offre`='" + o.getDate_offre() + "'WHERE `status`='On_Hold' ";
 //            String req = "UPDATE `offre` SET `ID_Product`='" + o.getID_Product() + "',`idUser`='" + o.getIdUser() + "', `date_offre`='" + o.getDate_offre() + "'"" WHERE`status`='On_Hold' ";
             Statement st = con.createStatement();
             st.executeUpdate(req);
@@ -225,12 +232,12 @@ public class ServiceOffre implements Oservice<Offre> {
     }
 
     //rechercher des offres selon le produit
-    public List<Offre> getByProduct(int ID_Product) {
+    public List<Offre> getByProduct(Offre o1) {
         List<Offre> rech1 = null;
         try {
             rech1 = this.getAll()
                     .stream()
-                    .filter(o -> o.getID_Product() == ID_Product)
+                    .filter(o -> o.getID_Product() == o1.getID_Product())
                     .collect(Collectors.toList());
             System.out.println("les recherches de product sont" + rech1);
 
@@ -305,39 +312,85 @@ public class ServiceOffre implements Oservice<Offre> {
     @Override
     public void generatePDF(Offre o) {
         Document document = new Document();
-          String offerFilePath = "offre.pdf";
+        String offerFilePath = "offre.pdf";
+
         try {
             String req = "SELECT * FROM `offre` WHERE  id_offre = " + o.getId_Offre();
 
             Statement statement = con.createStatement();
-            //statement.setInt(1, o.getId_Offre());
-            System.out.println(o.getId_Offre());
             ResultSet resultSet = statement.executeQuery(req);
-            
+
             // Loop through the result set and add data to PDF
             while (resultSet.next()) {
-               
-                //System.out.println(true);
-                // Create a new paragraph and add content to it
-                PdfWriter.getInstance(document, new FileOutputStream(offerFilePath));
-                 document.open();
-                   document.addTitle("My offre");
-                System.out.println(o.getName());
-                String name = resultSet.getString("name");
-                String status = resultSet.getString("status");
-                System.out.println(name);
-               
-                Paragraph paragraph = new Paragraph("cher client " + o.getName() + " vous avez accpté l'offre de " + o.getIdUser1() + " de produit " + o.getID_Product1() + "");
-
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(offerFilePath));
+                document.open();
+                document.addTitle("My offre");
+                Image logo = Image.getInstance("src/img/Logo.png");
+                logo.setAbsolutePosition(20, 770);
+                logo.scaleToFit(150, 150);
+                addEmptyLine(document, 1); // utiliser la méthode addEmptyLine pour les paragraphes
+                document.add(logo);
+                Font f = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLUE);
+                Paragraph p = new Paragraph("My offer ", f);
+                p.setAlignment(Element.ALIGN_CENTER);
+                document.add(p);
+                addEmptyLine(document, 2);
+                Paragraph paragraph = new Paragraph("Cher(e) client(e) " + o.getName() + ",");
                 document.add(paragraph);
+                addEmptyLine(document, 1);
+                Font f1 = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.UNDEFINED, BaseColor.BLACK);
+                paragraph = new Paragraph("Nous vous remercions pour vos echange sur TrocTn Votre echange" + o.getId_Offre() + " a été confirmée avec succès.", f1);
+                addEmptyLine(paragraph, 1);
+                document.add(paragraph);
+                Font f2 = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.UNDEFINED, BaseColor.BLACK);
+                paragraph = new Paragraph("Vous avez accepté l'offre de " + o.getIdUser1() + "de produit " + o.getID_Product1() + "de la date " + o.getDate_offre() + ".", f2);
+                addEmptyLine(paragraph, 1);
+                document.add(paragraph);
+                PdfPTable table = new PdfPTable(2); // Nombre de colonnes
+                table.setWidthPercentage(100); // Largeur de la table
+                table.setSpacingBefore(10f); // Espace avant la table
+                table.setSpacingAfter(10f); // Espace après la table
+                // Ajouter les cellules
+                PdfPCell cell;
+                cell = new PdfPCell(new Phrase("Détails du destinataire" +o.getName()+""));
+                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                table.addCell(cell);
+                cell = new PdfPCell(new Phrase("Adresse Client"));
+                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                table.addCell(cell);
+                 addEmptyLine(paragraph, 2);
+                 Font f3= new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.UNDEFINED, BaseColor.BLACK);
+                paragraph = new Paragraph("Happy shopping ", f3);
+                addEmptyLine(paragraph, 1);
+                document.add(paragraph);
+                Image logo1= Image.getInstance("src/img/signature.png");
+                logo.setAbsolutePosition(20, 770);
+                logo.scaleToFit(150, 150);
+                addEmptyLine(document, 1); // utiliser la méthode addEmptyLine pour les paragraphes
+                document.add(logo1);
+                Image logo2= Image.getInstance("src/img/telecharger.png");
+                logo.setAbsolutePosition(20, 770);
+                logo.scaleToFit(150, 150);
+                addEmptyLine(document, 1); // utiliser la méthode addEmptyLine pour les paragraphes
+                document.add(logo2);
+                
                 document.close();
-           
-
-      
-            }}catch(Exception ex){
+            }
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-     
+    }
+
+    private static void addEmptyLine(Paragraph paragraph, int number) {
+        for (int i = 0; i < number; i++) {
+            paragraph.add(new Paragraph(" "));
+        }
+    }
+
+    private static void addEmptyLine(Document document, int number) throws DocumentException {
+        for (int i = 0; i < number; i++) {
+            document.add(new Paragraph(" "));
+        }
     }
 
 }
