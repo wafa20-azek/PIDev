@@ -28,13 +28,13 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
     @Override
     public void ajouterAvisOffer(Avis_Offer a) {
         try {
-            String req = "INSERT INTO `avis_offre` (`id_offre`,`ID_Product`, `idUser`,`ratting`,`description`) VALUES (?,?,?,?,?)";
+            String req = "INSERT INTO `avis_offre` (`id_offre`,`ID_Product`, `idUser`,`ratting`) VALUES (?,?,?,?)";
             PreparedStatement as = con.prepareStatement(req);
             as.setInt(1,a.getOffer().getId_Offre());
             as.setInt(2, a.getID_Product());
             as.setInt(3, a.getIdUser());
             as.setInt(4, a.getRatting());
-            as.setString(5, a.getDescription());
+//            as.setString(5, a.getDescription());
             as.executeUpdate();
             System.out.println("avis added ");
         } catch (SQLException ex) {
@@ -45,10 +45,10 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
     @Override
     public void modifierAvisOffer(Avis_Offer a) {
         try {
-            String req = "UPDATE `avis_offre` SET `id_offre`='" + a.getOffer().getId_Offre()+ "',`ID_Product`='" + a.getID_Product() + "',`idUser`='" + a.getIdUser() + "',`ratting`='" + a.getRatting() + "',`description`='" + a.getDescription() + "' WHERE `avis_offre`= " + a.getIdavis() + "";
+            String req = "UPDATE `avis_offre` SET `id_offre`='" + a.getOffer().getId_Offre()+ "',`ID_Product`='" + a.getID_Product() + "',`idUser`='" + a.getIdUser() + "',`ratting`='" + a.getRatting() + "' WHERE `avis_offre`= " + a.getIdavis() + "";
             Statement st = con.createStatement();
             st.executeUpdate(req);
-            System.out.println("Offer updated !");
+            System.out.println("Avis updated !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -62,7 +62,7 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
             String req = "DELETE FROM `avis_offre` WHERE  `idavis` =" +a.getIdavis();
             Statement st = con.createStatement();
             st.executeUpdate(req);
-            System.out.println(" Offer deleted !");
+            System.out.println(" Avis deleted !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -81,7 +81,7 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
             while (rs.next()) {
                ServiceOffre so = new ServiceOffre();
                 Offre offer = so.getOneById(rs.getInt(2));
-                System.out.println("Offer getted ");
+                System.out.println("Avis getted ");
                 return new Avis_Offer(rs.getInt(1), offer,rs.getInt(3),rs.getInt(3),rs.getInt(4), rs.getString(5));
             }
         } catch (SQLException ex) {
@@ -90,15 +90,4 @@ public class ServiceAvis implements AvisService<Avis_Offer> {
         return null;
 
     }
-//      public static String getRatingStars(int rating) {
-//        StringBuilder stars = new StringBuilder();
-//        for (int i = 0; i < rating; i++) {
-//            stars.append("★"); // ajoute une étoile pleine
-//        }
-//        for (int i = rating; i < 5; i++) {
-//            stars.append("☆"); // ajoute une étoile vide
-//        }
-//        return stars.toString();
-//    }
-
 }

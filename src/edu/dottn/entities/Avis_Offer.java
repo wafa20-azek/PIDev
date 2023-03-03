@@ -16,17 +16,17 @@ public class Avis_Offer {
     private int ID_Product;
     private int idUser;
     private int ratting	;
-    private String description;
+//    private String description;
 
     public Avis_Offer() {
     }
 
-    public Avis_Offer( Offre offer, int ID_Product, int idUser, int ratting, String description) {
+    public Avis_Offer( Offre offer, int ID_Product, int idUser, int ratting) {
         this.offer = offer;
         this.ID_Product = ID_Product;
         this.idUser = idUser;
         this.ratting = ratting;
-        this.description = description;
+//        this.description = description;
     }
 
     public Avis_Offer(int idavis,Offre offer, int ID_Product, int idUser, int ratting, String description) {
@@ -35,7 +35,7 @@ public class Avis_Offer {
         this.ID_Product = ID_Product;
         this.idUser = idUser;
         this.ratting = ratting;
-        this.description = description;
+//        this.description = description;
     }
 
     public Offre getOffer() {
@@ -56,9 +56,9 @@ public class Avis_Offer {
         return ratting;
     }
 
-    public String getDescription() {
-        return description;
-    }
+//    public String getDescription() {
+//        return description;
+//    }
 
     public int getIdavis() {
         return idavis;
@@ -68,13 +68,13 @@ public class Avis_Offer {
         this.ratting = ratting;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 
     @Override
     public String toString() {
-        return "Avis_Offer{" + "offer=" + offer + ", ID_Product=" + ID_Product + ", idUser=" + idUser + ", ratting=" + ratting + ", description=" + description + '}';
+        return "Avis_Offer{" + "idavis=" + idavis + ", offer=" + offer + ", ID_Product=" + ID_Product + ", idUser=" + idUser + ", ratting=" + ratting + '}';
     }
 
     @Override

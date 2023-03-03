@@ -5,6 +5,7 @@
  */
 package edu.dottn.gui;
 
+import edu.dottn.entities.Avis_Offer;
 import edu.dottn.entities.Offre;
 import edu.dottn.services.ServiceAvis;
 import edu.dottn.services.ServiceOffre;
@@ -54,6 +55,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
+import org.controlsfx.control.Rating;
 import sun.awt.DesktopBrowse;
 
 /**
@@ -96,6 +98,7 @@ public class AfficheOffreFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+      
         // TODO
 //        offreListView.setItems(FXCollections.observableArrayList());
 
@@ -105,13 +108,16 @@ public class AfficheOffreFXMLController implements Initializable {
     private void offerStatus(ActionEvent event) {
         vbox.getChildren().clear();
         List<Offre> listoffre = new ArrayList<>();
+        List<Avis_Offer> listeavis =new ArrayList();
 //        System.out.println(listoffre);
         ServiceOffre so = new ServiceOffre();
-        
+           ServiceAvis sa = new ServiceAvis();
+        Offre o1= new Offre();
 //        offreListView.getItems();
         listoffre = so.getBYStatus("On_Hold");
         System.out.println(listoffre);
         int x = 0, y = 0;
+      
         for (Offre o : listoffre) {
             AnchorPane an = new AnchorPane();
             an.setLayoutX(x + 14);
@@ -124,23 +130,28 @@ public class AfficheOffreFXMLController implements Initializable {
             name.setLayoutY(y + 17);
             date.setLayoutX(x + 100);
             date.setLayoutY(x + 17);
-//         InputStream imgS = getClass().getResourceAsStream("/img/5starsratting.png");
-//            Image img = new Image(imgS,20,20, false, false);
-//            ImageView imv = new ImageView(img);
-//            imv.setOnMouseClicked(MouseEvent -> sa.);
-//            imv.setLayoutX(x + 336);
-//            imv.setLayoutY(y + 8);
+          Avis_Offer a = new Avis_Offer(o,o1.getIdUser(),o1.getID_Product(),0);
+           listeavis.add(a);
+            Rating r = new Rating(3, 0);
+             r.setLayoutX(x+240);
+           r.setLayoutY(y+17);
+  // Ajouter les avis correspondant aux offres dans la liste listeavis
+     r.ratingProperty().addListener((observable, oldValue, newValue) -> {
+        // Mettre à jour la valeur de notation dans la base de données
+        a.setRatting(newValue.intValue());
+        sa.ajouterAvisOffer(a);
+    });
             InputStream imgStream = getClass().getResourceAsStream("/img/331913680_2489949844485663_4749868781026670821_n.png");
             Image img = new Image(imgStream, 25, 25, false, false);
             ImageView imv = new ImageView(img);
             imv.setOnMouseClicked(MouseEvent -> so.AccepterOffre(o));
-            imv.setLayoutX(x + 336);
+            imv.setLayoutX(x + 366);
             imv.setLayoutY(y + 17);
             InputStream imgStream1 = getClass().getResourceAsStream("/img/331325598_530270349096012_5101557465361111528_n.png");
             Image img1 = new Image(imgStream1, 25, 25, false, false);
             ImageView imgv = new ImageView(img1);
             imgv.setOnMouseClicked(MouseEvent -> so.RefuserOffer(o));
-            imgv.setLayoutX(x + 366);
+            imgv.setLayoutX(x + 398);
             imgv.setLayoutY(y + 17);
             InputStream imgStream2 = getClass().getResourceAsStream("/img/modifiericon.png");
             Image imgv1 = new Image(imgStream2, 20, 20, false, false);
@@ -159,13 +170,13 @@ public class AfficheOffreFXMLController implements Initializable {
                 }
             });
             
-            imv1.setLayoutX(x + 398);
+            imv1.setLayoutX(x +435);
             imv1.setLayoutY(y + 17);
             InputStream imgS = getClass().getResourceAsStream("/img/supprimer.png");
             Image im = new Image(imgS, 25, 25, false, false);
             ImageView iv = new ImageView(im);
             iv.setOnMouseClicked(MouseEvent -> so.supprimerOffre(o));
-            iv.setLayoutX(x + 430);
+            iv.setLayoutX(x + 460);
             iv.setLayoutY(y + 17);
             Button btnOn_Hold = new Button("On_Hold");
               an.setOnMouseClicked(MouseEvent -> {
@@ -180,7 +191,7 @@ public class AfficheOffreFXMLController implements Initializable {
                     System.out.println(e.getMessage());}
             });
          
-            an.getChildren().addAll(name, date, imv, imgv, imv1,iv);
+            an.getChildren().addAll(name, date, r,imv, imgv, imv1,iv);
             feed.getChildren().addAll(an);
             vbox.getChildren().add(an);
 
