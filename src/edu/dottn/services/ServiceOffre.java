@@ -85,10 +85,10 @@ public class ServiceOffre implements Oservice<Offre> {
 //supprimer
 
     @Override
-    public void supprimerOffre(int id_Offre) {
+    public void supprimerOffre(Offre o) {
 
         try {
-            String req = "DELETE FROM `offre` WHERE  `id_offre` = " + id_Offre;
+            String req = "DELETE FROM `offre` WHERE  `id_offre` = " +o.getId_Offre();
             Statement st = con.createStatement();
             st.executeUpdate(req);
             System.out.println(" Offer deleted !");
@@ -101,7 +101,7 @@ public class ServiceOffre implements Oservice<Offre> {
     @Override
     public void modifierOffre(Offre o) {
         try {
-            String req = "UPDATE `offre` SET `ID_Product`='" + o.getID_Product() + "',`idUser`='" + o.getIdUser() + "',`ID_Product1`='" + o.getID_Product1() + "',`idUser1`='" + o.getIdUser1() + "',`date_offre`='" + o.getDate_offre() + "'WHERE `status`='On_Hold' ";
+            String req = "UPDATE `offre` SET `ID_Product`='" + o.getID_Product() + "',`idUser`='" + o.getIdUser() + "',`ID_Product1`='" + o.getID_Product1() + "',`idUser1`='" + o.getIdUser1() + "',`date_offre`='" + o.getDate_offre() + "'WHERE `status` ='On_Hold' ";
 //            String req = "UPDATE `offre` SET `ID_Product`='" + o.getID_Product() + "',`idUser`='" + o.getIdUser() + "', `date_offre`='" + o.getDate_offre() + "'"" WHERE`status`='On_Hold' ";
             Statement st = con.createStatement();
             st.executeUpdate(req);
@@ -118,7 +118,7 @@ public class ServiceOffre implements Oservice<Offre> {
 
             try {
 
-                String req = "SELECT * FROM `offre` where status='Accepted'";
+                String req = "SELECT * FROM `offre` where status ='Accepted'";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(req);
 //            System.out.println(test);
@@ -139,7 +139,7 @@ public class ServiceOffre implements Oservice<Offre> {
 
             try {
 
-                String req = "SELECT * FROM `offre` where status='On_Hold'";
+                String req = "SELECT * FROM `offre` where status ='On_Hold'";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(req);
 //            System.out.println(test);
@@ -159,7 +159,7 @@ public class ServiceOffre implements Oservice<Offre> {
 
             try {
 
-                String req = "SELECT * FROM `offre` where status='Declined'";
+                String req = "SELECT * FROM `offre` where status ='Declined'";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(req);
 //            System.out.println(test);
@@ -311,7 +311,7 @@ public class ServiceOffre implements Oservice<Offre> {
 
     @Override
     public void generatePDF(Offre o) {
-        Document document = new Document();
+        Document document = new Document(PageSize.A4);
         String offerFilePath = "offre.pdf";
 
         try {
@@ -327,7 +327,7 @@ public class ServiceOffre implements Oservice<Offre> {
                 document.addTitle("My offre");
                 Image logo = Image.getInstance("src/img/Logo.png");
                 logo.setAbsolutePosition(20, 770);
-                logo.scaleToFit(150, 150);
+                logo.scaleToFit(137, 42);
                 addEmptyLine(document, 1); // utiliser la méthode addEmptyLine pour les paragraphes
                 document.add(logo);
                 Font f = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.UNDERLINE, BaseColor.BLUE);
@@ -335,45 +335,54 @@ public class ServiceOffre implements Oservice<Offre> {
                 p.setAlignment(Element.ALIGN_CENTER);
                 document.add(p);
                 addEmptyLine(document, 2);
-                Paragraph paragraph = new Paragraph("Cher(e) client(e) " + o.getName() + ",");
+                Paragraph paragraph = new Paragraph("Dear Client  " + o.getName() + ",");
                 document.add(paragraph);
                 addEmptyLine(document, 1);
                 Font f1 = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.UNDEFINED, BaseColor.BLACK);
-                paragraph = new Paragraph("Nous vous remercions pour vos echange sur TrocTn Votre echange" + o.getId_Offre() + " a été confirmée avec succès.", f1);
+                paragraph = new Paragraph("We thank you for your exchange on TrocTn ,your exchange " + o.getId_Offre() + " has been successfully confirmed.", f1);
                 addEmptyLine(paragraph, 1);
                 document.add(paragraph);
                 Font f2 = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.UNDEFINED, BaseColor.BLACK);
-                paragraph = new Paragraph("Vous avez accepté l'offre de " + o.getIdUser1() + "de produit " + o.getID_Product1() + "de la date " + o.getDate_offre() + ".", f2);
-                addEmptyLine(paragraph, 1);
+                paragraph = new Paragraph("You have accepted the offer of  " + o.getIdUser1() + " of product  " + o.getID_Product1() + "  of the date   " + o.getDate_offre() + ".", f2);
+                addEmptyLine(paragraph,1);
                 document.add(paragraph);
-                PdfPTable table = new PdfPTable(2); // Nombre de colonnes
-                table.setWidthPercentage(100); // Largeur de la table
-                table.setSpacingBefore(10f); // Espace avant la table
-                table.setSpacingAfter(10f); // Espace après la table
-                // Ajouter les cellules
-                PdfPCell cell;
-                cell = new PdfPCell(new Phrase("Détails du destinataire" +o.getName()+""));
-                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                table.addCell(cell);
-                cell = new PdfPCell(new Phrase("Adresse Client"));
-                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                table.addCell(cell);
-                 addEmptyLine(paragraph, 2);
-                 Font f3= new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.UNDEFINED, BaseColor.BLACK);
-                paragraph = new Paragraph("Happy shopping ", f3);
-                addEmptyLine(paragraph, 1);
-                document.add(paragraph);
-                Image logo1= Image.getInstance("src/img/signature.png");
-                logo.setAbsolutePosition(20, 770);
-                logo.scaleToFit(150, 150);
-                addEmptyLine(document, 1); // utiliser la méthode addEmptyLine pour les paragraphes
-                document.add(logo1);
-                Image logo2= Image.getInstance("src/img/telecharger.png");
-                logo.setAbsolutePosition(20, 770);
-                logo.scaleToFit(150, 150);
-                addEmptyLine(document, 1); // utiliser la méthode addEmptyLine pour les paragraphes
-                document.add(logo2);
+//                 // Créer un tableau à 3 colonnes
+                PdfPTable table = new PdfPTable(2);
+
+                // Ajouter des en-têtes de colonne
+                PdfPCell cell1 = new PdfPCell(new Paragraph("Détails du destinataire "));
+                PdfPCell cell2 = new PdfPCell(new Paragraph("Adresse"));
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell("Mariem");
+                table.addCell("218 rue abou firas himdani, cite amal Fouchana");//o.getAddress besh tetbadel
+                addEmptyLine(document,2);
+                addEmptyLine(paragraph,1);
+                document.add(table);
                 
+                Image logo1 = Image.getInstance("src/img/signature2.png");
+                logo1.setAbsolutePosition(400,350);
+                logo1.scaleToFit(185,74);
+                addEmptyLine(document,2); // utiliser la méthode addEmptyLine pour les paragraphes
+                document.add(logo1);
+                paragraph = new Paragraph("Have a nice day ", f2);
+                addEmptyLine(paragraph,17);
+                document.add(paragraph);
+                Image logo2 = Image.getInstance("src/img/telechargementapp1.png");
+                logo2.setAbsolutePosition(20,20);
+                logo2.scaleToFit(156, 116);
+                addEmptyLine(document,1); // utiliser la méthode addEmptyLine pour les paragraphes
+                document.add(logo2);
+                Font f3 = new Font(Font.FontFamily.TIMES_ROMAN, 11, Font.UNDEFINED, BaseColor.BLACK);
+                paragraph = new Paragraph("don't forget to follow us :", f3);
+                addEmptyLine(paragraph, 1);
+                paragraph.setAlignment(Element.ALIGN_RIGHT);
+                document.add(paragraph);
+                Image logo3 = Image.getInstance("src/img/fb+insta.png");
+                logo3.setAbsolutePosition(400, 20);
+                logo3.scaleToFit(137, 42);
+                addEmptyLine(document, 1); // utiliser la méthode addEmptyLine pour les paragraphes
+                document.add(logo3);
                 document.close();
             }
         } catch (Exception ex) {

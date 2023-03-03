@@ -15,7 +15,7 @@ public interface Oservice<O> {
 
     public void ajouterOffre(O o);
 
-    public void supprimerOffre(int id_Offre);
+    public void supprimerOffre(O o);
 
     public void modifierOffre(O o);
 

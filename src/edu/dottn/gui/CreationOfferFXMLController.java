@@ -53,8 +53,7 @@ public class CreationOfferFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        InputStream imgStream = getClass().getResourceAsStream("/img/chaise.png");
-        Image img = new Image(imgStream, 45, 45, false, false);
+      
     }
 
     @FXML

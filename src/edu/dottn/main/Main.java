@@ -46,24 +46,26 @@ public class Main {
 //         document.close();
          
                  
-  Offre o4= new Offre(11,5,5,"Mahmoud", "On_Hold");
+//  Offre o4= new Offre(11,5,5,"Mahmoud", "On_Hold");
   Offre o5= new Offre(14478,17889,380, 11, "Nour", "On_Hold");
   Offre o6= new Offre(14,178,3800, 101, "Maram", "On_Hold");
-  Offre o7= new Offre(14,178,3440, 1401, "taha", "On_Hold");
-  Offre o1= new Offre(14,178,3440, 1401, "adnen", "Accepted");
-  Offre o2= new Offre(14,178,3440, 1401, "Eya", "Accepted");
+  Offre o7= new Offre(14,178,3440, 1401, "taha", "Accepted");
+ Offre o1= new Offre(14,178,3440, 1401, "adnen", "Accepted");
+  Offre o2= new Offre(14,178,3440, 1401, "Eya", "Declined");
 //  
 //  
   
         ServiceOffre so = new ServiceOffre();
-        so.ajouterOffre(o4);
-        so.ajouterOffre(o5);
-        so.ajouterOffre(o6);
-        so.ajouterOffre(o7);
-        so.ajouterOffre(o6);
+//        so.modifierOffre(o2);
+        so.modifierOffre(o7);
+//        so.ajouterOffre(o4);
+//        so.ajouterOffre(o5);
+//        so.ajouterOffre(o6);
+//        so.ajouterOffre(o7);
+//        so.ajouterOffre(o6);
         so.ajouterOffre(o1);
-        so.ajouterOffre(o2);
-//        so.modifierOffre(o7);
+//        so.ajouterOffre(o2);
+////        so.modifierOffre(o7);
 ////        
 //      
 //        System.out.println(so.getBYStatus("Accepted"));

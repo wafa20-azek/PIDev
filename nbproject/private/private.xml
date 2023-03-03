@@ -3,16 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/AfficheOffreFXML.fxml</file>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/ModifierOffreFXMLController.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/services/ServiceAvis.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/services/Oservice.java</file>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/Offermain.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/main/Main.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/entities/Avis_Offer.java</file>
+            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/entities/Offre.java</file>
+            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/DetailofferFXML.fxml</file>
+            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/DetailofferFXMLController.java</file>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/CreationOfferFXMLController.java</file>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/services/ServiceOffre.java</file>
             <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/AfficheOffreFXMLController.java</file>
+            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/img/téléchargement%20(1).png</file>
         </group>
     </open-files>
 </project-private>

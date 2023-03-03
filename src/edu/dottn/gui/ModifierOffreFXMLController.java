@@ -60,13 +60,13 @@ public class ModifierOffreFXMLController implements Initializable {
             InputStream imgStream = getClass().getResourceAsStream("/img/tableetchaise.png");
             Image img = new Image(imgStream, 45, 45, false, false);
             ImageView imv4 = new ImageView(img);
-            imv4.setOnMouseClicked(MouseEvent ->  so.getByProduct(o2));
+            imv4.setOnMouseClicked(MouseEvent ->so.getByProduct(o2));
             imv4.setLayoutX(x +14);
             imv4.setLayoutY(y +22);
             InputStream imgStream1 = getClass().getResourceAsStream("/img/téléchargement(1).png");
             Image img1 = new Image(imgStream1, 45, 45, false, false);
             ImageView imgv = new ImageView(img1);
-            imgv.setOnMouseClicked(MouseEvent ->  so.getByProduct(o));
+            imgv.setOnMouseClicked(MouseEvent ->so.getByProduct(o));
             imgv.setLayoutX(x + 6);
             imgv.setLayoutY(y +119);
             Button btnsentrequest = new Button("Modifier");

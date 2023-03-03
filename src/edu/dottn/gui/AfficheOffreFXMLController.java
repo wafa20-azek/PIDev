@@ -45,11 +45,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static javafx.fxml.FXMLLoader.load;
 import static javafx.fxml.FXMLLoader.load;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import sun.awt.DesktopBrowse;
@@ -114,11 +116,12 @@ public class AfficheOffreFXMLController implements Initializable {
             AnchorPane an = new AnchorPane();
             an.setLayoutX(x + 14);
             an.setLayoutY(y + 17);
-            Label title = new Label(o.getName());
+          
+            Label name = new Label(o.getName());
             String s = String.valueOf(o.getDate_offre()); 
             Label date = new Label(s);
-            title.setLayoutX(x + 14);
-            title.setLayoutY(y + 17);
+            name.setLayoutX(x + 14);
+            name.setLayoutY(y + 17);
             date.setLayoutX(x + 100);
             date.setLayoutY(x + 17);
 //         InputStream imgS = getClass().getResourceAsStream("/img/5starsratting.png");
@@ -132,13 +135,13 @@ public class AfficheOffreFXMLController implements Initializable {
             ImageView imv = new ImageView(img);
             imv.setOnMouseClicked(MouseEvent -> so.AccepterOffre(o));
             imv.setLayoutX(x + 336);
-            imv.setLayoutY(y + 8);
+            imv.setLayoutY(y + 17);
             InputStream imgStream1 = getClass().getResourceAsStream("/img/331325598_530270349096012_5101557465361111528_n.png");
             Image img1 = new Image(imgStream1, 25, 25, false, false);
             ImageView imgv = new ImageView(img1);
             imgv.setOnMouseClicked(MouseEvent -> so.RefuserOffer(o));
             imgv.setLayoutX(x + 366);
-            imgv.setLayoutY(y + 8);
+            imgv.setLayoutY(y + 17);
             InputStream imgStream2 = getClass().getResourceAsStream("/img/modifiericon.png");
             Image imgv1 = new Image(imgStream2, 20, 20, false, false);
             ImageView imv1 = new ImageView(imgv1);
@@ -155,11 +158,29 @@ public class AfficheOffreFXMLController implements Initializable {
                     System.out.println(ex.getMessage());
                 }
             });
+            
             imv1.setLayoutX(x + 398);
-            imv1.setLayoutY(y + 10);
-         
+            imv1.setLayoutY(y + 17);
+            InputStream imgS = getClass().getResourceAsStream("/img/supprimer.png");
+            Image im = new Image(imgS, 25, 25, false, false);
+            ImageView iv = new ImageView(im);
+            iv.setOnMouseClicked(MouseEvent -> so.supprimerOffre(o));
+            iv.setLayoutX(x + 430);
+            iv.setLayoutY(y + 17);
             Button btnOn_Hold = new Button("On_Hold");
-            an.getChildren().addAll(title, date, imv, imgv, imv1);
+              an.setOnMouseClicked(MouseEvent -> {
+                try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailofferFXML.fxml"));
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                }catch(Exception e){
+                    System.out.println(e.getMessage());}
+            });
+         
+            an.getChildren().addAll(name, date, imv, imgv, imv1,iv);
             feed.getChildren().addAll(an);
             vbox.getChildren().add(an);
 
@@ -169,14 +190,8 @@ public class AfficheOffreFXMLController implements Initializable {
 
     @FXML
     private void offerStatus1(ActionEvent event) {
-//       vbox.getChildren().clear();
         int x = 0, y = 0;
-//        ServiceOffre so = new ServiceOffre();
-//        List<Offre> listoffre1 = so.getBYStatus("Accepted");
-//
-//        offreListView.getItems();
-//       
-//        System.out.println(listoffre1);
+
         vbox.getChildren().clear();
         List<Offre> listoffre1 = new ArrayList<>();
 //        System.out.println(listoffre);
@@ -212,25 +227,10 @@ public class AfficheOffreFXMLController implements Initializable {
             imv1.setLayoutX(x + 398);
             imv1.setLayoutY(y + 10);
 
-////            offreListView.setCellFactory(param -> new ListCell<Offre>() {
-////                @Override
-////                protected void updateItem(Offre item, boolean empty) {
-////                    super.updateItem(item, empty);
-////
-////                    if (empty || item == null || item.getName() == null || item.getDate_offre() == null) {
-////                        setGraphic(null);
-////                    } else {
-////                        AnchorPane an = new AnchorPane();
-////                        // Ajoutez votre code pour construire la vue de chaque offre ici
-////                        setGraphic(an);
-////                    }
-//                }
-//            });
-
             an.getChildren().addAll(title, value, imv1);
             feed2.getChildren().add(an);
             vbox.getChildren().add(an);
-//            vbox.getChildren().add(offreListView);
+
         }
     }
 
@@ -241,8 +241,7 @@ public class AfficheOffreFXMLController implements Initializable {
     List<Offre> listoffre3 = new ArrayList<>();
     ServiceOffre so = new ServiceOffre();
     listoffre3 = so.getBYStatus("Declined");
-//    offreListView.getItems().clear();
-//    offreListView.getItems().addAll(listoffre3);
+
     for (Offre o : listoffre3) {
         AnchorPane an = new AnchorPane();
         an.setLayoutX(x + 14);
@@ -254,92 +253,14 @@ public class AfficheOffreFXMLController implements Initializable {
         title.setLayoutY(y + 17);
         value.setLayoutX(x + 130);
         value.setLayoutY(x + 17);
-//        offreListView.setCellFactory(param -> new ListCell<Offre>() {
-//            @Override
-//            protected void updateItem(Offre item, boolean empty) {
-//                super.updateItem(item, empty);
-//
-//                if (empty || item == null || item.getName() == null || item.getDate_offre() == null) {
-//                    setGraphic(null);
-//                } else {
-//                    AnchorPane an = new AnchorPane();
-//                    // Ajoutez votre code pour construire la vue de chaque offre ici
-//                    setGraphic(an);
-//                }
-//            }
-//        });
+
         an.getChildren().addAll(title, value);
         feed3.getChildren().add(an);
         vbox.getChildren().add(an);
-    }
-//        int x = 0, y = 0;
-////        ServiceOffre so = new ServiceOffre();
-////        List<Offre> listoffre1 = so.getBYStatus("Accepted");
-////
-////        offreListView.getItems();
-////       
-////        System.out.println(listoffre1);
-//        vbox.getChildren().clear();
-//        List<Offre> listoffre3 = new ArrayList<>();
-////        System.out.println(listoffre);
-//        ServiceOffre so = new ServiceOffre();
-//        listoffre3 = so.getBYStatus("Declined ");
-//        offreListView.getItems().clear();
-//        offreListView.getItems().addAll(listoffre3);
-//        for (Offre o : listoffre3) {
-//            AnchorPane an = new AnchorPane();
-//            an.setLayoutX(x + 14);
-//            an.setLayoutY(y + 17);
-//            Label title = new Label(o.getName());
-//            String s = String.valueOf(o.getDate_offre());
-//            Label value = new Label(s);
-//            title.setLayoutX(x + 14);
-//            title.setLayoutY(y + 17);
-//            value.setLayoutX(x + 130);
-//            value.setLayoutY(x + 17);
-//            offreListView.setCellFactory(param -> new ListCell<Offre>() {
-//                @Override
-//                protected void updateItem(Offre item, boolean empty) {
-//                    super.updateItem(item, empty);
-//
-//                    if (empty || item == null || item.getName() == null || item.getDate_offre() == null) {
-//                        setGraphic(null);
-//                    } else {
-//                        AnchorPane an = new AnchorPane();
-//                        // Ajoutez votre code pour construire la vue de chaque offre ici
-//                        setGraphic(an);
-//                    }
-//                }
-//            });
-//            an.getChildren().addAll(title, value);
-//            feed3.getChildren().add(an);
-//            vbox.getChildren().add(an);
-////            vbox.getChildren().add(offreListView);
-//        }
+}
     }
 
-//        vbox.getChildren().clear();
-//            List<Offre> listoffre2 = new ArrayList<>();
-////        System.out.println(listoffre);
-//            ServiceOffre so = new ServiceOffre();
-//            listoffre2 = so.getBYStatus("Declined");
-//            ObservableList<Offre> items = offreListView.getItems();
-//            items.clear();
-//            items.addAll(listoffre2);
-//            offreListView.setCellFactory(param -> new ListCell<Offre>() {
-//                @Override
-//                protected void updateItem(Offre item, boolean empty) {
-//                    super.updateItem(item, empty);
-//
-//                    if (empty || item == null || item.getName() == null || item.getDate_offre() == null) {
-//                        setText(null);
-//                    } else {
-//                        setText(item.getName() + " - " + item.getDate_offre().toString());
-//                    }
-//                }
-//            });
-//            vbox.getChildren().add(offreListView);
-//        }
+
     @FXML
     private void consulterOffers(ActionEvent event
     ) {
@@ -376,7 +297,8 @@ public class AfficheOffreFXMLController implements Initializable {
             System.out.println("Error :" + e.getMessage());
         }
     }
-
+   
+    
 }
 //    @FXML
 //    private void offerStatus1(ActionEvent event) {
