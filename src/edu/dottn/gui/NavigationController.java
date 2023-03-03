@@ -37,6 +37,53 @@ public class NavigationController {
             System.out.println(ex.getMessage());
         }
     }
+    public static void changeToTwoFactorAuthentication(ActionEvent event,User P, String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            TwoFactorAuthenticationController TFA = loader.getController();
+            TFA.setInformation(P);
+            Scene scene = new Scene(root);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("TwoFactorAuthPage");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    public static void changeProfilePage(ActionEvent event,User P,String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            ProfilePageController Home = loader.getController();
+            Home.setInformation(P);
+            Scene scene = new Scene(root);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("ProfilePage");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    public static void changeForgetPassword(MouseEvent event, String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            
+            Scene scene = new Scene(root);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Forget Password");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
      public static void changeActivatePage(ActionEvent event, String fxmlFile){
         Parent root = null;
         try {

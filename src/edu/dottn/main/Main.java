@@ -8,6 +8,7 @@ package edu.dottn.main;
 import edu.dottn.entities.Admin;
 import edu.dottn.entities.Member;
 import edu.dottn.entities.User;
+import edu.dottn.services.AuthenticationTwoFactor;
 import edu.dottn.services.MemberServices;
 import java.util.Scanner;
 
@@ -23,6 +24,7 @@ public class Main {
     boolean add;
 //        while (true) {
            MemberServices m1 = new MemberServices();
+           
 //            User p6 = m1.verifSession();
 //            if (p6 != null) {
 //                decision = 1;
@@ -60,8 +62,8 @@ public class Main {
 //                    System.out.println("Enter your numero");
 //                    int numero = myObj5.nextInt();
 //
-                   User p5 = new Member("walid","radeq","walidtouj@gmail.com", "aaa", 69369789, 0);
-                 add = m1.ajouterUser(p5);
+//                   User p5 = new Member("walid","radeq","walidtouj@gmail.com", "aaa", 69369789, 0);
+//                 add = m1.ajouterUser(p5);
 //                    decision = 1;
 //                }
 //            }

@@ -5,19 +5,7 @@
  */
 package edu.dottn.services;
 
-//import java.io.BufferedReader;
-//import com.mashape.unirest.http.HttpResponse;
-//import com.mashape.unirest.http.JsonNode;
-//import com.mashape.unirest.http.Unirest;
-//import com.mashape.unirest.http.exceptions.UnirestException;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
-//import java.net.HttpURLConnection;
-//import java.net.URL;
-//import java.nio.charset.StandardCharsets;
-//import java.util.Base64;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//
+
 import com.sendgrid.*;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;

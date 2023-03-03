@@ -12,15 +12,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -41,7 +45,12 @@ public class AdminDashboardController implements Initializable {
     private ImageView image;
     @FXML
     private Label nameAdmin;
-    
+    @FXML
+    private TextField searchId;
+    int columns = 0;
+    int rows = 1;
+    @FXML
+    private CheckBox triId;
 
     /**
      * Initializes the controller class.
@@ -49,32 +58,108 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         m1 = new MemberServices();
+        m1 = new MemberServices();
         CardList = m1.getAllById();
-        int columns = 0;
-        int rows = 1;
+
         for (int i = 0; i < CardList.size(); i++) {
             try {
                 FXMLLoader fxml = new FXMLLoader();
                 fxml.setLocation(getClass().getResource("UserCard.fxml"));
                 VBox cardBox = fxml.load();
-                
-                UserCardController userCard= fxml.getController();
+
+                UserCardController userCard = fxml.getController();
                 userCard.nameLabel(CardList.get(i).getName());
                 userCard.emailLabel(CardList.get(i).getEmail());
-                if(columns == 3){
-                  columns=0;
-                  rows++;
+                if (columns == 3) {
+                    columns = 0;
+                    rows++;
                 }
                 CardGrid.add(cardBox, columns++, rows);
                 GridPane.setMargin(cardBox, new Insets(10));
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
-            
+
         }
+        searchId.textProperty().addListener((obs, oldValue, newValue) -> {
+
+            CardGrid.getChildren().clear();
+            columns = 0;
+            rows = 1;
+            CardList = m1.findUserByNom(newValue);
+            for (int i = 0; i < CardList.size(); i++) {
+                try {
+                    FXMLLoader fxml = new FXMLLoader();
+                    fxml.setLocation(getClass().getResource("UserCard.fxml"));
+                    VBox cardBox = fxml.load();
+
+                    UserCardController userCard = fxml.getController();
+                    userCard.nameLabel(CardList.get(i).getName());
+                    userCard.emailLabel(CardList.get(i).getEmail());
+                    if (columns == 3) {
+                        columns = 0;
+                        rows++;
+                    }
+                    CardGrid.add(cardBox, columns++, rows);
+                    GridPane.setMargin(cardBox, new Insets(10));
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+        triId.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            CardGrid.getChildren().clear();
+            columns = 0;
+            rows = 1;
+            if (newValue) {
+                TreeSet<User> CardListTrie = m1.SortUserByNom();
+                for (User i : CardListTrie) {
+                    try {
+                        FXMLLoader fxml = new FXMLLoader();
+                        fxml.setLocation(getClass().getResource("UserCard.fxml"));
+                        VBox cardBox = fxml.load();
+
+                        UserCardController userCard = fxml.getController();
+                        userCard.nameLabel(i.getName());
+                        userCard.emailLabel(i.getEmail());
+                        if (columns == 3) {
+                            columns = 0;
+                            rows++;
+                        }
+                        CardGrid.add(cardBox, columns++, rows);
+                        GridPane.setMargin(cardBox, new Insets(10));
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+            } else {
+                CardList = m1.getAllById();
+
+                for (int i = 0; i < CardList.size(); i++) {
+                    try {
+                        FXMLLoader fxml = new FXMLLoader();
+                        fxml.setLocation(getClass().getResource("UserCard.fxml"));
+                        VBox cardBox = fxml.load();
+
+                        UserCardController userCard = fxml.getController();
+                        userCard.nameLabel(CardList.get(i).getName());
+                        userCard.emailLabel(CardList.get(i).getEmail());
+                        if (columns == 3) {
+                            columns = 0;
+                            rows++;
+                        }
+                        CardGrid.add(cardBox, columns++, rows);
+                        GridPane.setMargin(cardBox, new Insets(10));
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                }
+            }
+        });
     }
-    public void setInformation(User o){
+
+    public void setInformation(User o) {
         P = o;
         nameAdmin.setText(P.getName());
     }
@@ -82,7 +167,7 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private void adminLogout(MouseEvent event) {
         m1.logOut(P.getIdUser());
-        NavigationController.changeLoginPage(event,"LoginPage.fxml");
+        NavigationController.changeLoginPage(event, "LoginPage.fxml");
     }
 
 }

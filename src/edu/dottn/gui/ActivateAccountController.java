@@ -39,6 +39,9 @@ public class ActivateAccountController implements Initializable {
         if (!codeId.getText().isEmpty()) {
             if(m1.activateAccount(codeId.getText())){
                 NavigationController.changeLoginPage(event,"LoginPage.fxml");
+            }else{
+               Alert b = new Alert(Alert.AlertType.ERROR, "Code Incorrect", ButtonType.CLOSE);
+            b.showAndWait(); 
             }
         } else {
             Alert b = new Alert(Alert.AlertType.ERROR, "Field is empty", ButtonType.CLOSE);

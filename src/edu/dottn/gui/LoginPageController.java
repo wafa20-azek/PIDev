@@ -19,6 +19,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+
 
 /**
  * FXML Controller class
@@ -31,6 +35,9 @@ public class LoginPageController implements Initializable {
     private PasswordField passwordId;
     @FXML
     private TextField emailId;
+    @FXML
+    private Text ForgetId;
+    
 
     /**
      * Initializes the controller class.
@@ -38,14 +45,21 @@ public class LoginPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
+        ForgetId.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent e) {
+                NavigationController.changeForgetPassword(e, "ForgetPassword.fxml");
+                }
+            
+    });}
+    
     @FXML
     private void btnSignUp(ActionEvent event) {
          NavigationController.changeSignUpPage(event,"Inscription.fxml");
     }
     @FXML
     private void btnSignIn(ActionEvent event) {
+         
 
         if (!(emailId.getText().isEmpty() || passwordId.getText().isEmpty())) {
             if (!emailId.getText().contains("@")) {
@@ -55,9 +69,13 @@ public class LoginPageController implements Initializable {
             } else {
                 MemberServices m1 = new MemberServices();
                 User p1 = m1.authenticateUser(emailId.getText(), passwordId.getText());
+               
 
                 if (p1 != null && p1 instanceof Member) {
-                    NavigationController.changeHomePage(event, p1, "HomePage.fxml");
+                    m1.sendCodeAuth(p1.getEmail(), p1.getNumero());
+                   
+                    NavigationController.changeToTwoFactorAuthentication(event, p1, "TwoFactorAuthentication.fxml");
+                    
                 }
                 else if(p1 != null && p1 instanceof Admin){
                    NavigationController.AdminHomePage(event, p1, "AdminDashboard.fxml");

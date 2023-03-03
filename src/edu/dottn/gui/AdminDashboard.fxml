@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -42,7 +44,19 @@
    <right>
       <VBox prefHeight="800.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="75.0" prefWidth="720.0" />
+            <HBox prefHeight="75.0" prefWidth="720.0">
+               <children>
+                  <TextField fx:id="searchId" promptText="Search">
+                     <HBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="triId" mnemonicParsing="false" prefHeight="21.0" prefWidth="87.0" text="Trie">
+                     <HBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </HBox.margin>
+                  </CheckBox>
+               </children></HBox>
             <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #c0c0c0;" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="10.0" right="20.0" />

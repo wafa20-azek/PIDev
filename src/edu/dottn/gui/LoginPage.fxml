@@ -66,6 +66,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Text fx:id="ForgetId" layoutX="207.0" layoutY="441.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forget Your Password">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
          </children></AnchorPane>
    </right>
 </BorderPane>

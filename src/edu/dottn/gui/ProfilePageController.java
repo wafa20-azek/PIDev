@@ -46,7 +46,7 @@ public class ProfilePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        setInformation(1);
+        
 
     }
 
@@ -64,7 +64,7 @@ public class ProfilePageController implements Initializable {
                     numeroId.setStyle("-fx-border-color: red;");
                     Alert b = new Alert(Alert.AlertType.ERROR, "Only 8 digit", ButtonType.CLOSE);
                     b.showAndWait();}
-                    else if(m.UpdatePassword(P.getEmail(), newPassId.getText(),P.getPassword(), oldPassId.getText()).isEmpty()){
+                    else if(m.UpdatePassword(P.getIdUser(), newPassId.getText(),P.getPassword(), oldPassId.getText()).isEmpty()){
                          Alert b = new Alert(Alert.AlertType.ERROR, "Old Password incorrect", ButtonType.CLOSE);
                           b.showAndWait();
                     }
@@ -74,7 +74,7 @@ public class ProfilePageController implements Initializable {
                      P.setEmail(emailId.getText());
                      P.setName(nameId.getText());
                      P.setNumero(numberid);
-                     P.setPassword(m.UpdatePassword(P.getEmail(), newPassId.getText(),P.getPassword(), oldPassId.getText()));
+                     P.setPassword(m.UpdatePassword(P.getIdUser(), newPassId.getText(),P.getPassword(), oldPassId.getText()));
                       MemberServices m1 = new MemberServices();
                       m1.modifierUser(P);
                       //if (add) {
@@ -128,9 +128,9 @@ public class ProfilePageController implements Initializable {
         }
     }
 
-    public void setInformation(int id) {
-        MemberServices m = new MemberServices();
-        P = m.getOneById(id);
+    public void setInformation(User o) {
+        
+        P = o;
         if (P != null) {
             nameId.setText(P.getName());
             addressId.setText(P.getAddress());
