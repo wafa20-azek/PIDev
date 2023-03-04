@@ -88,7 +88,7 @@ public class ServiceOffre implements Oservice<Offre> {
     public void supprimerOffre(Offre o) {
 
         try {
-            String req = "DELETE FROM `offre` WHERE  `id_offre` = " +o.getId_Offre();
+            String req = "DELETE FROM `offre` WHERE  `id_offre` = " + o.getId_Offre();
             Statement st = con.createStatement();
             st.executeUpdate(req);
             System.out.println(" Offer deleted !");
@@ -270,6 +270,15 @@ public class ServiceOffre implements Oservice<Offre> {
         }
         return null;
     }
+public List<Offre> getOffresByUser(Offre o) {
+    List<Offre> allOffers = getAll(); // Replace with your implementation of getAllOffres()
+
+    List<Offre> offersByUser = allOffers.stream()
+            .filter(offre -> offre.getIdUser()== o.getIdUser())
+            .collect(Collectors.toList());
+
+    return offersByUser;
+}
 
     //trier un offre par status (les offres qui ont reste On Hold
     public List<Offre> sortByDate() {
@@ -344,7 +353,7 @@ public class ServiceOffre implements Oservice<Offre> {
                 document.add(paragraph);
                 Font f2 = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.UNDEFINED, BaseColor.BLACK);
                 paragraph = new Paragraph("You have accepted the offer of  " + o.getIdUser1() + " of product  " + o.getID_Product1() + "  of the date   " + o.getDate_offre() + ".", f2);
-                addEmptyLine(paragraph,1);
+                addEmptyLine(paragraph, 1);
                 document.add(paragraph);
 //                 // Créer un tableau à 3 colonnes
                 PdfPTable table = new PdfPTable(2);
@@ -356,22 +365,22 @@ public class ServiceOffre implements Oservice<Offre> {
                 table.addCell(cell2);
                 table.addCell("Mariem");
                 table.addCell("218 rue abou firas himdani, cite amal Fouchana");//o.getAddress besh tetbadel
-                addEmptyLine(document,2);
-                addEmptyLine(paragraph,1);
+                addEmptyLine(document, 2);
+                addEmptyLine(paragraph, 1);
                 document.add(table);
-                
+
                 Image logo1 = Image.getInstance("src/img/signature2.png");
-                logo1.setAbsolutePosition(400,350);
-                logo1.scaleToFit(185,74);
-                addEmptyLine(document,2); // utiliser la méthode addEmptyLine pour les paragraphes
+                logo1.setAbsolutePosition(400, 350);
+                logo1.scaleToFit(185, 74);
+                addEmptyLine(document, 2); // utiliser la méthode addEmptyLine pour les paragraphes
                 document.add(logo1);
                 paragraph = new Paragraph("Have a nice day ", f2);
-                addEmptyLine(paragraph,17);
+                addEmptyLine(paragraph, 17);
                 document.add(paragraph);
                 Image logo2 = Image.getInstance("src/img/telechargementapp1.png");
-                logo2.setAbsolutePosition(20,20);
+                logo2.setAbsolutePosition(20, 20);
                 logo2.scaleToFit(156, 116);
-                addEmptyLine(document,1); // utiliser la méthode addEmptyLine pour les paragraphes
+                addEmptyLine(document, 1); // utiliser la méthode addEmptyLine pour les paragraphes
                 document.add(logo2);
                 Font f3 = new Font(Font.FontFamily.TIMES_ROMAN, 11, Font.UNDEFINED, BaseColor.BLACK);
                 paragraph = new Paragraph("don't forget to follow us :", f3);

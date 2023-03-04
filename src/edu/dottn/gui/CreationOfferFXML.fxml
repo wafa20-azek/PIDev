@@ -60,7 +60,7 @@
                   <Label layoutX="29.0" layoutY="191.0" prefHeight="17.0" prefWidth="135.0" text="les informations" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="feed1" layoutX="247.0" layoutY="14.0" prefHeight="351.0" prefWidth="200.0" style="-fx-border-color: gray;">
+            <AnchorPane fx:id="sentpart" layoutX="247.0" layoutY="14.0" prefHeight="351.0" prefWidth="200.0" style="-fx-border-color: gray;">
                <children>
                   <Button fx:id="btnsentrequest" layoutX="24.0" layoutY="311.0" mnemonicParsing="false" onAction="#sentRequest" prefHeight="25.0" prefWidth="153.0" style="-fx-background-color: BF5CFF;" text="Sent Request" textFill="WHITE">
                      <font>
@@ -71,7 +71,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <Button fx:id="btnback" layoutX="178.0" layoutY="35.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="67.0" text="Back">
+      <Button fx:id="btnback" layoutX="178.0" layoutY="35.0" mnemonicParsing="false" onAction="#backtomyoffer" prefHeight="23.0" prefWidth="67.0" text="Back">
          <font>
             <Font name="Verdana Bold" size="12.0" />
          </font>
