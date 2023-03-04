@@ -6,8 +6,9 @@
 package edu.dottn.util;
 
 
-
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import java.util.Properties;
  * @author WAFA
  */
 public class MyConnection {
+
     
     // JDBC URL, username and password
     private  final String url = "jdbc:mysql://localhost:3306/troctndb";
@@ -30,6 +32,7 @@ public class MyConnection {
    
     private  static MyConnection instance = null;
 
+
     private MyConnection() {
         try {
             // opening database
@@ -37,8 +40,13 @@ public class MyConnection {
 
             System.out.println("Successfully connected to MySQL database");
         } catch (SQLException sqlEx) {
+
             System.out.println(sqlEx.getMessage());
             
+
+            System.err.println(sqlEx.getMessage());
+
+
         }
     }
 
@@ -46,13 +54,14 @@ public class MyConnection {
         if (instance == null) {
             instance = new MyConnection();
         }
+
         return instance;
     }
 
     public Connection getConnection() {
         return con;
     }
+    
+   
 
-
-  
 }
