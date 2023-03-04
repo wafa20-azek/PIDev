@@ -21,7 +21,7 @@ import java.util.Properties;
  */
 public class MyConnection {
 
-    
+  
     // JDBC URL, username and password
     private  final String url = "jdbc:mysql://localhost:3306/troctndb";
     private  final String user = "root";
@@ -40,10 +40,7 @@ public class MyConnection {
 
             System.out.println("Successfully connected to MySQL database");
         } catch (SQLException sqlEx) {
-
-            System.out.println(sqlEx.getMessage());
             
-
             System.err.println(sqlEx.getMessage());
 
 
@@ -54,14 +51,14 @@ public class MyConnection {
         if (instance == null) {
             instance = new MyConnection();
         }
-
         return instance;
     }
 
     public Connection getConnection() {
         return con;
     }
-    
+
+
    
 
 }

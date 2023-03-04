@@ -2,23 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/ModifierOffreFXMLController.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/img/tablechaise.png</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/services/Oservice.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/Offermain.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/entities/Offre.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/DetailofferFXML.fxml</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/DetailofferFXMLController.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/img/supprimer.png</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/CreationOfferFXMLController.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/img/chaise.png</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/services/ServiceOffre.java</file>
-            <file>file:/C:/Users/bochr/Desktop/PIDev-master/src/edu/dottn/gui/AfficheOffreFXMLController.java</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/AfficheOffreFXML.fxml</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/AfficheOffreFXMLController.java</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/CreationOfferFXMLController.java</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/CreationOfferFXML.fxml</file>
         </group>
->>>>>>> 70d5f95c9914879d8337c924f1e2e6f395fc1e41
     </open-files>
 </project-private>

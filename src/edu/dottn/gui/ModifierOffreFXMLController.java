@@ -56,7 +56,7 @@ public class ModifierOffreFXMLController implements Initializable {
             AnchorPane an = new AnchorPane();
             an.setLayoutX(x);
             an.setLayoutY(y);
-            o2.getID_Product1();
+            o2.getProduct2().getId();
             InputStream imgStream = getClass().getResourceAsStream("/img/tableetchaise.png");
             Image img = new Image(imgStream, 45, 45, false, false);
             ImageView imv4 = new ImageView(img);

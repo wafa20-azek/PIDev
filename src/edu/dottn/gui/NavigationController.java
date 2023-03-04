@@ -5,6 +5,7 @@
  */
 package edu.dottn.gui;
 
+import edu.dottn.entities.Offre;
 import edu.dottn.entities.Product;
 import edu.dottn.entities.User;
 import java.io.IOException;
@@ -29,6 +30,72 @@ public class NavigationController {
             root = loader.load();
             HomePageController Home = loader.getController();
             Home.setInformation(P);
+           Scene scene = new Scene(root,1250,800);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("TrocTn");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+      public static void changemyoffersPage(ActionEvent event,User P, String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            AfficheOffreFXMLController myoffers = loader.getController();
+            myoffers.setInformation(P);
+           Scene scene = new Scene(root,1250,800);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("TrocTn");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+       public static void changedetailofferPage(ActionEvent event,Offre o, String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            DetailofferFXMLController myoffer = loader.getController();
+            myoffer.setoffre(o);
+           Scene scene = new Scene(root,1250,800);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("TrocTn");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+     public static void changeCreateofferPage(ActionEvent event,User u,Product p, String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            CreationOfferFXMLController offer = loader.getController();
+            offer.setInformation(u);
+            offer.setproductinfo(p);
+           Scene scene = new Scene(root,1250,800);
+            Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("TrocTn");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+      public static void changeproductPage(MouseEvent event,User u,Product p, String fxmlFile){
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            root = loader.load();
+            ProductFXMLController product = loader.getController();
+            product.setInformation(u);
+            product.setproduct(p);
            Scene scene = new Scene(root,1250,800);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);

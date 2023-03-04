@@ -10,6 +10,7 @@ import edu.dottn.entities.User;
 import edu.dottn.services.SubCategoryServices;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -39,6 +40,8 @@ public class ProductFXMLController implements Initializable {
     @FXML
     private ImageView image;
   User user = new User();
+  CreationOfferFXMLController o=new CreationOfferFXMLController();
+  Product p1=new Product();
     /**
      * Initializes the controller class.
      */
@@ -48,7 +51,8 @@ public class ProductFXMLController implements Initializable {
     }
 
     void setproduct(Product p) {
-        p = new Product(p.getId(), p.getName(), p.getDescription(), p.getImage(), p.getPrice(), p.getSubCategory().getId(), user.getIdUser());
+       
+        p1 = new Product(p.getId(), p.getName(), p.getDescription(), p.getImage(), p.getPrice(), p.getSubCategory().getId(), user.getIdUser());
 
         title.setText(p.getName());
         description.setText(p.getDescription());
@@ -57,10 +61,14 @@ public class ProductFXMLController implements Initializable {
         subcategory.setText(p.getSubCategory().getName());
          Image image1 = new Image("file:src/assets/" + p.getImage());
          image.setImage(image1);
+         
     }
      public void setInformation(User u) {
          user = u;
     }
-
+@FXML
+    private void makeoffer(ActionEvent event) {
+        NavigationController.changeCreateofferPage(event, user,p1, "CreationOfferFXML.fxml");
+    }
 
 }

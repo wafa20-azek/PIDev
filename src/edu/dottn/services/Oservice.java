@@ -19,7 +19,7 @@ public interface Oservice<O> {
 
     public void modifierOffre(O o);
 
-    public List<O> getBYStatus(String status);
+    public List<O> getBYStatus(String status,int id);
 //public void AccepterOffre(O o);
 //
 //    public void RefuserOffer(O o);

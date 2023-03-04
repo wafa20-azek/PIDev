@@ -63,16 +63,15 @@ public class ServiceOffre implements Oservice<Offre> {
     @Override
     public void ajouterOffre(Offre o) {
         try {
-            String req = "INSERT INTO `offre`(`ID_Product`, `idUser`,`ID_Product1`, `idUser1`, `name`,`date_offre`,`status`) VALUES (?,?,?,?,?,?,?)";
+            String req = "INSERT INTO `offre`(`ID_Product`, `idUser`,`ID_Product1`, `idUser1`,`date_offre`,`status`) VALUES (?,?,?,?,?,?)";
             PreparedStatement pso = con.prepareStatement(req);
 //            Offre o = new Offre(pso.setInt(2,o.getID_Product()),pso.setInt(3,o.getIdUser()),pso.setDate(4,(Date) o.getDate_offre()));
-            pso.setInt(1, o.getID_Product());
-            pso.setInt(2, o.getIdUser());
-            pso.setInt(3, o.getID_Product1());
-            pso.setInt(4, o.getIdUser1());
-            pso.setString(5, o.getName());
-            pso.setTimestamp(6, new java.sql.Timestamp(System.currentTimeMillis()));
-            pso.setString(7, o.getStatus());
+            pso.setInt(1, o.getProduct1().getId());
+            pso.setInt(2, o.getUser1().getIdUser());
+            pso.setInt(3, o.getProduct2().getId());
+            pso.setInt(4, o.getUser2().getIdUser());
+            pso.setTimestamp(5, new java.sql.Timestamp(System.currentTimeMillis()));
+            pso.setString(6, o.getStatus());
             pso.executeUpdate();
             System.out.println("true");
             System.out.println("Offre Created !");
@@ -99,7 +98,7 @@ public class ServiceOffre implements Oservice<Offre> {
     @Override
     public void modifierOffre(Offre o) {
         try {
-            String req = "UPDATE `offre` SET `ID_Product`='" + o.getID_Product() + "',`idUser`='" + o.getIdUser() + "',`ID_Product1`='" + o.getID_Product1() + "',`idUser1`='" + o.getIdUser1() + "',`date_offre`='" + o.getDate_offre() + "'WHERE `status` ='On_Hold' ";
+            String req = "UPDATE `offre` SET `ID_Product`='" + o.getProduct1().getId() + "',`idUser`='" + o.getUser1().getIdUser() + "',`ID_Product1`='" +  o.getProduct2().getId() + "',`idUser1`='" +  o.getUser2().getIdUser() + "',`date_offre`='" + o.getDate_offre() + "'WHERE `status` ='On_Hold' ";
 //            String req = "UPDATE `offre` SET `ID_Product`='" + o.getID_Product() + "',`idUser`='" + o.getIdUser() + "', `date_offre`='" + o.getDate_offre() + "'"" WHERE`status`='On_Hold' ";
             Statement st = con.createStatement();
             st.executeUpdate(req);
@@ -110,40 +109,17 @@ public class ServiceOffre implements Oservice<Offre> {
 
     }
 
-    public List<Offre> getBYStatus(String status) {
+    public List<Offre> getBYStatus(String status,int id) {
         List<Offre> offre = new ArrayList<>();
-        if (status.equals("Accepted")) {
-
             try {
 
-                String req = "SELECT * FROM `offre` where status ='Accepted'";
+                String req = "SELECT * FROM `offre` where status ='"+status+"' AND idUser1="+id;
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(req);
 //            System.out.println(test);
                 while (rs.next()) {
 
-                    Offre of = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(6), rs.getString(8));
-
-                    offre.add(of);
-//                    System.out.println(of);
-
-                }
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-        if (status.equals("On_Hold")) {
-
-            try {
-
-                String req = "SELECT * FROM `offre` where status ='On_Hold'";
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(req);
-//            System.out.println(test);
-                while (rs.next()) {
-
-                    Offre of = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(6), rs.getString(8));
+                     Offre of = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getDate(6), rs.getString(7));
 
                     offre.add(of);
 //                    System.out.println(of);
@@ -152,27 +128,7 @@ public class ServiceOffre implements Oservice<Offre> {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        }
-        if (status.equals("Declined")) {
-
-            try {
-
-                String req = "SELECT * FROM `offre` where status ='Declined'";
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(req);
-//            System.out.println(test);
-                while (rs.next()) {
-
-                    Offre of = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(6), rs.getString(8));
-
-                    offre.add(of);
-//                    System.out.println(of);
-
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+        
 
         return offre;
     }
@@ -184,10 +140,10 @@ public class ServiceOffre implements Oservice<Offre> {
         try {
             String req = "SELECT * FROM `offre` WHERE id_Offre = " + id_Offre;
             PreparedStatement st = con.prepareStatement(req);
-            ResultSet rst = st.executeQuery(req);
-            while (rst.next()) {
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
                 System.out.println("Offer getted ");
-                return new Offre(rst.getInt(1), rst.getInt(2), rst.getInt(3), rst.getString(4), rst.getString(6));
+                return new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getDate(6), rs.getString(7));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -201,9 +157,9 @@ public class ServiceOffre implements Oservice<Offre> {
         try {
             String req = "Select * from offre";
             Statement st = con.createStatement();
-            ResultSet res = st.executeQuery(req);
-            while (res.next()) {
-                Offre o = new Offre(res.getInt(1), res.getInt(2), res.getInt(3), res.getString(4), res.getString(6));
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                Offre o = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getDate(6), rs.getString(7));
                 list.add(o);
             }
         } catch (SQLException ex) {
@@ -213,21 +169,21 @@ public class ServiceOffre implements Oservice<Offre> {
         return list;
     }
 
-    //rechercher des offres selon idUser 
-    public List<Offre> getByName(String name) {
-        List<Offre> rech = null;
-        try {
-            rech = this.getAll()
-                    .stream()
-                    .filter(t -> t.getName().equals(name))
-                    .collect(Collectors.toList());
-            System.out.println("les user sont : " + rech);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return rech;
-
-    }
+//    //rechercher des offres selon idUser 
+//    public List<Offre> getByName(String name) {
+//        List<Offre> rech = null;
+//        try {
+//            rech = this.getAll()
+//                    .stream()
+//                    .filter(t -> t.getName().equals(name))
+//                    .collect(Collectors.toList());
+//            System.out.println("les user sont : " + rech);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return rech;
+//
+//    }
 
     //rechercher des offres selon le produit
     public List<Offre> getByProduct(Offre o1) {
@@ -235,7 +191,7 @@ public class ServiceOffre implements Oservice<Offre> {
         try {
             rech1 = this.getAll()
                     .stream()
-                    .filter(o -> o.getID_Product() == o1.getID_Product())
+                    .filter(o -> o.getProduct1().getId() == o1.getProduct1().getId())
                     .collect(Collectors.toList());
             System.out.println("les recherches de product sont" + rech1);
 
@@ -250,16 +206,16 @@ public class ServiceOffre implements Oservice<Offre> {
         try {
             String req = "SELECT * FROM `offre` WHERE EXISTS (SELECT * FROM `offre` WHERE ID_Product=? AND ID_Product1=? AND idUser=? AND idUser1=?) ";
 
-            PreparedStatement pst = con.prepareStatement(req);
-            pst.setInt(1, o.getID_Product());
-            pst.setInt(2, o.getID_Product1());
-            pst.setInt(3, o.getIdUser());
-            pst.setInt(4, o.getIdUser1());
-            ResultSet rs = pst.executeQuery();
+            PreparedStatement ps = con.prepareStatement(req);
+            ps.setInt(1, o.getProduct1().getId());
+            ps.setInt(2, o.getUser1().getIdUser());
+            ps.setInt(3, o.getProduct2().getId());
+            ps.setInt(4, o.getUser2().getIdUser());
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Offre o1 = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6));
+                Offre of = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getDate(6), rs.getString(7));
 
-                return o1;
+                return of;
 
             }
             System.out.println("offre created");
@@ -333,7 +289,7 @@ public class ServiceOffre implements Oservice<Offre> {
                 p.setAlignment(Element.ALIGN_CENTER);
                 document.add(p);
                 addEmptyLine(document, 2);
-                Paragraph paragraph = new Paragraph("Dear Client  " + o.getName() + ",");
+                Paragraph paragraph = new Paragraph("Dear Client  " + o.getUser2().getName() + ",");
                 document.add(paragraph);
                 addEmptyLine(document, 1);
                 Font f1 = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.UNDEFINED, BaseColor.BLACK);
@@ -341,19 +297,22 @@ public class ServiceOffre implements Oservice<Offre> {
                 addEmptyLine(paragraph, 1);
                 document.add(paragraph);
                 Font f2 = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.UNDEFINED, BaseColor.BLACK);
-                paragraph = new Paragraph("You have accepted the offer of  " + o.getIdUser1() + " of product  " + o.getID_Product1() + "  of the date   " + o.getDate_offre() + ".", f2);
+                paragraph = new Paragraph("You have accepted the offer of  " + o.getUser1().getName() + " of product  " + o.getProduct1().getName() + "  of the date   " + o.getDate_offre() + ".", f2);
                 addEmptyLine(paragraph,1);
                 document.add(paragraph);
 //                 // Créer un tableau à 3 colonnes
-                PdfPTable table = new PdfPTable(2);
+                PdfPTable table = new PdfPTable(3);
 
                 // Ajouter des en-têtes de colonne
                 PdfPCell cell1 = new PdfPCell(new Paragraph("Détails du destinataire "));
-                PdfPCell cell2 = new PdfPCell(new Paragraph("Adresse"));
+                PdfPCell cell2 = new PdfPCell(new Paragraph("Numero"));
+                 PdfPCell cell3 = new PdfPCell(new Paragraph("Adresse"));
                 table.addCell(cell1);
                 table.addCell(cell2);
-                table.addCell("Mariem");
-                table.addCell("218 rue abou firas himdani, cite amal Fouchana");//o.getAddress besh tetbadel
+                table.addCell(cell3);
+                table.addCell(o.getUser2().getName());
+                table.addCell(Integer.toString(o.getUser2().getNumero()));
+                table.addCell(o.getUser2().getAddress());
                 addEmptyLine(document,2);
                 addEmptyLine(paragraph,1);
                 document.add(table);

@@ -5,6 +5,10 @@
  */
 package edu.dottn.entities;
 
+import edu.dottn.services.MemberServices;
+import edu.dottn.services.ProductServices;
+import edu.dottn.services.ServiceOffre;
+
 /**
  *
  * @author bochr
@@ -13,18 +17,19 @@ public class Avis_Offer {
 
     private int idavis;
     private Offre offer;
-    private int ID_Product;
-    private int idUser;
+    private Product product= new Product();
+    private User user= new User();
     private int ratting	;
+    private ServiceOffre so=new ServiceOffre();
 //    private String description;
 
     public Avis_Offer() {
     }
 
-    public Avis_Offer( Offre offer, int ID_Product, int idUser, int ratting) {
+    public Avis_Offer( Offre offer,  int ratting) {
         this.offer = offer;
-        this.ID_Product = ID_Product;
-        this.idUser = idUser;
+        this.product = offer.getProduct2();
+        this.user = offer.getUser2();
         this.ratting = ratting;
 //        this.description = description;
     }
@@ -32,8 +37,8 @@ public class Avis_Offer {
     public Avis_Offer(int idavis,Offre offer, int ID_Product, int idUser, int ratting, String description) {
         this.idavis = idavis;
         this.offer = offer;
-        this.ID_Product = ID_Product;
-        this.idUser = idUser;
+        this.product =offer.getProduct2();
+        this.user = offer.getUser2();
         this.ratting = ratting;
 //        this.description = description;
     }
@@ -42,15 +47,17 @@ public class Avis_Offer {
         return offer;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
   
 
-    public int getID_Product() {
-        return ID_Product;
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
+  
 
     public int getRatting() {
         return ratting;
@@ -74,37 +81,8 @@ public class Avis_Offer {
 
     @Override
     public String toString() {
-        return "Avis_Offer{" + "idavis=" + idavis + ", offer=" + offer + ", ID_Product=" + ID_Product + ", idUser=" + idUser + ", ratting=" + ratting + '}';
+        return "Avis_Offer{" + "idavis=" + idavis + ", offer=" + offer + ", product=" + product.getName() + ", user=" + user.getName() + ", ratting=" + ratting + '}';
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Avis_Offer other = (Avis_Offer) obj;
-        if (this.offer != other.offer) {
-            return false;
-        }
-        if (this.ID_Product != other.ID_Product) {
-            return false;
-        }
-        if (this.idUser != other.idUser) {
-            return false;
-        }
-        return true;
-    }
-
+  
 }

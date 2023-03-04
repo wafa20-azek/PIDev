@@ -84,7 +84,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Button fx:id="createOffer" layoutX="459.0" layoutY="51.0" mnemonicParsing="false" onAction="#createoffer" prefHeight="25.0" prefWidth="67.0" text="createoffer">
+      <Button fx:id="createOffer" layoutX="459.0" layoutY="51.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="createoffer">
          <font>
             <Font size="10.0" />
          </font>

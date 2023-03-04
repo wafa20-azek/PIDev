@@ -152,10 +152,18 @@ public List<Product> getByCategory(String category) {
         return lp;
     }
      public List<Product> getByIdUser(int iduser) {
-         try {     
-            lp=this.getAll().stream().filter(s->s.getUser().getIdUser()==iduser).collect(Collectors.toList());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+           
+        
+        try {
+            PreparedStatement pr = cnx.prepareStatement("SELECT * FROM Product WHERE iduser=?");
+            pr.setInt(1, iduser);
+            ResultSet result = pr.executeQuery();
+            while (result.next()) {
+                Product p = new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6), result.getInt(7));
+                lp.add(p);
+            }
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
         }
         return lp;
     }

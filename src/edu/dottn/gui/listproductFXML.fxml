@@ -5,12 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane id="BorderPane" prefHeight="800.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="edu.dottn.gui.ListproductFXMLController">
+<BorderPane id="BorderPane" prefHeight="800.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.ListproductFXMLController">
      <top>
        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnaddproduct" layoutX="461.0" layoutY="110.0" mnemonicParsing="false" onAction="#goaddproduct" prefHeight="31.0" prefWidth="146.0" text="add product" />
             <Button layoutX="279.0" layoutY="110.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="152.0" text="my products" />
+            <Button fx:id="btnoffer" layoutX="661.0" layoutY="110.0" mnemonicParsing="false" onAction="#gotooffer" prefHeight="31.0" prefWidth="115.0" text="myoffers" />
          </children></AnchorPane>
    </top>
    <center>

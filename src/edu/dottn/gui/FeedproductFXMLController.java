@@ -95,6 +95,9 @@ public class FeedproductFXMLController implements Initializable {
         subcategory.setItems(FXCollections.observableArrayList(l2));
     }
 
+   public void setInformation(User u) {
+        user=u;
+    }
 
 
     public void listproducts(ActionEvent event) {
@@ -154,7 +157,7 @@ public class FeedproductFXMLController implements Initializable {
              anchorpane.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
-                    product(p);
+                    NavigationController.changeproductPage(e, user, p, "ProductFXML.fxml");
                 }
             });
            
@@ -221,22 +224,7 @@ public class FeedproductFXMLController implements Initializable {
         return ps.translate(description);
     }
     
-    private void product(Product p) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/productFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+   
 
-        ProductFXMLController pc=loader.getController();
-pc.setproduct(p);
-        feed.getScene().setRoot(root);
-    }
-
-    public void setInformation(User u) {
-        user=u;
-    }
-
+ 
 }

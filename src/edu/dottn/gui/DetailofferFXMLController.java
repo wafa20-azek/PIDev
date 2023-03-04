@@ -33,42 +33,37 @@ import javafx.scene.layout.VBox;
 
 public class DetailofferFXMLController implements Initializable {
 
-    @FXML
     private VBox vbox;
     @FXML
-    private HBox hbox;
+    private Label user1;
+    @FXML
+    private Label user2;
+    @FXML
+    private Label title1;
+    @FXML
+    private Label title2;
+    @FXML
+    private ImageView image1;
+    @FXML
+    private ImageView image2;
 
+    //Offre o=new Offre();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        vbox.getChildren().clear();
-        int x = 0, y = 0;
-        List<Offre> lo = new ArrayList<>();
-        Offre o1 = new Offre();
-        ServiceOffre so = new ServiceOffre();
-
-        o1.getID_Product1();
-        for (Offre o : lo) {
-            HBox hbox = new HBox();
-            hbox.setLayoutX(x);
-            hbox.setLayoutY(y);
-            Label name = new Label(o.getName());
-            InputStream imgStream = getClass().getResourceAsStream("/img/tablechaise.png");
-            Image img = new Image(imgStream, 25,25,false,false);
-            ImageView imv = new ImageView(img);
-//            imv.setOnMouseClicked(MouseEvent ->  so.getByProduct(o));
-            imv.setLayoutX(x + 80);
-            imv.setLayoutY(y +17);
-            InputStream imgStream1 = getClass().getResourceAsStream("/img/souris.png");
-            Image img1 = new Image(imgStream1,25,25,false,false);
-            ImageView imgv = new ImageView(img1);
-             imv.setLayoutX(x +80);
-            imv.setLayoutY(y +150);
-            
-            hbox.getChildren().addAll(name,imgv, imv);
-            vbox.getChildren().add(hbox);
-        }
+       
     }
+    public void setoffre(Offre o){
+        user1.setText(o.getUser1().getName());
+        user2.setText(o.getUser2().getName());
+        title1.setText(o.getProduct1().getName());
+        title2.setText(o.getProduct2().getName());
+         Image image = new Image("file:src/assets/" + o.getProduct1().getImage());
+         image1.setImage(image);
+          Image img = new Image("file:src/assets/" + o.getProduct2().getImage());
+         image2.setImage(img);
+    
     }
+}

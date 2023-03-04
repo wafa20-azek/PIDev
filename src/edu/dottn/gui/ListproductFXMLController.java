@@ -42,15 +42,28 @@ public class ListproductFXMLController implements Initializable {
     @FXML
     private Button btnhome;
 User user = new User();
+List<Product> l = new ArrayList<>();
     /**
      * Initializes the controller class.
      */
+ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         float x=20,y=20;
-        List<Product> l = new ArrayList<>();
-        l = ps.getByIdUser(1);
+      
+    }    
+public void setInformation(User u) {
+        user =u;
+        System.out.println(user);
+        l = ps.getByIdUser(user.getIdUser());
+        System.out.println(l.size());
+        loadproducts(l);
+    }
+     public void loadproducts(List<Product> l) {
+            float x=20,y=20;
+        
+        System.out.println(user.getIdUser());
+        
         for (Product p:l) {
             AnchorPane anchorpane=new AnchorPane();
             Image image = new Image("file:src/assets/" +p.getImage(),200,200,false,false);
@@ -84,8 +97,7 @@ User user = new User();
             feed.getChildren().addAll(anchorpane);
             x+=300;       
         }
-    }    
-
+     }
      private void ondeleteclick(Product p1) {
           Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this product", ButtonType.YES,ButtonType.NO);
         a.showAndWait().ifPresent(type -> {
@@ -116,6 +128,10 @@ User user = new User();
     private void home(ActionEvent event) {
         NavigationController.changeFeedPage(event, user, "feedproductFXML.fxml");
     }
+     @FXML
+    private void gotooffer(ActionEvent event) {
+        NavigationController.changemyoffersPage(event, user, "AfficheOffreFXML.fxml");
+    }
 
     private void onupdateclick(Product pu) {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/updateproductFXML.fxml"));
@@ -132,8 +148,6 @@ User user = new User();
         btnaddproduct.getScene().setRoot(root);
     }
 
-    void setInformation(User u) {
-        user =u;
-    }
+   
     
 }

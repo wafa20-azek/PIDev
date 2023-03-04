@@ -5,8 +5,13 @@
  */
 package edu.dottn.entities;
 
+import edu.dottn.services.MemberServices;
+import edu.dottn.services.ProductServices;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import static java.util.Collections.list;
 import java.util.List;
@@ -17,66 +22,66 @@ import java.util.List;
  */
 public class Offre {
 
-    private int idUser, id_Offre, ID_Product,idUser1,ID_Product1;
-    private String name;
-    private Timestamp date_offre;
+    private int  id_Offre;
+    private Date date_offre ;
     private String status;
     List<String> st = new ArrayList();
+    private User user1 = new User();
+    private User user2 = new User();
+    private MemberServices us= new MemberServices();
+    private Product product1= new Product();
+    private Product product2= new Product();
+    private ProductServices ps= new ProductServices();
 
     public Offre() {
     }
 
-    public Offre(int id_Offre, int ID_Product, int idUser, String name, String status) {
+    public Offre(int id_Offre, int ID_Product1, int idUser1, int ID_Product2, int idUser2,Date date_offre,String status) {
 
         this.id_Offre = id_Offre;
-        this.ID_Product = ID_Product;
-        this.idUser = idUser;
-        this.name = name;
+        this.product1 = ps.getById(ID_Product1);
+        this.user1 = us.getOneById(idUser1);
+        this.product2=ps.getById(ID_Product2);
+        this.user2 = us.getOneById(idUser2);
         this.status = status;
-        this.date_offre = Timestamp.valueOf(LocalDateTime.now());
+        this.date_offre = date_offre;
 
     }
 
-    public Offre(int ID_Product, int idUser,int idUser1 ,int ID_Product1,String name, String status) {
+    public Offre(Product product1, User user1, Product product2, User user2) {
         st.add("Accepted");
         st.add("Declined");
         st.add("On_Hold");
         
-        this.ID_Product = ID_Product;
-        this.idUser = idUser;
-        this.ID_Product1 = ID_Product1;
-        this.idUser1 = idUser1;
-        this.name = name;
-        this.date_offre = Timestamp.valueOf(LocalDateTime.now());
-        this.status = status;
+       this.product1 = product1;
+        this.user1 = user1;
+        this.product2=product2;
+        this.user2 = user2;
+        this.date_offre = new Date(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
+        this.status = "On_Hold";
 
     }
 
-    public int getIdUser1() {
-        return idUser1;
+    public User getUser1() {
+        return user1;
     }
 
-    public int getID_Product1() {
-        return ID_Product1;
+    public User getUser2() {
+        return user2;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public Product getProduct1() {
+        return product1;
     }
 
-    public String getName() {
-        return name;
+    public Product getProduct2() {
+        return product2;
     }
 
     public int getId_Offre() {
         return id_Offre;
     }
-
-    public int getID_Product() {
-        return ID_Product;
-    }
-
-    public Timestamp getDate_offre() {
+    public Date getDate_offre() {
         return date_offre;
     }
 
@@ -90,31 +95,9 @@ public class Offre {
 
     @Override
     public String toString() {
-        return "Offre{" + "idUser=" + idUser + ", ID_Product=" + ID_Product + ", name=" + name + ", date_offre=" + date_offre + ", status=" + status + '}';
+        return "Offre{" + "User name=" + user1.getName() + ", Product=" + product1.getName()  + "User name=" + user2.getName() + ", Product=" + product2.getName() + ", date_offre=" + date_offre + ", status=" + status + '}';
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Offre other = (Offre) obj;
-        if (this.id_Offre != other.id_Offre) {
-            return false;
-        }
-        return true;
-    }
+  
 
 }

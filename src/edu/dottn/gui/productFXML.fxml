@@ -5,14 +5,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="edu.dottn.gui.ProductFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.ProductFXMLController">
    <children>
       <ImageView fx:id="image" fitHeight="378.0" fitWidth="292.0" layoutX="292.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="title" layoutX="661.0" layoutY="266.0" prefHeight="21.0" prefWidth="166.0" />
       <Label fx:id="description" layoutX="652.0" layoutY="445.0" prefHeight="184.0" prefWidth="259.0" />
       <Label fx:id="value" layoutX="986.0" layoutY="266.0" prefHeight="21.0" prefWidth="147.0" />
-      <Button fx:id="btnoffer" layoutX="1029.0" layoutY="685.0" mnemonicParsing="false" text="Make offer" />
+      <Button fx:id="btnoffer" layoutX="1029.0" layoutY="685.0" mnemonicParsing="false" onAction="#makeoffer" text="Make offer" />
       <Label fx:id="category" layoutX="681.0" layoutY="300.0" prefHeight="21.0" prefWidth="104.0" />
       <Label fx:id="subcategory" layoutX="858.0" layoutY="300.0" prefHeight="21.0" prefWidth="104.0" />
    </children>
