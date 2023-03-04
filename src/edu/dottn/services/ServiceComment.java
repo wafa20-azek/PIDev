@@ -15,6 +15,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 import javafx.scene.control.Alert.AlertType;
 
 public class ServiceComment implements CService<Comment> {
@@ -46,13 +48,20 @@ public class ServiceComment implements CService<Comment> {
     public void ajouterComment(Comment c) {
         // Verify if the comment is not empty
         if (c.getContenu().isEmpty()) {
-            System.out.println("Le contenu du commentaire ne peut pas être vide");
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Attention");
+            alert.setHeaderText(null);
+            alert.setContentText("Le contenu du commentaire ne peut pas être vide");
+            alert.showAndWait();
             return;
         }
-
         // Check for offensive content
         if (isOffensive(c.getContenu())) {
-            System.out.println("Le commentaire contient du contenu offensive et ne peut pas être posté");
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Attention");
+            alert.setHeaderText(null);
+            alert.setContentText("Le commentaire contient du contenu offensif et ne peut pas être posté");
+            alert.showAndWait();
             return;
         }
 
@@ -73,9 +82,10 @@ public class ServiceComment implements CService<Comment> {
     }
 
     public void supprimerParId(int id) {
-        // verifier l'id userr
+        // Vérifier l'id userr
         if (id <= 0) {
-            System.out.println("Invalid comment ID");
+            Alert alert = new Alert(AlertType.ERROR, "ID de commentaire invalide !");
+            alert.showAndWait();
             return;
         }
         try {
@@ -83,12 +93,15 @@ public class ServiceComment implements CService<Comment> {
             Statement st = cnx.createStatement();
             int rowsAffected = st.executeUpdate(req);
             if (rowsAffected > 0) {
-                System.out.println("Comment Supprimé ");
+                Alert alert = new Alert(AlertType.INFORMATION, "Commentaire supprimé avec succès !");
+                alert.showAndWait();
             } else {
-                System.out.println("Commentaire non Supprimé !");
+                Alert alert = new Alert(AlertType.ERROR, "Le commentaire n'a pas été supprimé !");
+                alert.showAndWait();
             }
         } catch (SQLException ex) {
-            System.err.println("Error while deleting post: " + ex.getMessage());
+            Alert alert = new Alert(AlertType.ERROR, "Erreur lors de la suppression du commentaire: " + ex.getMessage());
+            alert.showAndWait();
         }
     }
 
@@ -134,46 +147,50 @@ public class ServiceComment implements CService<Comment> {
 
         return comments;
     }
+
     public List<Comment> getCommentsByPostId(int postId) {
-    List<Comment> comments = new ArrayList<>();
-    try {
-        String req = "SELECT * FROM comment WHERE post_id = ?";
-        PreparedStatement statement = cnx.prepareStatement(req);
-        statement.setInt(1, postId);
-        ResultSet rs = statement.executeQuery();
-        while (rs.next()) {
-            Comment c = new Comment(rs.getString("Contenu"), rs.getTimestamp("dateComment"));
-            comments.add(c);
+        List<Comment> comments = new ArrayList<>();
+        try {
+            String req = "SELECT * FROM comment WHERE post_id = ?";
+            PreparedStatement statement = cnx.prepareStatement(req);
+            statement.setInt(1, postId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Comment c = new Comment(rs.getString("Contenu"), rs.getTimestamp("dateComment"));
+                comments.add(c);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la récupération des commentaires pour le post avec l'id " + postId + ": " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Une erreur est survenue : " + ex.getMessage());
         }
-    } catch (SQLException ex) {
-        System.out.println("Erreur lors de la récupération des commentaires pour le post avec l'id " + postId + ": " + ex.getMessage());
-    } catch (Exception ex) {
-        System.out.println("Une erreur est survenue : " + ex.getMessage());
+
+        return comments;
     }
 
-    return comments;
-}
-    
     public void supprimerCommentairesByUserId(int idUser) {
-    // CS vérifier si l'ID utilisateur est valide
-    if (idUser <= 0) {
-        System.out.println("ID utilisateur invalide");
-        return;
-    }
-    try {
-        String req = "DELETE FROM `comment` WHERE idUser = ?";
-        PreparedStatement statement = cnx.prepareStatement(req);
-        statement.setInt(1, idUser);
-        int rowsAffected = statement.executeUpdate();
-        if (rowsAffected > 0) {
-            System.out.println("Commentaires supprimés pour l'utilisateur avec l'ID " + idUser);
-        } else {
-            System.out.println("Aucun commentaire trouvé pour l'utilisateur avec l'ID " + idUser);
+        // Vérifier si l'ID utilisateur est valide
+        if (idUser <= 0) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "ID utilisateur invalide");
+            alert.showAndWait();
+            return;
         }
-    } catch (SQLException ex) {
-        System.err.println("Erreur lors de la suppression des commentaires de l'utilisateur avec l'ID " + idUser + ": " + ex.getMessage());
+        try {
+            String req = "DELETE FROM `comment` WHERE idUser = ?";
+            PreparedStatement statement = cnx.prepareStatement(req);
+            statement.setInt(1, idUser);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Commentaires supprimés pour l'utilisateur avec l'ID " + idUser);
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Aucun commentaire trouvé pour l'utilisateur avec l'ID " + idUser);
+                alert.showAndWait();
+            }
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Erreur lors de la suppression des commentaires de l'utilisateur avec l'ID " + idUser + ": " + ex.getMessage(), ButtonType.OK);
+            alert.showAndWait();
+        }
     }
-}
-
 
 }

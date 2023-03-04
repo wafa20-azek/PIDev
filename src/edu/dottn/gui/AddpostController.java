@@ -2,6 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+
  */
 package edu.dottn.gui;
 
@@ -14,8 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -86,6 +85,7 @@ public class AddpostController implements Initializable {
         sharebtn.setOnMouseClicked(e->{
             Post p = new Post(a,titlepost.getText(),descpost.getText(),image);
             try {
+                sp.ajouter(p);
                 sp.shareOnPage(p);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Post Published");

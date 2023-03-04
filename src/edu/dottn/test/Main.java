@@ -92,10 +92,12 @@ public class Main {
       // com1.supprimerParId(5);
        // Comment c2= new Comment(p5,"xxxxx",new java.sql.Timestamp(System.currentTimeMillis()));
       //  com1.ajouterComment(c2);
-      User user1 = new User("Saif", "Tunis","saif.messaoudi@esprit.tn", "testest", 12345678);
+      User user1 = new User("Saif", "Tunis","walid.touj@esprit.tn", "testest", 12345678);
        // User user = new User("Saif Rajhi", "ben arrous", "saif.messaoudi@esprit.tn", "hello", 12345678);
        Donation d3 = new Donation(DonationStatus.ACCEPTED);
-        don1.envoyer(user1);
+      //  don1.envoyer(user1);
+        System.out.println(don1.countDonationsForPost(1));
+      
       //  don1.ajouter(d3);
         //System.out.println(don1.getDonationsSortedByEtatDonation(DonationStatus.ACCEPTED));
         

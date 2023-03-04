@@ -13,10 +13,6 @@ import com.restfb.Version;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.FacebookType;
 import com.twilio.Twilio;
-import static com.twilio.example.Example.ACCOUNT_SID;
-import static com.twilio.example.Example.AUTH_TOKEN;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.rest.lookups.v1.PhoneNumber;
 import edu.dottn.entities.Post;
 import edu.dottn.entities.User;
 import edu.dottn.util.MyConnection;
@@ -33,7 +29,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 
 /**
  *
@@ -360,7 +355,7 @@ public class ServicePost implements PService<Post> {
 
 
     public void shareOnPage(Post p) throws IOException {
-        String accessToken = "EAAH9TpnJbM0BALpwNnYsKVPCsRW6ZAGSFVnvtCg9sw1LpDtYSjc1PaTYyK7TNgBQXGC1kQhrzvlWBkKcx8F0fTxY4EIVYL3KZBiNZA2AuZBtVGVaGmaIGQK2JEmZBpsZAlUyAn1WDm5tz8uIynBbUHvw43WroBKy0N04nJZBucUWZCc938uWtuZCQ2mwv5f43YZBuhC8s4HNmlAQBFzWj0KU5W5f41YiCcn88ZD";
+        String accessToken = "EAAH9TpnJbM0BAA2GzM0n5ddfTbtWYPZAoZCe7LilaOIb3cdLbR5vOCi5lIHsyfX8H0yOstKNtrfJFpDzZB1z9wauWRN5h0bcQY8ieQ1RG9wELN7cPgJrsqmR7xVVcny9IasbYQMfy8eGSf4lfZBcQetO43PL65ztyhsfTE872UuZBmZARJfoVrBlDEPhHwZAWgIZCS3pL1kNrxZC28uYmge7iVfstqBqWSDMZD";
         String pageId = "118272547833787";
         String message =p.getTitlePost()+"\n"+ p.getDescription();
         FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.LATEST);

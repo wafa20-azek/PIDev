@@ -5,10 +5,9 @@
  */
 package edu.dottn.services;
 
-
-
 import edu.dottn.entities.Donation;
 import edu.dottn.entities.Donation.DonationStatus;
+import edu.dottn.entities.Post;
 import edu.dottn.entities.User;
 import edu.dottn.util.MyConnection;
 import java.sql.Connection;
@@ -182,7 +181,21 @@ public class ServiceDonation implements DService<Donation> {
         }
     }
 
+    public int countDonationsForPost(int postId) {
+    int count = 0;
+    try {
+        String req = "SELECT COUNT(*) as count FROM donation WHERE idPost = ?";
+        PreparedStatement st = cnx.prepareStatement(req);
+        st.setInt(1, postId);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt("count");
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+    return count;
+}
 
- 
 
 }
