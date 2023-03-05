@@ -22,14 +22,14 @@ public class Main1 extends Application {
     public void start(Stage primaryStage) throws Exception {
         
         try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/feedproductFXML.fxml"));
-//            Parent root = loader.load();
-//            Scene scene = new Scene(root,1250,800);
-//     
-//            primaryStage.setScene(scene);
-//            primaryStage.setTitle("troctn");
-//            
-//            primaryStage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/dashboardproducFXML.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+     
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("troctn");
+            
+            primaryStage.show();
             
             
         } catch (Exception e) {

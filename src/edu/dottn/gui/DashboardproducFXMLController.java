@@ -16,20 +16,35 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import org.json.JSONException;
 
 /**
@@ -42,30 +57,31 @@ public class DashboardproducFXMLController implements Initializable {
     @FXML
     private AnchorPane feed;
     ProductServices ps = new ProductServices();
-     CategoryServices cs = new CategoryServices();
+    CategoryServices cs = new CategoryServices();
     SubCategoryServices scs = new SubCategoryServices();
 
- List<Product> l = new ArrayList<>();
+    List<Product> l = new ArrayList<>();
     @FXML
     private TextField tfserchbyname;
     @FXML
     private ComboBox<String> subcategory;
     @FXML
     private ComboBox<String> category;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         // TODO
-        l=ps.getAll();
+        l = ps.getAll();
         loadproducts(l);
         initialzeCategory();
-        
-     
-    }    
-     private void initialiazeSubCategory(String categoryname) {
+
+    }
+
+    private void initialiazeSubCategory(String categoryname) {
         List<String> l2 = new ArrayList<>();
         subcategory.setItems(FXCollections.observableArrayList(l2));
 
@@ -80,59 +96,91 @@ public class DashboardproducFXMLController implements Initializable {
 
         subcategory.setItems(FXCollections.observableArrayList(l2));
     }
-    
-     public void loadproducts(List<Product> l){
-     
-            feed.getChildren().clear();
-        float x = 20, y = 20;
-        int k=0;
-       
+
+    public void loadproducts(List<Product> l) {
+
+        BorderStroke borderStroke = new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY, new BorderWidths(0, 0, 1, 0));
+        Border border = new Border(borderStroke);
+        feed.getChildren().clear();
+
+        int k = 0;
+        AnchorPane head = new AnchorPane();
+        Label headimg = new Label("image");
+        Label headtitle = new Label("name");
+        Label headvalue = new Label("value");
+        Label headdescription = new Label("description");
+        headimg.setLayoutX(30);
+        headtitle.setLayoutX(100);
+        headvalue.setLayoutX(150);
+        headdescription.setLayoutX(200);
+        head.setBorder(border);
+        head.setLayoutY(10);
+        head.setLayoutX(10);
+        head.getChildren().addAll(headimg, headtitle, headvalue, headdescription);
+        feed.getChildren().addAll(head);
+        float x = 20, y = 50;
         for (int i = 0; i < l.size(); i++) {
-           
+
             AnchorPane anchorpane = new AnchorPane();
             Image image = new Image("file:src/assets/" + l.get(i).getImage(), 100, 100, false, false);
             ImageView iv = new ImageView(image);
-            
+            Image image1 = new Image("file:src/assets/3405244.png", 50, 50, false, false);
+            ImageView iv1 = new ImageView(image1);
             Label title = new Label(l.get(i).getName());
             Label Description = new Label(l.get(i).getDescription());
             String s = String.valueOf(l.get(i).getPrice());
             Label value = new Label(s);
             anchorpane.setLayoutY(y);
-            
+            anchorpane.setBorder(border);
+
             iv.setLayoutX(x);
-            
             title.setLayoutX(x + 110);
-
-            value.setLayoutX(x + 140);
+            value.setLayoutX(x + 200);
             Description.setLayoutX(x + 260);
-            
-            
-//            Product p=l.get(i);
-//             anchorpane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent e) {
-//                    product(p);
-//                }
-//            });
+            Description.setMaxWidth(200);
+            Description.setWrapText(true);
+            iv1.setLayoutX(x + 600);
+            int id = l.get(i).getId();
+            iv1.setOnMouseClicked(MouseEvent -> {
+                ps.removeProduct(id);
+            });
+            Product p=l.get(i);
+            anchorpane.setOnMouseClicked(MouseEvent -> {
+               
+                  
+                try {
+                     FXMLLoader loader = new FXMLLoader(getClass().getResource("productFXML.fxml"));
+                    Parent product = loader.load();
+                    ProductFXMLController prod=loader.getController();
+                    prod.setproduct(p);
+                    prod.setvisibility(Boolean.FALSE);
+                     Scene secondScene = new Scene(product);
+                Stage secondStage = new Stage();
+                secondStage.setScene(secondScene);
+                secondStage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(DashboardproducFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                }            
+            });
            
-           
-            anchorpane.getChildren().addAll(iv, title,value, Description);
-           
-           feed.getChildren().addAll(anchorpane);
-            y += 200;
-          
-        }        
+            //y += 200;
+            anchorpane.getChildren().addAll(iv, title, value, Description, iv1);
 
+            feed.getChildren().addAll(anchorpane);
+            
+
+        }
 
     }
-      @FXML
-      private void searchbyname(ActionEvent event) {
-        System.out.println(tfserchbyname.getText());
+    
+ @FXML
+    private void searchbyname(KeyEvent event) {
+         System.out.println(tfserchbyname.getText());
         l.clear();
         l = ps.getByName(tfserchbyname.getText());
         loadproducts(l);
     }
-
     @FXML
     private void searchbycategory(ActionEvent event) {
         initialiazeSubCategory(category.getValue());
@@ -170,9 +218,11 @@ public class DashboardproducFXMLController implements Initializable {
 
         }
         subcategory.setItems(FXCollections.observableArrayList(l4));
-       
-     }
+
+    }
 
    
-  
+
+
+
 }

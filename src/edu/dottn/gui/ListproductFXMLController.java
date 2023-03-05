@@ -14,11 +14,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -26,6 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -78,6 +82,22 @@ public void setInformation(User u) {
             title.setLayoutY(y+210);    
             
             value.setLayoutY(y+240);
+             anchorpane.setOnMouseClicked(MouseEvent->{
+               try {
+                     FXMLLoader loader = new FXMLLoader(getClass().getResource("productFXML.fxml"));
+                    Parent product = loader.load();
+                    ProductFXMLController prod=loader.getController();
+                    prod.setproduct(p);
+                    prod.setvisibility(Boolean.FALSE);
+                     Scene secondScene = new Scene(product);
+                Stage secondStage = new Stage();
+                secondStage.setScene(secondScene);
+                secondStage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(DashboardproducFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+           
            
             Description.setLayoutY(y+260);
              Button btndelete = new Button("delete");

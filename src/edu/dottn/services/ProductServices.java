@@ -127,10 +127,16 @@ public class ProductServices implements IservicesProduct<Product>{
 
 
     public List<Product> getByName(String name) {
-         try {     
-            lp=this.getAll().stream().filter(s->s.getName().contains(name)).collect(Collectors.toList());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+         try {
+               String req = "SELECT * FROM product WHERE name like '" + name + "%'";
+            Statement stt = cnx.createStatement();
+            ResultSet result = stt.executeQuery(req);
+            while (result.next()) {
+                Product p = new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6), result.getInt(7));
+                lp.add(p);
+            }
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
         }
         return lp;
     }
@@ -192,14 +198,14 @@ public List<Product> getByCategory(String category) {
         };
         return null;
     }
-     public String translate (String s) throws IOException, JSONException{
-         
+     public String translate (String s,String l) throws IOException, JSONException{
+   
          
          OkHttpClient client = new OkHttpClient();
 
            RequestBody body = new FormBody.Builder()
             .add("q", s)
-            .add("target", "en")
+            .add("target", l)
             .build();
 
            Request request = new Request.Builder()

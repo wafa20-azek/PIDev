@@ -30,7 +30,7 @@ public class NavigationController {
             root = loader.load();
             HomePageController Home = loader.getController();
             Home.setInformation(P);
-           Scene scene = new Scene(root,1250,800);
+           Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.setTitle("TrocTn");
@@ -46,7 +46,7 @@ public class NavigationController {
             root = loader.load();
             AfficheOffreFXMLController myoffers = loader.getController();
             myoffers.setInformation(P);
-           Scene scene = new Scene(root,1250,800);
+           Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.setTitle("TrocTn");
@@ -62,7 +62,7 @@ public class NavigationController {
             root = loader.load();
             DetailofferFXMLController myoffer = loader.getController();
             myoffer.setoffre(o);
-           Scene scene = new Scene(root,1250,800);
+           Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.setTitle("TrocTn");
@@ -79,7 +79,7 @@ public class NavigationController {
             CreationOfferFXMLController offer = loader.getController();
             offer.setInformation(u);
             offer.setproductinfo(p);
-           Scene scene = new Scene(root,1250,800);
+           Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.setTitle("TrocTn");
@@ -88,7 +88,7 @@ public class NavigationController {
             System.out.println(ex.getMessage());
         }
     }
-      public static void changeproductPage(MouseEvent event,User u,Product p, String fxmlFile){
+      public static void changeproductPage(MouseEvent event,User u,Product p,Boolean b, String fxmlFile){
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
@@ -96,7 +96,8 @@ public class NavigationController {
             ProductFXMLController product = loader.getController();
             product.setInformation(u);
             product.setproduct(p);
-           Scene scene = new Scene(root,1250,800);
+            product.setvisibility(b);
+           Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.setTitle("TrocTn");
@@ -112,7 +113,7 @@ public class NavigationController {
             root = loader.load();
             DashboardproducFXMLController dashboard = loader.getController();
            
-           Scene scene = new Scene(root,1250,800);
+           Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.setTitle("TrocTn");
@@ -128,7 +129,7 @@ public class NavigationController {
             root = loader.load();
             FeedproductFXMLController Feed = loader.getController();
             Feed.setInformation(P);
-           Scene scene = new Scene(root,1250,800);
+           Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.setTitle("TrocTn");
@@ -144,7 +145,7 @@ public class NavigationController {
             root = loader.load();
             AddproductFXMLController Addproduct = loader.getController();
             Addproduct.setInformation(P);
-           Scene scene = new Scene(root,1250,800);
+           Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.setTitle("TrocTn");
@@ -177,7 +178,7 @@ public class NavigationController {
             root = loader.load();
             ListproductFXMLController Myproducts = loader.getController();
             Myproducts.setInformation(P);
-           Scene scene = new Scene(root,1250,800);
+           Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.setTitle("TrocTn");

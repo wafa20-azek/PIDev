@@ -26,16 +26,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import org.json.JSONException;
 
 /**
@@ -45,16 +49,15 @@ import org.json.JSONException;
  */
 public class FeedproductFXMLController implements Initializable {
 
-   
     @FXML
     private AnchorPane feed;
     @FXML
     private AnchorPane filter;
 
-     ProductServices ps = new ProductServices();
+    ProductServices ps = new ProductServices();
     CategoryServices cs = new CategoryServices();
     SubCategoryServices scs = new SubCategoryServices();
-    MemberServices us=new MemberServices();
+    MemberServices us = new MemberServices();
     User user = new User();
 
     @FXML
@@ -64,6 +67,10 @@ public class FeedproductFXMLController implements Initializable {
     ComboBox<String> category = new ComboBox<>();
 
     ComboBox<String> subcategory = new ComboBox<>();
+    @FXML
+    private Button btnexplore;
+    @FXML
+    private Button btninventory;
 
     /**
      * Initializes the controller class.
@@ -74,9 +81,7 @@ public class FeedproductFXMLController implements Initializable {
         feed.setStyle("-fx-background-color:#FFFFFF");
         l = ps.getAll();
         loadproducts(l);
-        tfserchbyname.setOnKeyTyped(e-> { searchbyname(tfserchbyname.getText());
-            });
-        
+
     }
 
     private void initialiateSubCategory(String categoryname) {
@@ -95,20 +100,20 @@ public class FeedproductFXMLController implements Initializable {
         subcategory.setItems(FXCollections.observableArrayList(l2));
     }
 
-   public void setInformation(User u) {
-        user=u;
+    public void setInformation(User u) {
+        user = u;
     }
 
-
+    @FXML
     public void listproducts(ActionEvent event) {
-       NavigationController.changeMyproductsPage(event, user, "listproductFXML.fxml");
+        NavigationController.changeMyproductsPage(event, user, "listproductFXML.fxml");
     }
 
-    
-    private void searchbyname(String t) {
-        System.out.println(t);
+    @FXML
+    private void searchbyname(KeyEvent event) {
+        System.out.println(tfserchbyname.getText());
         l.clear();
-        l = ps.getByName(t);
+        l = ps.getByName(tfserchbyname.getText());
         loadproducts(l);
     }
 
@@ -126,68 +131,66 @@ public class FeedproductFXMLController implements Initializable {
     }
 
     public void loadproducts(List<Product> l) {
-        GridPane gp= new GridPane();
-        gp.setPrefWidth(1044);
+        GridPane gp = new GridPane();
+        gp.setPrefWidth(794);
+        gp.setPrefHeight(400);
+        gp.setPadding(new Insets(10, 10, 10, 10));
         feed.getChildren().clear();
         float x = 20, y = 20;
-        int k=0;
+        int k = 1;
         for (int i = 0; i < l.size(); i++) {
-           
+
             AnchorPane anchorpane = new AnchorPane();
             Image image = new Image("file:src/assets/" + l.get(i).getImage(), 200, 200, false, false);
             ImageView iv = new ImageView(image);
 
             Label title = new Label(l.get(i).getName());
             Label Description = new Label(l.get(i).getDescription());
-            Label Translate = new Label("translate");
+
             String s = String.valueOf(l.get(i).getPrice());
             Label value = new Label(s);
             anchorpane.setLayoutX(x);
-            
+
             iv.setLayoutY(y);
             title.setLayoutY(y + 210);
 
             value.setLayoutY(y + 240);
-            Description.setLayoutY(y + 260);
-            Description.setWrapText(true);
-            Description.setMaxWidth(225);
-            Translate.setLayoutY(y + 280);
-            String t=l.get(i).getDescription();
-            Product p=l.get(i);
-             anchorpane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent e) {
-                    NavigationController.changeproductPage(e, user, p, "ProductFXML.fxml");
-                }
-            });
-           
-            Translate.setOnMouseClicked((MouseEvent MouseEvent) -> {
+            Description.setLayoutY(y + 280);
+
+            Description.setMaxSize(200, 100);
+            //Description.setWrapText(true);
+
+            String t = l.get(i).getDescription();
+            Product p = l.get(i);
+            anchorpane.setOnMouseClicked(MouseEvent -> {
                 try {
-                    System.out.println("hello");
-                    if (translatedescription(t)!=null){
-                    Description.setText(translatedescription(t));}
-                    
-                        
-
-                } catch (IOException | JSONException ex) {
-                    System.out.println(ex.getMessage());
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("productFXML.fxml"));
+                    Parent product = loader.load();
+                    ProductFXMLController prod = loader.getController();
+                    prod.setproduct(p);
+                    prod.setvisibility(Boolean.TRUE);
+                    Scene secondScene = new Scene(product);
+                    Stage secondStage = new Stage();
+                    secondStage.setScene(secondScene);
+                    secondStage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(DashboardproducFXMLController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-            anchorpane.getChildren().addAll(iv, title, Description, value,Translate);
-            if (k==3)
-                k=0;
-            gp.addColumn(k,anchorpane);
+
+            anchorpane.getChildren().addAll(iv, title, Description, value);
+            if (k == 3) {
+                k = 0;
+            }
+            gp.addColumn(k, anchorpane);
             k++;
-           
-            
-            x += 300;
-           
 
-        }        feed.getChildren().addAll(gp);
-
+        }
+        feed.getChildren().addAll(gp);
 
     }
 
+    @FXML
     public void showfilters(ActionEvent event) {
 
         List<Category> l1 = cs.getAll();
@@ -219,12 +222,4 @@ public class FeedproductFXMLController implements Initializable {
         subcategory.setOnAction(e -> searchbysubcategory(event));
     }
 
-    private String translatedescription(String description) throws IOException, JSONException {
-        
-        return ps.translate(description);
-    }
-    
-   
-
- 
 }

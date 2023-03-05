@@ -7,16 +7,21 @@ package edu.dottn.gui;
 
 import edu.dottn.entities.Product;
 import edu.dottn.entities.User;
+import edu.dottn.services.ProductServices;
 import edu.dottn.services.SubCategoryServices;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import org.json.JSONException;
 
 /**
  * FXML Controller class
@@ -39,36 +44,69 @@ public class ProductFXMLController implements Initializable {
     private Label subcategory;
     @FXML
     private ImageView image;
-  User user = new User();
-  CreationOfferFXMLController o=new CreationOfferFXMLController();
-  Product p1=new Product();
+    User user = new User();
+    CreationOfferFXMLController o = new CreationOfferFXMLController();
+    Product p1 = new Product();
+    ProductServices ps= new ProductServices();
+    @FXML
+    private ComboBox<String> translate;
+    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btnoffer.setText("make offer");
+        btnoffer.setVisible(false);
+        translate.getItems().addAll("ar","fr","en");
         // TODO
     }
 
     void setproduct(Product p) {
-       
+
         p1 = new Product(p.getId(), p.getName(), p.getDescription(), p.getImage(), p.getPrice(), p.getSubCategory().getId(), user.getIdUser());
 
         title.setText(p.getName());
         description.setText(p.getDescription());
+        description.setWrapText(true);
         value.setText(Float.toString(p.getPrice()));
         category.setText(p.getSubCategory().getCategory().getName());
         subcategory.setText(p.getSubCategory().getName());
-         Image image1 = new Image("file:src/assets/" + p.getImage());
-         image.setImage(image1);
-         
+        Image image1 = new Image("file:src/assets/" + p.getImage());
+        image.setImage(image1);
+         translate.setOnAction(e -> {
+                try {
+                    System.out.println("hello");
+                    if (translatedescription(description.getText(),translate.getValue())!=null){
+                    description.setText(translatedescription(description.getText(),translate.getValue()));}
+                    
+                        
+
+                } catch (IOException | JSONException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            });
+
     }
-     public void setInformation(User u) {
-         user = u;
+
+    public void setInformation(User u) {
+        user = u;
     }
-@FXML
+
+    @FXML
     private void makeoffer(ActionEvent event) {
-        NavigationController.changeCreateofferPage(event, user,p1, "CreationOfferFXML.fxml");
+        NavigationController.changeCreateofferPage(event, user, p1, "CreationOfferFXML.fxml");
     }
+
+    void setvisibility(Boolean b) {
+        btnoffer.setVisible(b);
+        
+    }
+     private String translatedescription(String description,String l) throws IOException, JSONException {
+        
+        return ps.translate(description,l);
+    }
+    
 
 }
