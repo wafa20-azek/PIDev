@@ -196,7 +196,7 @@ public class ServicePost implements PService<Post> {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                Post p = new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"));
+                Post p = new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"),rs.getString("postimage"),rs.getInt("idPost"));
                 list.add(p);
             }
         } catch (SQLException ex) {
@@ -215,7 +215,7 @@ public class ServicePost implements PService<Post> {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                post = new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"));
+                post = new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"),rs.getString("postimage"));
             }
         } catch (SQLException ex) {
             System.out.println("Error retrieving post with l'id: " + id + ": " + ex.getMessage());
@@ -243,7 +243,8 @@ public class ServicePost implements PService<Post> {
                                 resultList.add(new Post(
                                         resultSet.getString("title"),
                                         resultSet.getString("description"),
-                                        resultSet.getTimestamp("date_created")
+                                        resultSet.getTimestamp("date_created"),
+                                        resultSet.getString("postimage")
                                 ));
                             }
                             return resultList.stream();
@@ -286,7 +287,7 @@ public class ServicePost implements PService<Post> {
         Statement st = cnx.createStatement();
         ResultSet rs = st.executeQuery(req);
         while (rs.next()) {
-            posts.add(new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created")));
+            posts.add(new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"),null));
         }
     } catch (SQLException ex) {
         Alert alert = new Alert(AlertType.ERROR);
@@ -338,7 +339,7 @@ public class ServicePost implements PService<Post> {
             String title = rs.getString("titlePost");
             String description = rs.getString("description");
             Timestamp dateCreated = rs.getTimestamp("date_created");
-            Post post = new Post(title, description, dateCreated);
+            Post post = new Post(title, description, dateCreated,rs.getString("postimage"));
             posts.add(post);
         }
     } catch (SQLException ex) {
@@ -352,10 +353,10 @@ public class ServicePost implements PService<Post> {
 
     return posts;
 }
-
+    /** API SHARE ON FACEBOOK PAGE **/
 
     public void shareOnPage(Post p) throws IOException {
-        String accessToken = "EAAH9TpnJbM0BAA2GzM0n5ddfTbtWYPZAoZCe7LilaOIb3cdLbR5vOCi5lIHsyfX8H0yOstKNtrfJFpDzZB1z9wauWRN5h0bcQY8ieQ1RG9wELN7cPgJrsqmR7xVVcny9IasbYQMfy8eGSf4lfZBcQetO43PL65ztyhsfTE872UuZBmZARJfoVrBlDEPhHwZAWgIZCS3pL1kNrxZC28uYmge7iVfstqBqWSDMZD";
+        String accessToken = "EAAH9TpnJbM0BABoyLVlq8SqeaFLkJ9yXvxoVOs7pZAFt38NXSINj79EDtqhZAlcHlG9YVr8mHLdEvf5YZB1c6DvGkyp9461WdWJEX1kpojeZC3cG9lknVXkTP7fqQt9PHHR7xZC2dSuZB2ggbeVANoq5s5SQOPv4pVfyw7WEeLVLD1WStuRMVvfNsb5edgKGewZBBZBz9w9pzgZDZD";
         String pageId = "118272547833787";
         String message =p.getTitlePost()+"\n"+ p.getDescription();
         FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.LATEST);

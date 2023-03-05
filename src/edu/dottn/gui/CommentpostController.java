@@ -77,8 +77,8 @@ public class CommentpostController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
     }
      private void commentPost (ActionEvent event) {
-        Comment c = new Comment();
-        sc.ajouterComment(c);
+        //Comment c = new Comment();
+      //  sc.ajouterComment(c);
     }
     
 

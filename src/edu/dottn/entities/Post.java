@@ -19,10 +19,19 @@ public class Post {
 
     }
 
-    public Post(String titlePost, String description, Timestamp date_created) {
+    public Post(String titlePost, String description, Timestamp date_created,String postimage,int id ) {
         this.titlePost = titlePost;
         this.description = description;
         this.date_created = date_created;
+        this.postimage=postimage;
+        this.idPost=id;
+    }
+      public Post(String titlePost, String description, Timestamp date_created,String postimage ) {
+        this.titlePost = titlePost;
+        this.description = description;
+        this.date_created = date_created;
+        this.postimage=postimage;
+      
     }
 
     public Post(Association associations ,String titlePost, String description,String image) {

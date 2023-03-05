@@ -33,11 +33,11 @@ public class Main {
        ServicePost post1 = new ServicePost();
        ServiceDonation don1= new ServiceDonation();
        ServiceComment com1 = new ServiceComment();
-      Post p1 = new Post("first post","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
-      Post p2 = new Post("second test","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
-      Post p3 = new Post("second test","TEST API SAIF",new java.sql.Timestamp(System.currentTimeMillis()));
+     // Post p1 = new Post("first post","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
+     // Post p2 = new Post("second test","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
+     // Post p3 = new Post("second test","TEST API SAIF",new java.sql.Timestamp(System.currentTimeMillis()));
 
-
+        System.out.println(com1.getCommentsByPostId(29));
       
       //post1.ajouter(p1);
      // System.out.println(post1.getAll());
@@ -46,8 +46,8 @@ public class Main {
     //post1.supprimerParId(1);
     //post1.ajouter(p1);
    // post1.modifier(p2);
-   System.out.println("***** DONATION *****");
-   Donation d1= new Donation(DonationStatus.ACCEPTED);
+  // System.out.println("***** DONATION *****");
+  // Donation d1= new Donation(DonationStatus.ACCEPTED);
    //Donation d2= new Donation(DonationStatus.REJECTED);
      //don1.ajouter(d1);
      //don1.ajouter(d2);
@@ -92,11 +92,11 @@ public class Main {
       // com1.supprimerParId(5);
        // Comment c2= new Comment(p5,"xxxxx",new java.sql.Timestamp(System.currentTimeMillis()));
       //  com1.ajouterComment(c2);
-      User user1 = new User("Saif", "Tunis","walid.touj@esprit.tn", "testest", 12345678);
-       // User user = new User("Saif Rajhi", "ben arrous", "saif.messaoudi@esprit.tn", "hello", 12345678);
-       Donation d3 = new Donation(DonationStatus.ACCEPTED);
+     // User user1 = new User("Saif", "Tunis","walid.touj@esprit.tn", "testest", 12345678);
+      // // User user = new User("Saif Rajhi", "ben arrous", "saif.messaoudi@esprit.tn", "hello", 12345678);
+     //  Donation d3 = new Donation(DonationStatus.ACCEPTED);
       //  don1.envoyer(user1);
-        System.out.println(don1.countDonationsForPost(1));
+       // System.out.println(don1.countDonationsForPost(1));
       
       //  don1.ajouter(d3);
         //System.out.println(don1.getDonationsSortedByEtatDonation(DonationStatus.ACCEPTED));

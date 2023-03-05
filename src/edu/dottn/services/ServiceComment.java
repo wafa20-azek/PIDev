@@ -45,7 +45,7 @@ public class ServiceComment implements CService<Comment> {
 
     @Override
 
-    public void ajouterComment(Comment c) {
+    public void ajouterComment(Comment c ,int idPost) {
         // Verify if the comment is not empty
         if (c.getContenu().isEmpty()) {
             Alert alert = new Alert(AlertType.WARNING);
@@ -60,21 +60,28 @@ public class ServiceComment implements CService<Comment> {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Attention");
             alert.setHeaderText(null);
-            alert.setContentText("Le commentaire contient du contenu offensif et ne peut pas être posté");
+            alert.setContentText("Your comment has an offensive content !! ");
             alert.showAndWait();
             return;
         }
 
         // Insert comment into database
-        String sql = "INSERT INTO comment (Contenu,dateComment) VALUES (?,?)";
+        String sql = "INSERT INTO comment (Contenu,dateComment,idPost) VALUES (?,?,?) ";
         try (PreparedStatement statement = cnx.prepareStatement(sql)) {
             statement.setString(1, c.getContenu());
             statement.setTimestamp(2, c.getDateComment());
+            statement.setInt(3, idPost);
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Comment added!");
+                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Comment Added");
+                alert.setHeaderText("Your comment is added , thank you!");
+                alert.showAndWait();
             } else {
-                System.out.println("Error while adding Comment");
+                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error in adding your comment !");
+                alert.showAndWait();
             }
         } catch (SQLException ex) {
             System.out.println("Error " + ex.getMessage());
@@ -151,7 +158,7 @@ public class ServiceComment implements CService<Comment> {
     public List<Comment> getCommentsByPostId(int postId) {
         List<Comment> comments = new ArrayList<>();
         try {
-            String req = "SELECT * FROM comment WHERE post_id = ?";
+            String req = "SELECT * FROM comment WHERE idPost = ?";
             PreparedStatement statement = cnx.prepareStatement(req);
             statement.setInt(1, postId);
             ResultSet rs = statement.executeQuery();

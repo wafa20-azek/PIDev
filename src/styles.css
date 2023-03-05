@@ -1,4 +1,3 @@
-
 .text-field {
     -fx-border-radius: 10;
     -fx-background-color: transparent;
@@ -29,7 +28,7 @@
     -fx-underline: true;
 }
 
-#signinbtn{
+#signinbtn ,#updatebtn ,#allpostbtn,#myfeedbtn ,#searchMatchingMessage{
     -fx-background-color:#BF5CFF;
     -fx-background-radius: 15;
     
@@ -45,60 +44,180 @@
 
 #uploadbtn{
     -fx-background-color:#BF5CFF;
-    
-   
     -fx-background-radius: 15;
     -fx-text-fill:white;  
 }
 
 #uploadbtn:hover{
     -fx-background-color:#002885;
-    
     -fx-background-radius: 20;
     -fx-text-fill:white;  
 }
-#addpostbtn{
-      -fx-background-color:#BF5CFF;
-    
-   
-    -fx-background-radius: 15;
-    -fx-text-fill:white;  
-
-}
-#homebtn ,#messagesbtn {
+#homebtn ,#messagesbtn{
     -fx-background-color:transparent;
     -fx-border-color: #BF5CFF;
     -fx-border-radius: 15;
     -fx-text-fill:white;  
-
 }
 
-
-#addpostbtn:hover {
-    -fx-background-color:#002885;
-    
-    -fx-background-radius: 20;
-    -fx-text-fill:white; 
-}
-
-
-#homebtn:hover , #messagesbtn:hover {
+#homebtn:hover ,#messagesbtn:hover {
     -fx-background-color: #BF5CFF;
       -fx-background-radius: 15;
 }
 
 
-#signinbtn:hover {
+#signinbtn:hover,#updatebtn:hover ,#allpostbtn:hover,#myfeedbtn:hover,#searchMatchingMessage:hover{
     -fx-background-color: #002885;
     -fx-text-fill: white;
+    -fx-cursor:hand;
 }
 
 #logouttext:hover{
     -fx-text-fill: #BF5CFF;
 }
-#signupbtn:hover{
+#signupbtn:hover {
    -fx-background-radius: 15;
     -fx-background-color:#BF5CFF;
-      
-
 }
+
+.chat-bubble {
+    -fx-background-color: #E6E6E6;
+    -fx-padding: 10;
+    -fx-border-radius: 10;
+    -fx-max-width: 70%;
+    -fx-word-wrap: break-word;
+}
+
+.chat-bubble-left {
+    -fx-background-color: #F1F0F0;
+    -fx-background-radius: 0 10 10 10;
+    -fx-text-fill: black;
+    -fx-alignment: baseline-left;
+}
+
+.chat-bubble-right {
+    -fx-background-color: #0077FF;
+    -fx-background-radius: 10 0 10 10;
+    -fx-text-fill: white;
+    -fx-alignment: baseline-right;
+}
+.message-container {
+    -fx-background-color: #f1f0f0;
+    -fx-padding: 8px;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-max-width: 50%;
+    -fx-wrap-text: true;
+}
+
+.sent-message-container {
+    -fx-background-color: #00bfff;
+    -fx-text-fill: white;
+}
+
+.received-message-container {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: black;
+}
+
+.message-bubble {
+  -fx-background-color: #BF5CFF;
+    -fx-background-insets: 0, 0 1 1 0;
+    -fx-background-radius: 10 10 10 0;
+    -fx-padding:15;
+}
+
+.user {
+    -fx-background-color: #BF5CFF;
+    -fx-background-insets: 0, 0 1 1 0;
+    -fx-background-radius: 10 10 10 0;
+}
+
+.association {
+    -fx-background-color: #FFF;
+    -fx-background-insets: 0, 1 0 0 1;
+    -fx-background-radius: 10 10 0 10;
+}
+
+.conversation-list-view {
+    -fx-border-color: #BF5CFF;
+}
+
+.conversation-list-view .list-cell:hover {
+    -fx-background-color: #8e44ad;
+}
+
+.conversation-list-view .list-cell {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-color: white;
+    -fx-border-width: 0 0 1 0;
+}
+.conversation-list-view .cell:selected {
+    -fx-background-color: #BF5CFF;
+    -fx-text-fill: white;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.scroll-pane > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #BF5CFF; 
+}
+
+/* Styles for the anchor pane */
+.post {
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+ 
+}
+
+/* Styles for the label */
+.post-label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+/* Styles for the label on hover */
+.post-label:hover {
+    -fx-text-fill: #FFFFFF;
+   
+}
+
+/* Styles for the anchor pane on hover */
+.post:hover {
+    -fx-cursor: hand;
+     -fx-background-radius: 15px;
+     -fx-border-color: blue;
+     -fx-background-color: #BF5CFF;
+}
+
+/* Styles for the anchor pane on click */
+.post:pressed {
+    -fx-background-color: #CCCCCC;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,7 +12,7 @@ import java.util.List;
  * @author rajhi
  */
 public interface CService <T> {
-    public void ajouterComment(T t);
+    public void ajouterComment(T t, int id);
     public void supprimerParId(int id); 
     public T getOneById(int id);
     public List<T> getAll();
