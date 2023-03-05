@@ -6,7 +6,10 @@
 package edu.dottn.services;
 
 import edu.dottn.entities.Event;
+import edu.dottn.entities.Member;
+import edu.dottn.services.MemberServices;
 import edu.dottn.util.DataSource;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -182,9 +185,37 @@ public class ServiceEvent implements IService<Event> {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return  events.stream()
-            .filter(event -> event.getEventDate().after(startDate) && event.getEventDate().before(endDate))
-            .collect(Collectors.toList());
+        return events.stream()
+                .filter(event -> event.getEventDate().after(startDate) && event.getEventDate().before(endDate))
+                .collect(Collectors.toList());
     }
 
+    public void participer(int eventId, int userId) {
+        try {
+            // Check if the event exists
+            Event event = getOneById(eventId);
+            if (event == null) {
+                System.out.println("Event does not exist");
+                return;
+            }
+
+            // Check if the user exists
+            MemberServices ms = new MemberServices();
+            Member m = ms.getOneById(userId);
+            if (m == null) {
+                System.out.println("User does not have an account");
+                return;
+            }
+
+            // Add the user to the event's participants list
+            String req = "INSERT INTO `participant` (`nameP`, `event`) VALUES (?, ?)";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, userId);
+            ps.setInt(2, eventId);
+            ps.executeUpdate();
+            System.out.println("User has successfully participated in the event");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
 }

@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -51,7 +52,13 @@ public class AddReclamationController implements Initializable {
     @FXML
     private void SaveRec(ActionEvent event) {
         String rec =fxReclamation.getText();
-        int produit = fxProduit.getValue().getId();
+        int produit= fxProduit.getValue().getId() ;
+        if(rec.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Reclamation doit être remplie");
+            alert.showAndWait();
+        }else{
         
         Reclamation recl= new Reclamation();
         recl.setCustomer(1);
@@ -62,5 +69,9 @@ public class AddReclamationController implements Initializable {
         ServiceReclamation sr = new ServiceReclamation();
         sr.ajouter(recl);
     }
-    
+    }
+
+    @FXML
+    private void back(ActionEvent event) {
+    }
 }

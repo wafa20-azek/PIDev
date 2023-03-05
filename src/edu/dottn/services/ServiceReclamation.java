@@ -56,13 +56,13 @@ public class ServiceReclamation implements IService<Reclamation> {
     public Reclamation getOneById(int id) {
          Reclamation rec = null;
         try {
-            String req = "SELECT  `Customer`, `Product`, `status`, `Description`, `Date` FROM `reclamation` WHERE ID_Rec = ? ";
+            String req = "SELECT  `ID_Rec`,`Customer`, `Product`, `status`, `Description`, `Date` FROM `reclamation` WHERE ID_Rec = ? ";
             PreparedStatement st = cnx.prepareStatement(req);
             st.setInt(1, id);
             ResultSet result = st.executeQuery();
             if (result.next()) {
                 rec = new Reclamation(
-             
+                   result.getInt("ID_Rec"),     
                 result.getInt("Customer"),
                 result.getInt("Product"),
                 result.getString("status"),
@@ -102,7 +102,7 @@ public class ServiceReclamation implements IService<Reclamation> {
             ResultSet result =ps.executeQuery();
             while (result.next()){
                 Reclamation rec = new Reclamation(
-                        result.getInt("ID_Req"),
+                        result.getInt("ID_Rec"),
                         result.getInt("Customer"),
                         result.getInt("Product"),
                         result.getString("status"),
