@@ -33,13 +33,14 @@ public class ServiceEvent implements IService<Event> {
     @Override
     public void ajouter(Event t) {
         try {
-            String req = "INSERT INTO `event`(`event_name`, `event_description`, `event_date`, `event_location`, `event_status`) VALUES (?,?,?,?,?)";
+            String req = "INSERT INTO `event`(`event_name`, `event_description`, `event_date`, `event_location`, `event_status`,`user`) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, t.getName());
             ps.setString(2, t.getDescription());
             ps.setDate(3, t.getEventDate());
             ps.setString(4, t.getLocation());
             ps.setString(5, t.getStatus().name());
+            ps.setInt(6,3);
             ps.executeUpdate();
             System.out.println("event added");
         } catch (SQLException ex) {
@@ -88,14 +89,16 @@ public class ServiceEvent implements IService<Event> {
     @Override
     public void modifier(Event t) {
         try {
-            String req = "UPDATE `event` SET `event_name`= ?,`event_description`= ?,`event_date`= ?,`event_location`= ?,`event_status`= ? WHERE event_id = "+t.getIdEvent() +" ";
+            String req = "UPDATE `event` SET `event_name`= '"
+                    +t.getName()+"',`event_description`= '"
+                    +t.getDescription()+"',`event_date`= '"
+                    +t.getEventDate()+"',`event_location`= '"
+                    +t.getLocation()+"',`event_status`= '"
+                    +t.getStatus().toString()+"' WHERE event_id = "
+                    +t.getIdEvent() +" ";
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, t.getName());
-            ps.setString(2, t.getDescription());
-            ps.setDate(3, t.getEventDate());
-            ps.setString(4, t.getLocation());
-            ps.setString(5, t.getStatus().name());
-            ps.setInt(6, t.getIdEvent());
+           
+         
             ps.executeUpdate();
             System.out.println("roww updated ");
 
@@ -206,4 +209,27 @@ public class ServiceEvent implements IService<Event> {
             System.err.println(ex.getMessage());
         }
     }
-}
+    public List<Event> getById(int id) {
+        List<Event> listE = new ArrayList();
+        try {
+            String req = "SELECT  `event_name`, `event_description`, `event_date`, `event_location`, `event_status` FROM `event` WHERE user = "+id+"";
+            PreparedStatement ps = cnx.prepareStatement(req);
+        
+            ResultSet result = ps.executeQuery();
+            System.out.println("row by id pulled");
+            while (result.next()) {
+                Event ev = new Event();
+                ev.setName(result.getString("event_name"));
+                ev.setDescription(result.getString("event_description"));
+                ev.setEventDate(result.getDate("event_date"));
+                ev.setLocation(result.getString("event_location"));
+                ev.setStatus(Event.Status.valueOf(result.getString("event_status")));
+                listE.add(ev);
+
+            }
+            System.out.println("Row pulled");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return listE;
+}}

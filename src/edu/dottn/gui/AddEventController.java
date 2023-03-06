@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
+
 import java.util.ResourceBundle;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
@@ -28,7 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
+
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -103,7 +103,7 @@ public class AddEventController implements Initializable {
     }
 
     @FXML
-    private void saveEv(ActionEvent event) {
+    private void saveEv(ActionEvent event) throws IOException {
         Status s;
         String nom = tfEvent.getText();
         String desc = taDesc.getText();
@@ -130,6 +130,12 @@ public class AddEventController implements Initializable {
              ServiceEvent se = new ServiceEvent();
              se.ajouter(ev);
          }
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("EventFeed.fxml"));
+        Parent feedParent = loader.load();
+        Scene feedScene = new Scene(feedParent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(feedScene);
+        stage.show();
     }
 
     @FXML

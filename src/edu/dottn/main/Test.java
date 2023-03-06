@@ -26,7 +26,7 @@ public class Test extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("../gui/EventFeed.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../gui/MyEvent.fxml"));
             Scene scene = new Scene(root);
             
             primaryStage.setTitle("TrocTn");
