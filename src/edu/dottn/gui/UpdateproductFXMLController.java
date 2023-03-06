@@ -53,15 +53,10 @@ public class UpdateproductFXMLController implements Initializable {
     @FXML
     private ComboBox<String> subcategory;
     @FXML
-    private Button btnaddproduct;
-    @FXML
     private Button btnaddimage;
     @FXML
     private Label inputcontrol;
-    @FXML
-    private Button btnlistproduct;
-    @FXML
-    private Button btnhome;
+    
     @FXML
     private ImageView image;
     CategoryServices cs = new CategoryServices();
@@ -71,7 +66,10 @@ public class UpdateproductFXMLController implements Initializable {
     String imagename;
     @FXML
     private Button btncancel;
-User user = new User();
+
+    @FXML
+    private Button btnupdateproduct;
+    
     /**
      * Initializes the controller class.
      */
@@ -91,11 +89,9 @@ User user = new User();
         
 
     }    
-public void setInformation(User u) {
-         user = u;
-    }
+
     public void setproduct(Product product){
-          p=new Product(product.getId(),product.getName(),product.getDescription(),product.getImage(),product.getPrice(),product.getSubCategory().getId(),user.getIdUser());
+          p=new Product(product.getId(),product.getName(),product.getDescription(),product.getImage(),product.getPrice(),product.getSubCategory().getId(),product.getUser().getIdUser());
           System.out.println(p);
           inputcontrol.setText("");
         System.out.println(p);
@@ -169,11 +165,12 @@ public void setInformation(User u) {
 
         Alert a1 = new Alert(Alert.AlertType.INFORMATION, "Product modified !", ButtonType.FINISH);
         a1.showAndWait();
-       gotolistproduct(event);
+      
         }
         else if (type == ButtonType.NO) {
             a.close();
         } ;
+        NavigationController.changeMyproductsPage(event, p.getUser(), "listproductFXML.fxml");
          
         });}
        
@@ -193,35 +190,13 @@ public void setInformation(User u) {
         };
     }
 
-    @FXML
-    private void gotolistproduct(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/listproductFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        btnlistproduct.getScene().setRoot(root);
-    }
 
-    @FXML
-    private void home(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/feedproductFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        btnhome.getScene().setRoot(root);
-    }
 
     @FXML
     private void cancel(ActionEvent event) {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/feedproductFXML.fxml"));
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/listproductFXML.fxml"));
         Parent root = null;
         try {
             root = loader.load();

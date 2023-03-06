@@ -7,6 +7,7 @@ package edu.dottn.gui;
 
 import edu.dottn.entities.User;
 import edu.dottn.services.MemberServices;
+import edu.dottn.util.UserSession;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -57,6 +58,8 @@ public class TwoFactorAuthenticationController implements Initializable {
                     System.out.println("id"+P.getIdUser());
                     if (m1.verifCodeAuth(numberid, P.getIdUser())) {
                          prefs.put("iduser", Integer.toString(P.getIdUser()));
+                         UserSession us=new UserSession();
+                         us.setUser(P);
                         NavigationController.changeFeedPage(event, P, "feedproductFXML.fxml");
                     } else {
                         Alert b = new Alert(Alert.AlertType.ERROR, "Code Incorrect", ButtonType.CLOSE);

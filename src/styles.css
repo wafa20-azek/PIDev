@@ -28,7 +28,7 @@
     -fx-underline: true;
 }
 
-#signinbtn ,#updatebtn ,#allpostbtn,#myfeedbtn{
+#signinbtn ,#updatebtn ,#allpostbtn,#myfeedbtn ,#searchMatchingMessage{
     -fx-background-color:#BF5CFF;
     -fx-background-radius: 15;
     
@@ -66,7 +66,7 @@
 }
 
 
-#signinbtn:hover,#updatebtn:hover ,#allpostbtn:hover,#myfeedbtn:hover{
+#signinbtn:hover,#updatebtn:hover ,#allpostbtn:hover,#myfeedbtn:hover,#searchMatchingMessage:hover{
     -fx-background-color: #002885;
     -fx-text-fill: white;
     -fx-cursor:hand;
@@ -121,10 +121,10 @@
 }
 
 .message-bubble {
-    -fx-background-color: #E6E6E6;
-    -fx-border-radius: 10;
-    -fx-padding: 10;
-    -fx-font-size: 14;
+  -fx-background-color: #BF5CFF;
+    -fx-background-insets: 0, 0 1 1 0;
+    -fx-background-radius: 10 10 10 0;
+    -fx-padding:15;
 }
 
 .user {
@@ -204,20 +204,3 @@
 .post:pressed {
     -fx-background-color: #CCCCCC;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

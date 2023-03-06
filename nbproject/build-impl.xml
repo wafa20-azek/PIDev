@@ -48,6 +48,7 @@ is divided into following sections:
         <!-- by the active platform. Just a fallback. -->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <property name="default.javac.source" value="1.4"/>
         <property name="default.javac.target" value="1.4"/>
 =======
@@ -58,6 +59,10 @@ is divided into following sections:
         <property name="default.javac.source" value="1.6"/>
         <property name="default.javac.target" value="1.6"/>
 >>>>>>> 53c6efe8a161e9dbe1096fb1b3eb2ce3c671dc6e
+=======
+        <property name="default.javac.source" value="1.6"/>
+        <property name="default.javac.target" value="1.6"/>
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
     </target>
     <target depends="-pre-init,-init-private,-init-user" name="-init-project">
         <property file="nbproject/configs/${config}.properties"/>
@@ -88,6 +93,7 @@ is divided into following sections:
                 <length length="0" string="${javac.profile}" when="greater"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <matches pattern="1\.[89](\..*)?" string="${javac.source}"/>
 =======
                 <matches pattern="((1\.[89])|9)(\..*)?" string="${javac.source}"/>
@@ -95,6 +101,9 @@ is divided into following sections:
 =======
                 <matches pattern="((1\.[89])|9)(\..*)?" string="${javac.source}"/>
 >>>>>>> 53c6efe8a161e9dbe1096fb1b3eb2ce3c671dc6e
+=======
+                <matches pattern="((1\.[89])|9)(\..*)?" string="${javac.source}"/>
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
             </and>
         </condition>
         <condition property="do.archive">
@@ -176,12 +185,16 @@ is divided into following sections:
         <property name="runtime.encoding" value="${source.encoding}"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         <property name="manifest.encoding" value="${source.encoding}"/>
 >>>>>>> 70d5f95c9914879d8337c924f1e2e6f395fc1e41
 =======
         <property name="manifest.encoding" value="${source.encoding}"/>
 >>>>>>> 53c6efe8a161e9dbe1096fb1b3eb2ce3c671dc6e
+=======
+        <property name="manifest.encoding" value="${source.encoding}"/>
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
         <condition property="javadoc.encoding.used" value="${javadoc.encoding}">
             <and>
                 <isset property="javadoc.encoding"/>
@@ -868,6 +881,7 @@ is divided into following sections:
                 <taskdef classname="org.netbeans.modules.java.j2seproject.copylibstask.CopyLibs" classpath="${libs.CopyLibs.classpath}" name="copylibs"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <copylibs compress="${jar.compress}" excludeFromCopy="${copylibs.excludes}" index="${jar.index}" indexMetaInf="${jar.index.metainf}" jarfile="${dist.jar}" manifest="@{manifest}" rebase="${copylibs.rebase}" runtimeclasspath="${run.classpath.without.build.classes.dir}">
 =======
                 <copylibs compress="${jar.compress}" excludeFromCopy="${copylibs.excludes}" index="${jar.index}" indexMetaInf="${jar.index.metainf}" jarfile="${dist.jar}" manifest="@{manifest}" manifestencoding="UTF-8" rebase="${copylibs.rebase}" runtimeclasspath="${run.classpath.without.build.classes.dir}">
@@ -875,6 +889,9 @@ is divided into following sections:
 =======
                 <copylibs compress="${jar.compress}" excludeFromCopy="${copylibs.excludes}" index="${jar.index}" indexMetaInf="${jar.index.metainf}" jarfile="${dist.jar}" manifest="@{manifest}" manifestencoding="UTF-8" rebase="${copylibs.rebase}" runtimeclasspath="${run.classpath.without.build.classes.dir}">
 >>>>>>> 53c6efe8a161e9dbe1096fb1b3eb2ce3c671dc6e
+=======
+                <copylibs compress="${jar.compress}" excludeFromCopy="${copylibs.excludes}" index="${jar.index}" indexMetaInf="${jar.index.metainf}" jarfile="${dist.jar}" manifest="@{manifest}" manifestencoding="UTF-8" rebase="${copylibs.rebase}" runtimeclasspath="${run.classpath.without.build.classes.dir}">
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
                     <fileset dir="${build.classes.dir}" excludes="${dist.archive.excludes}"/>
                     <manifest>
                         <attribute name="Class-Path" value="${jar.classpath}"/>
@@ -888,6 +905,7 @@ is divided into following sections:
         <presetdef name="jar" uri="http://www.netbeans.org/ns/j2se-project/1">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <jar compress="${jar.compress}" index="${jar.index}" jarfile="${dist.jar}">
 =======
             <jar compress="${jar.compress}" index="${jar.index}" jarfile="${dist.jar}" manifestencoding="UTF-8">
@@ -895,6 +913,9 @@ is divided into following sections:
 =======
             <jar compress="${jar.compress}" index="${jar.index}" jarfile="${dist.jar}" manifestencoding="UTF-8">
 >>>>>>> 53c6efe8a161e9dbe1096fb1b3eb2ce3c671dc6e
+=======
+            <jar compress="${jar.compress}" index="${jar.index}" jarfile="${dist.jar}" manifestencoding="UTF-8">
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
                 <j2seproject1:fileset dir="${build.classes.dir}" excludes="${dist.archive.excludes}"/>
             </jar>
         </presetdef>
@@ -1019,6 +1040,7 @@ is divided into following sections:
         <tempfile deleteonexit="true" destdir="${build.dir}" property="tmp.manifest.file"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <copy file="${manifest.file}" tofile="${tmp.manifest.file}"/>
     </target>
     <target depends="init,-do-jar-create-manifest,-do-jar-copy-manifest" if="do.archive+main.class.available" name="-do-jar-set-mainclass">
@@ -1035,10 +1057,17 @@ is divided into following sections:
     <target depends="init,-do-jar-create-manifest,-do-jar-copy-manifest" if="do.archive+main.class.available" name="-do-jar-set-mainclass">
         <manifest encoding="UTF-8" file="${tmp.manifest.file}" mode="update">
 >>>>>>> 53c6efe8a161e9dbe1096fb1b3eb2ce3c671dc6e
+=======
+        <copy encoding="${manifest.encoding}" file="${manifest.file}" outputencoding="UTF-8" tofile="${tmp.manifest.file}"/>
+    </target>
+    <target depends="init,-do-jar-create-manifest,-do-jar-copy-manifest" if="do.archive+main.class.available" name="-do-jar-set-mainclass">
+        <manifest encoding="UTF-8" file="${tmp.manifest.file}" mode="update">
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
             <attribute name="Main-Class" value="${main.class}"/>
         </manifest>
     </target>
     <target depends="init,-do-jar-create-manifest,-do-jar-copy-manifest" if="do.archive+profile.available" name="-do-jar-set-profile">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         <manifest file="${tmp.manifest.file}" mode="update">
@@ -1048,6 +1077,9 @@ is divided into following sections:
 =======
         <manifest encoding="UTF-8" file="${tmp.manifest.file}" mode="update">
 >>>>>>> 53c6efe8a161e9dbe1096fb1b3eb2ce3c671dc6e
+=======
+        <manifest encoding="UTF-8" file="${tmp.manifest.file}" mode="update">
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
             <attribute name="Profile" value="${javac.profile}"/>
         </manifest>
     </target>
@@ -1057,6 +1089,7 @@ is divided into following sections:
         <copy failonerror="false" file="${application.splash}" todir="${build.classes.dir}/META-INF"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <manifest file="${tmp.manifest.file}" mode="update">
 =======
         <manifest encoding="UTF-8" file="${tmp.manifest.file}" mode="update">
@@ -1064,6 +1097,9 @@ is divided into following sections:
 =======
         <manifest encoding="UTF-8" file="${tmp.manifest.file}" mode="update">
 >>>>>>> 53c6efe8a161e9dbe1096fb1b3eb2ce3c671dc6e
+=======
+        <manifest encoding="UTF-8" file="${tmp.manifest.file}" mode="update">
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
             <attribute name="SplashScreen-Image" value="META-INF/${splashscreen.basename}"/>
         </manifest>
     </target>
@@ -1260,6 +1296,7 @@ is divided into following sections:
         <startprofiler/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <antcal target="run-test-with-main"/>
 =======
         <antcall target="run-test-with-main"/>
@@ -1267,6 +1304,9 @@ is divided into following sections:
 =======
         <antcall target="run-test-with-main"/>
 >>>>>>> 53c6efe8a161e9dbe1096fb1b3eb2ce3c671dc6e
+=======
+        <antcall target="run-test-with-main"/>
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
     </target>
     <target depends="-profile-check,-profile-applet-pre72" if="profiler.configured" name="profile-applet" unless="profiler.info.jvmargs.agent">
         <fail unless="applet.url">Must select one file in the IDE or set applet.url</fail>

@@ -93,6 +93,18 @@ public class ProductServices implements IservicesProduct<Product>{
             System.out.println(sqlEx.getMessage());
         };
     }
+      public void updatestatus(Product p) {
+        
+         try {
+            PreparedStatement pr = cnx.prepareStatement("UPDATE `Product` SET  `status`=? WHERE ID_Product=?");
+            pr.setInt(1, 1);
+             pr.setInt(1, p.getId());
+            pr.executeUpdate();
+            System.out.println("Product with id:  "+p.getId()+" updated  ");
+        }catch(SQLException sqlEx){
+            System.out.println(sqlEx.getMessage());
+        };
+    }
 
     @Override
     public Product getById(int id) {
@@ -115,7 +127,7 @@ public class ProductServices implements IservicesProduct<Product>{
         
         try {
             Statement st = cnx.createStatement();
-            ResultSet result = st.executeQuery("SELECT * FROM Product");
+            ResultSet result = st.executeQuery("SELECT * FROM Product WHERE status=0");
             while (result.next()) {
                 Product p = new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6), result.getInt(7));
                 lp.add(p);
@@ -129,7 +141,7 @@ public class ProductServices implements IservicesProduct<Product>{
         
         
         try {
-           PreparedStatement pr = cnx.prepareStatement("SELECT * FROM Product WHERE ID_Product<>?");
+           PreparedStatement pr = cnx.prepareStatement("SELECT * FROM Product WHERE ID_Product<>? AND status=0");
             pr.setInt(1, us.getUser().getIdUser());
             ResultSet result = pr.executeQuery();
             while (result.next()) {
@@ -145,7 +157,7 @@ public class ProductServices implements IservicesProduct<Product>{
 
     public List<Product> getByName(String name) {
          try {
-               String req = "SELECT * FROM product WHERE name like '" + name + "%'";
+               String req = "SELECT * FROM product WHERE name like '" + name + "%' AND status=0";
             Statement stt = cnx.createStatement();
             ResultSet result = stt.executeQuery(req);
             while (result.next()) {
@@ -159,7 +171,7 @@ public class ProductServices implements IservicesProduct<Product>{
     }
 public List<Product> getByCategory(String category) {
          try {     
-            lp=this.getAll().stream().filter(s->s.getSubCategory().getCategory().getName().contentEquals(category)).collect(Collectors.toList());
+            lp=this.getAll().stream().filter(s->s.getSubCategory().getCategory().getName().contentEquals(category) && s.getStatus()==0).collect(Collectors.toList());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -168,7 +180,7 @@ public List<Product> getByCategory(String category) {
 
     public List<Product> getBySubCategory(String subcategory) {
          try {     
-            lp=this.getAll().stream().filter(s->s.getSubCategory().getName().contentEquals(subcategory)).collect(Collectors.toList());
+            lp=this.getAll().stream().filter(s->s.getSubCategory().getName().contentEquals(subcategory) && s.getStatus()==0).collect(Collectors.toList());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -178,7 +190,7 @@ public List<Product> getByCategory(String category) {
            
         
         try {
-            PreparedStatement pr = cnx.prepareStatement("SELECT * FROM Product WHERE iduser=?");
+            PreparedStatement pr = cnx.prepareStatement("SELECT * FROM Product WHERE iduser=? AND status=0");
             pr.setInt(1, iduser);
             ResultSet result = pr.executeQuery();
             while (result.next()) {

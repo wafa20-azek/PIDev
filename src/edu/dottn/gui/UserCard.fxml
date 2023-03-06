@@ -32,7 +32,7 @@
          <children>
             <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button minWidth="100.0" mnemonicParsing="false" text="Button">
+                  <Button fx:id="deleteId" minWidth="100.0" mnemonicParsing="false" onAction="#onDelete" text="Delete">
                      <HBox.margin>
                         <Insets bottom="20.0" />
                      </HBox.margin>
@@ -41,7 +41,7 @@
             </HBox>
             <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button minWidth="100.0" mnemonicParsing="false" text="Ban">
+                  <Button fx:id="BanId" minWidth="100.0" mnemonicParsing="false" onAction="#onClickBan" text="Ban">
                      <HBox.margin>
                         <Insets bottom="20.0" />
                      </HBox.margin>

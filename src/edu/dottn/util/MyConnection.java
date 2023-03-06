@@ -2,13 +2,14 @@
 package edu.dottn.util;
 
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 
 
 
@@ -24,11 +25,12 @@ import java.sql.SQLException;
 public class MyConnection {
    // JDBC URL, username and password
 
+
     private  final String url = "jdbc:mysql://localhost:3306/troctndb";
     private  final String user = "root";
     private  final String password = "";
   
-    // JDBC  managing connection
+ // JDBC  managing connection
     private  Connection con;
    
     private  static MyConnection instance = null;
@@ -58,6 +60,5 @@ public class MyConnection {
     public Connection getConnection() {
         return con;
     }
-
 
 }

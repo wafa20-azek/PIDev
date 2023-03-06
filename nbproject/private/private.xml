@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/NavigationController.java</file>
-            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/AddproductFXMLController.java</file>
-            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/NavbarController.java</file>
-            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/AfficheOffreFXMLController.java</file>
-            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/ListproductFXMLController.java</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/services/AssociationServices.java</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/profile.fxml</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/AfficheOffreFXML.fxml</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/util/MyConnection.java</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/inventory.fxml</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/SidebarController.java</file>
+            <file>file:/C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/edu/dottn/gui/sidebar.fxml</file>
         </group>
     </open-files>
 </project-private>

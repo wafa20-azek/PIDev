@@ -5,9 +5,11 @@
  */
 package edu.dottn.gui;
 
+import edu.dottn.entities.Admin;
 import edu.dottn.entities.Member;
 import edu.dottn.entities.User;
 import edu.dottn.services.MemberServices;
+import edu.dottn.util.UserSession;
 import java.io.IOException;
 import java.net.URL;
 
@@ -52,12 +54,22 @@ public class LoadingPageController implements Initializable {
         if (!prefs.get("iduser", "default").contains("default")) {
             User P = m1.getOneById(Integer.parseInt(prefs.get("iduser", "default")));
             if (P instanceof Member) {
-
+                UserSession us=new UserSession();
+                us.setUser(P);
                 timeline.getKeyFrames().add(new KeyFrame(javafx.util.Duration.seconds(2),
                         e -> NavigationController.openSession("feedproductFXML.fxml", P, idText)));
             }
 
-        } else {
+         else if (P instanceof Admin) {
+                UserSession us=new UserSession();
+                us.setUser(P);
+                System.out.println("hellooooo");
+                timeline.getKeyFrames().add(new KeyFrame(javafx.util.Duration.seconds(2),
+                        e -> NavigationController.openSessionadmin("AdminDashboard.fxml", P, idText)));
+            }
+
+        }else
+        {
             timeline.getKeyFrames().add(new KeyFrame(javafx.util.Duration.seconds(2),
                     e -> {
                         try {
@@ -89,6 +101,6 @@ public class LoadingPageController implements Initializable {
 //        }
         timeline.play();
 
-    }
+        }
 
 }

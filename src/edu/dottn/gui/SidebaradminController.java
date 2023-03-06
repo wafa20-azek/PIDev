@@ -8,12 +8,16 @@ package edu.dottn.gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -26,6 +30,8 @@ public class SidebaradminController implements Initializable {
     private Button btnuser;
     @FXML
     private Button btnproducts;
+    @FXML
+    private ImageView logout;
 
     /**
      * Initializes the controller class.
@@ -61,6 +67,13 @@ public class SidebaradminController implements Initializable {
 
         
         btnproducts.getScene().setRoot(root);
+    }
+
+    @FXML
+    private void logoutapp(MouseEvent event) throws BackingStoreException {
+         Preferences prefs = Preferences.userNodeForPackage(TwoFactorAuthenticationController.class);
+            prefs.clear();
+            NavigationController.changeLoginPage(event,"LoginPage.fxml");
     }
     
 }

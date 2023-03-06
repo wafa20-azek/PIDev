@@ -23,6 +23,7 @@ public class Product {
     private String Description;
     private String image;
     private float price;
+    private int status;
     private SubCategory subcategory=new SubCategory();
     private SubCategoryServices cs= new SubCategoryServices();
     User user= new User();
@@ -48,6 +49,7 @@ public class Product {
         this.price = price;
         this.subcategory= subcategory;
         this.user=user;
+        
     }
 
     public Product(int id, String Name, String Description, String image, float price, int idsbucategory, int iduser) {
@@ -88,6 +90,10 @@ public class Product {
 
     public User getUser() {
         return user;
+    }
+
+    public int getStatus() {
+        return status;
     }
     
 

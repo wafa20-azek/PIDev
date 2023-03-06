@@ -14,9 +14,12 @@
             <Image url="@../../../logohome.png" />
          </image>
       </ImageView>
+
       <Button fx:id="homebtn" layoutX="31.0" layoutY="220.0" mnemonicParsing="false" onAction="#goToFeed" prefHeight="51.0" prefWidth="223.0" text="Home" />
       <Button fx:id="Profile" layoutX="32.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#goToProfile" prefHeight="51.0" prefWidth="223.0" text="Profile" />
       <Button fx:id="Inventory" layoutX="31.0" layoutY="380.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="51.0" prefWidth="223.0" text="Inventory" />
+     
+
       <Label fx:id="logouttext" layoutX="91.0" layoutY="612.0" onMouseClicked="#logout" prefHeight="44.0" prefWidth="106.0" text="LOGOUT" textFill="WHITE">
          <font>
             <Font size="27.0" />

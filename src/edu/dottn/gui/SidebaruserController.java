@@ -39,6 +39,8 @@ public class SidebaruserController implements Initializable {
 UserSession us=new UserSession();
     @FXML
     private ImageView logout;
+    @FXML
+    private Button donation;
     /**
      * Initializes the controller class.
      */
@@ -73,16 +75,17 @@ UserSession us=new UserSession();
     }
 
     @FXML
-    private void logoutapp(MouseEvent event) {
-          try {
+    private void logoutapp(MouseEvent event) throws BackingStoreException {
+         
             Preferences prefs = Preferences.userNodeForPackage(TwoFactorAuthenticationController.class);
-            MemberServices m1 = new MemberServices();
-            m1.logOut(us.getUser().getIdUser());
             prefs.clear();
             NavigationController.changeLoginPage(event,"LoginPage.fxml");
-        } catch (BackingStoreException ex) {
-            System.out.println(ex.getMessage());
-        }
+        
+    }
+
+    @FXML
+    private void gotodonation(ActionEvent event) {
+        NavigationController.changefeeddonation(event, "feeddonation.fxml");
     }
 
   

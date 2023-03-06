@@ -23,13 +23,11 @@ import javafx.stage.Stage;
  * @author WALID
  */
 public class NavigationController {
-    public static void changeHomePage(ActionEvent event,User P, String fxmlFile){
+    public static void changefeeddonation(ActionEvent event, String fxmlFile){
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
             root = loader.load();
-            HomePageController Home = loader.getController();
-            Home.setInformation(P);
            Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(scene);
@@ -312,12 +310,25 @@ public class NavigationController {
         try {
             FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
             Parent root = loader.load();
-            HomePageController Home = loader.getController();
-            Home.setInformation(P);
+            FeedproductFXMLController feed = loader.getController();
+            feed.setInformation(P);
             t.getScene().setRoot(root);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
+     public static void openSessionadmin(String fxmlFile,User P,Text t){
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
+            Parent root = loader.load();
+            AdminDashboardController feed = loader.getController();
+            feed.setInformation(P);
+            t.getScene().setRoot(root);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     
 }

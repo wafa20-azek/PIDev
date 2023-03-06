@@ -3,11 +3,19 @@ package edu.dottn.gui;
 
 import edu.dottn.entities.Association;
 import edu.dottn.services.AssociationServices;
+
+import edu.dottn.entities.Post;
+import edu.dottn.services.AssociationServices;
+import edu.dottn.services.ServicePost;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 import java.net.URL;
+
+import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,7 +29,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+
 import javafx.scene.control.Button;
+
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -29,15 +44,29 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.PopupWindow.AnchorLocation;
+
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.PopupWindow.AnchorLocation;
+import javafx.stage.Stage;
+
 
 
 
 public class ProfileController implements Initializable {
 
+
     private AssociationServices associationServices = new AssociationServices();
+
+    
+    private ServicePost ps = new ServicePost();
+    //private AssociationServices associationServices = new AssociationServices();
+
     private Association loggedInAssociation;
      
     @FXML
@@ -51,6 +80,10 @@ public class ProfileController implements Initializable {
     private Button allpostbtn;
     @FXML
     private Button myfeedbtn;
+
+    @FXML
+    private DatePicker timeDate;
+
     
     
     public AnchorPane getRoot() {
@@ -59,50 +92,53 @@ public class ProfileController implements Initializable {
     @FXML
     private ImageView userimage;
     
-    private ArrayList<String> l= new ArrayList<String>();
+
+private List<Post> l= ps.getAll() ;
+  
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox feedBox;
 
+
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+  
+        
+
         seachfield.textProperty().addListener((observable, oldValue, newValue) -> {
             filterPosts(newValue);
         });
 
         feedBox.setSpacing(20);
         feedBox.setPadding(new Insets(20, 0, 0, 0));
+
     
         
-        l.add("a");
-        l.add("b");
-        l.add("TEST");
-        l.add("Saif");
-        l.add("Collect dons '9ofet Romdhan'");
+      
         
        loggedInAssociation = associationServices.getLoggedInAssociation();
         hellouserText.setText("Hello, "+loggedInAssociation.getAssocName());
-//        try{
-//        String imagePath = loggedInAssociation.getImage();
-//        File file = new File(imagePath);
-//         url = file.toURI().toURL();
-//        Image image = new Image(url.toString());
-//        userimage.setImage(image);
-//        } catch (MalformedURLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
+
         System.out.println(l);
             
-            for (String item : l) {
+            for (Post item : l) {
+
              try {
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource("post.fxml"));
             Node postNode = loader.load();
 
             PostController postController = loader.getController();
-            postController.setData(item);
+
+           // postController.setData(item);
+
+            postController.setData(item.getTitlePost(),item.getAssociation(),item.getDescription(),item.getDate_created(),item.getPhotos());
+         //   postController.setData(item.getTitlePost());
+
 
             AnchorPane feed1 = new AnchorPane(postNode);
             
@@ -112,17 +148,51 @@ public class ProfileController implements Initializable {
             
             feedBox.getChildren().add(feed1);
             allpostbtn.setOnAction(event -> {
-                refreshPosts();
+
+           
+                try {
+                    refreshPosts();
+                } catch (MalformedURLException ex) {
+                }
             });
             myfeedbtn.setOnAction(event -> {
-                refreshPosts();
+                try {
+                    refreshPosts();
+                } catch (MalformedURLException ex) {
+                }
             });
-           
+            feed1.setOnMouseClicked(event->{
+                try {
+                    File file = new File(item.getPhotos());
+                    URL url1 = file.toURI().toURL();
+                    Image img = new Image(url1.toString());
+                    try {
+                        Stage stage = (Stage) feed1.getScene().getWindow();
+                        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("postInformations.fxml"));
+                        AnchorPane root1 = loader1.load();
+                        PostInformationsController controller = loader1.getController();
+                        controller.setPostInformations(item.getTitlePost(), item.getDescription(), img,item);
+                        controller.setIdPost(item);
+                        // Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+                        Scene scene = new Scene(root1, 1280, 700);
+                        stage.setScene(scene);
+                        stage.setTitle("Troctn Desktop App ");
+                        scene.getStylesheets().add("styles.css");
+                        stage.setResizable(false);
+                        stage.show();
+                    } catch (IOException ex) {
+                    }
+                } catch (MalformedURLException ex) {
+                }
+            });
+            
             } catch (IOException e) {
                System.out.println(e.getMessage());
             }
          }
+
     }
+
     
     private void filterPosts(String searchText) {
     for (Node child : feedBox.getChildren()) {
@@ -131,21 +201,29 @@ public class ProfileController implements Initializable {
         
          
         String title = titleLabel.getText();
-        boolean match = title.toLowerCase().contains(searchText.toLowerCase());
+
+
+        boolean match = title.toLowerCase().startsWith(searchText.toLowerCase());
+
         feed1.setVisible(match);
         feed1.setManaged(match);   
         }
     }
-    
-    private void refreshPosts() {
-    feedBox.getChildren().clear(); // clear current posts
-    for (String item : l) {
+
+
+    private void refreshPosts() throws MalformedURLException {
+    feedBox.getChildren().clear(); 
+    //LocalDate selectedDate = timeDate.getValue(); 
+    for (Post item : l) {
+       
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("post.fxml"));
             Node postNode = loader.load();
 
             PostController postController = loader.getController();
-            postController.setData(item);
+           // postController.setData(item);
+            postController.setData(item.getTitlePost(),item.getAssociation(),item.getDescription(),item.getDate_created(),item.getPhotos());
 
             AnchorPane feed1 = new AnchorPane(postNode);
             postNode.getStyleClass().add("post");
@@ -167,11 +245,40 @@ public class ProfileController implements Initializable {
             }
 
             feedBox.getChildren().add(feed1);
-            } catch (IOException e) {
+            
+           feedBox.getChildren().add(feed1);
+           feed1.setOnMouseClicked(event->{
+                try {
+                    File file = new File(item.getPhotos());
+                    URL url1 = file.toURI().toURL();
+                    Image img = new Image(url1.toString());
+                    try {
+                        Stage stage = (Stage) feed1.getScene().getWindow();
+                        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("postInformations.fxml"));
+                        AnchorPane root1 = loader1.load();
+                        PostInformationsController controller = loader1.getController();
+                        controller.setPostInformations(item.getTitlePost(), item.getDescription(), img,item);
+                        controller.setIdPost(item);
+                        // Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+                        Scene scene = new Scene(root1, 1280, 700);
+                        stage.setScene(scene);
+                        stage.setTitle("Troctn Desktop App ");
+                        scene.getStylesheets().add("styles.css");
+                        stage.setResizable(false);
+                        stage.show();
+                    } catch (IOException ex) {
+                    }
+                } catch (MalformedURLException ex) {
+                }
+            }); 
+        } catch (IOException e) {
                 System.out.println(e.getMessage());
-            }
-   }
+        }
+    }
 }
+
+
+
 
 }
 

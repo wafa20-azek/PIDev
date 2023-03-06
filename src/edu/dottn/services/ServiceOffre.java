@@ -56,6 +56,7 @@ import java.io.FileOutputStream;
  */
 // tout se qui est select nekhdmouh b exectuteQuery w exectute update nikhdmouha lil kol ajouter supprimer modifier
 public class ServiceOffre implements Oservice<Offre> {
+    ProductServices ps= new ProductServices();
 
     Connection con = MyConnection.getInstance().getConnection();
     //ajouter un offre
@@ -169,21 +170,7 @@ public class ServiceOffre implements Oservice<Offre> {
         return list;
     }
 
-//    //rechercher des offres selon idUser 
-//    public List<Offre> getByName(String name) {
-//        List<Offre> rech = null;
-//        try {
-//            rech = this.getAll()
-//                    .stream()
-//                    .filter(t -> t.getName().equals(name))
-//                    .collect(Collectors.toList());
-//            System.out.println("les user sont : " + rech);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return rech;
-//
-//    }
+
 
     //rechercher des offres selon le produit
     public List<Offre> getByProduct(Offre o1) {
@@ -244,6 +231,8 @@ public class ServiceOffre implements Oservice<Offre> {
             String req = "UPDATE `offre` SET `status`='" + "Accepted" + " ' WHERE `id_offre`='" + o.getId_Offre() + "'";
             Statement st = con.createStatement();
             st.executeUpdate(req);
+            ps.updatestatus(o.getProduct2());
+            ps.updatestatus(o.getProduct1());
             System.out.println("Offer accepted !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

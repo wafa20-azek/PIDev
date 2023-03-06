@@ -3,9 +3,6 @@ package edu.dottn.services;
 import edu.dottn.entities.Association;
 
 import edu.dottn.entities.User;
-import static edu.dottn.services.MessageServices.displayMessageBySender;
-import edu.dottn.util.MyConnection;
-
 
 import static edu.dottn.services.MessageServices.displayMessageBySender;
 import edu.dottn.util.MyConnection;

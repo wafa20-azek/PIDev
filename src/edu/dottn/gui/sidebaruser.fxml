@@ -13,35 +13,40 @@
             <Image url="@../assets/troctn.png" />
          </image>
       </ImageView>
-      <Button fx:id="home" layoutX="28.0" layoutY="195.0" mnemonicParsing="false" onAction="#gotofeed" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="Home" textFill="WHITE">
+      <Button fx:id="home" layoutX="28.0" layoutY="144.0" mnemonicParsing="false" onAction="#gotofeed" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="Home" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="explore" layoutX="28.0" layoutY="271.0" mnemonicParsing="false" onAction="#gotosearch" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="Explore" textFill="WHITE">
+      <Button fx:id="explore" layoutX="28.0" layoutY="220.0" mnemonicParsing="false" onAction="#gotosearch" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="Explore" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="inventory" layoutX="28.0" layoutY="344.0" mnemonicParsing="false" onAction="#gotomyproducts" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="Inventory" textFill="WHITE">
+      <Button fx:id="inventory" layoutX="28.0" layoutY="293.0" mnemonicParsing="false" onAction="#gotomyproducts" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="Inventory" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="28.0" layoutY="423.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="messages" textFill="WHITE">
+      <Button layoutX="28.0" layoutY="372.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="messages" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="28.0" layoutY="493.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="Support" textFill="WHITE">
+      <Button fx:id="donation" layoutX="28.0" layoutY="442.0" mnemonicParsing="false" onAction="#gotodonation" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="Donation" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <ImageView fx:id="logout" fitHeight="37.0" fitWidth="158.0" layoutX="72.0" layoutY="609.0" onMouseClicked="#logoutapp" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="logout" fitHeight="37.0" fitWidth="158.0" layoutX="72.0" layoutY="637.0" onMouseClicked="#logoutapp" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/logout.png" />
          </image>
       </ImageView>
+      <Button layoutX="28.0" layoutY="509.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="Support" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

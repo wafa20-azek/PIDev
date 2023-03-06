@@ -5,6 +5,7 @@
  */
 package edu.dottn.gui;
 
+import edu.dottn.entities.Member;
 import edu.dottn.entities.User;
 import edu.dottn.services.MemberServices;
 import java.io.IOException;
@@ -74,6 +75,8 @@ public class AdminDashboardController implements Initializable {
                 UserCardController userCard = fxml.getController();
                 userCard.nameLabel(CardList.get(i).getName());
                 userCard.emailLabel(CardList.get(i).getEmail());
+                userCard.getActivate(((Member) CardList.get(i)).isActivated());
+                    userCard.setAdmin(P);
                 if (columns == 3) {
                     columns = 0;
                     rows++;
@@ -100,6 +103,8 @@ public class AdminDashboardController implements Initializable {
                     UserCardController userCard = fxml.getController();
                     userCard.nameLabel(CardList.get(i).getName());
                     userCard.emailLabel(CardList.get(i).getEmail());
+                    userCard.getActivate(((Member) CardList.get(i)).isActivated());
+                    userCard.setAdmin(P);
                     if (columns == 3) {
                         columns = 0;
                         rows++;
@@ -125,7 +130,9 @@ public class AdminDashboardController implements Initializable {
 
                         UserCardController userCard = fxml.getController();
                         userCard.nameLabel(i.getName());
-                        userCard.emailLabel(i.getEmail());
+                        userCard.getId(i.getIdUser());
+                            userCard.getActivate(((Member) i).isActivated());
+                    userCard.setAdmin(P);
                         if (columns == 3) {
                             columns = 0;
                             rows++;
@@ -148,6 +155,8 @@ public class AdminDashboardController implements Initializable {
                         UserCardController userCard = fxml.getController();
                         userCard.nameLabel(CardList.get(i).getName());
                         userCard.emailLabel(CardList.get(i).getEmail());
+                        userCard.getActivate(((Member) CardList.get(i)).isActivated());
+                    userCard.setAdmin(P);
                         if (columns == 3) {
                             columns = 0;
                             rows++;
@@ -165,12 +174,13 @@ public class AdminDashboardController implements Initializable {
 
     public void setInformation(User o) {
         P = o;
-        nameAdmin.setText(P.getName());
+        System.out.println(P);
+       // nameAdmin.setText(P.getName());
     }
 
     @FXML
     private void adminLogout(MouseEvent event) {
-        m1.logOut(P.getIdUser());
+     
         NavigationController.changeLoginPage(event, "LoginPage.fxml");
     }
 

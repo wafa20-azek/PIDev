@@ -5,7 +5,9 @@
  */
 package edu.dottn.gui;
 
+
 import edu.dottn.services.AssociationServices;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +17,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
 import javafx.scene.control.Alert;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -25,7 +29,11 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
+<<<<<<< HEAD
  * @author Saif
+=======
+ * @author rajhi
+>>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
  */
 public class SidebarController implements Initializable {
 
@@ -35,10 +43,12 @@ public class SidebarController implements Initializable {
     private Label logouttext;
     @FXML
     private Button messagesbtn;
+
     @FXML
     private Button Profile;
     @FXML
     private Button Inventory;
+
 
     /**
      * Initializes the controller class.
@@ -47,6 +57,7 @@ public class SidebarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
 
      @FXML
     private void logout(MouseEvent event) {
@@ -73,12 +84,15 @@ public class SidebarController implements Initializable {
         }
     }
     
-        @FXML
-    public void goToInventory(ActionEvent e ){
-         try {
+  
+
+    @FXML
+    private void goToInventory(ActionEvent event) {
+        try {
                     Stage stage = (Stage) homebtn.getScene().getWindow();
                     Parent root = FXMLLoader.load(getClass().getResource("inventory.fxml"));
-                    Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+//                    Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+
                     Scene scene = new Scene(root, 1280, 700);
                     stage.setScene(scene);
                     stage.setTitle("Troctn Desktop App ");
@@ -91,6 +105,7 @@ public class SidebarController implements Initializable {
     }
 
     @FXML
+
     private void goToMessages(ActionEvent event) {
         try {
                     Stage stage = (Stage) homebtn.getScene().getWindow();
@@ -139,6 +154,6 @@ public class SidebarController implements Initializable {
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());
                    }
-    }
-    
+
+}
 }

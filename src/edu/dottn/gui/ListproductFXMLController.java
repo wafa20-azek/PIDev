@@ -48,7 +48,7 @@ public class ListproductFXMLController implements Initializable {
     @FXML
     private AnchorPane feed;
     private ProductServices ps = new ProductServices();
-    private Button btnaddproduct;
+   
     User user = new User();
     List<Product> l = new ArrayList<>();
 
@@ -85,7 +85,7 @@ public class ListproductFXMLController implements Initializable {
             String s = String.valueOf(p.getPrice());
             Label value = new Label(s);
            
-            anchorpane.setOnMouseClicked(MouseEvent -> {
+            iv.setOnMouseClicked(MouseEvent -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("productFXML.fxml"));
                     Parent product = loader.load();
@@ -106,6 +106,7 @@ public class ListproductFXMLController implements Initializable {
             Button btnupdate = new Button("update");
 
             btndelete.setOnMouseClicked(MouseEvent -> {
+                System.out.println("updateeeeeeeeeee");
                 ondeleteclick(p);
             });
             btnupdate.setOnMouseClicked(MouseEvent -> {
@@ -118,8 +119,9 @@ public class ListproductFXMLController implements Initializable {
             title.setLayoutY(y + 210);
             value.setLayoutY(y + 240);
             btnupdate.setLayoutY(y + 290);
-            btnupdate.setLayoutX(150);
-            btndelete.setLayoutY(y + 290);
+            btndelete.setLayoutY(y + 320);
+            btnupdate.setLayoutX(20);
+            btndelete.setLayoutX(20);
             AnchorPane.setLeftAnchor(iv, 10.0);
             AnchorPane.setLeftAnchor(title, 10.0);
             AnchorPane.setLeftAnchor(Description, 10.0);
@@ -141,6 +143,7 @@ public class ListproductFXMLController implements Initializable {
         a.showAndWait().ifPresent(type -> {
             if (type == ButtonType.YES) {
                 ps.removeProduct(p1.getId());
+                a.close();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/listproductFXML.fxml"));
                 Parent root = null;
                 try {
@@ -149,7 +152,7 @@ public class ListproductFXMLController implements Initializable {
                     throw new RuntimeException(e);
                 }
 
-                btnaddproduct.getScene().setRoot(root);
+                feed.getScene().setRoot(root);
             } else if (type == ButtonType.NO) {
                 a.close();
             };
@@ -158,7 +161,7 @@ public class ListproductFXMLController implements Initializable {
     }
 
     private void onupdateclick(Product pu) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/updateproductFXML.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("updateproductFXML.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -168,8 +171,8 @@ public class ListproductFXMLController implements Initializable {
 
         UpdateproductFXMLController upc = loader.getController();
         upc.setproduct(pu);
-
-        btnaddproduct.getScene().setRoot(root);
+        System.out.println("dkhalna lil update");
+        feed.getScene().setRoot(root);
     }
 
 }

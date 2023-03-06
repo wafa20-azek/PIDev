@@ -211,7 +211,7 @@ public class MemberServices implements UServices<User> {
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 if (rs.getString(7).equals("Member")) {
-                    p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8), rs.getBoolean(10));
+                    p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8), rs.getBoolean(11));
                 } else {
                     p = new Admin(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
 
@@ -232,7 +232,7 @@ public class MemberServices implements UServices<User> {
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 if (rs.getString(7).equals("Member")) {
-                    User p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8), rs.getBoolean(10));
+                    User p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8), rs.getBoolean(11));
                     result.add(p);
                 }
             }
@@ -259,13 +259,13 @@ public class MemberServices implements UServices<User> {
                 if (rs.getString(5).equals(attemptedPassword)) {
                     if (rs.getBoolean(11)) {
                         if (rs.getString(7).equals("Member")) {
-                            p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8), rs.getBoolean(10));
+                            p = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(8), rs.getBoolean(11));
                         } else {
                             p = new Admin(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
 
                         }
                         // ajouter session dans la DB si le password est correcte
-                        addSession(p.getIdUser());
+                        
                         System.out.println("successful authentication");
                     } else {
                         Alert activemsg = new Alert(Alert.AlertType.ERROR, "Le compte est desactivé", ButtonType.CLOSE);
@@ -284,48 +284,7 @@ public class MemberServices implements UServices<User> {
         return p;
     }
 
-    public void addSession(int idUser) throws SQLException {
-        String req = "INSERT INTO `session` (`idUser`, `loginTime`) VALUES (?,?)";
-        PreparedStatement ps = cnx.prepareStatement(req);
-        ps.setInt(1, idUser);
-        ps.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
-        ps.executeUpdate();
-    }
-// tester si l'utlisateur ne quitte pas son compte
-
-    public User verifSession() {
-        User p = null;
-        try {
-            String req = "SELECT * FROM `session`";
-            Statement st = cnx.createStatement();
-            ResultSet rs = st.executeQuery(req);
-            if (rs.next()) {
-
-                p = getOneById(rs.getInt(2));
-                System.out.println("Welcome " + p.getName());
-
-            } else {
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return p;
-    }
-
-    public void logOut(int id) {
-        //on va fermer la session pour l'utilisateur par idUser
-        String req = "DELETE FROM `session` WHERE idUser = " + id;
-
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.executeUpdate();
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-    }
+  
 
     public void sendCodeAuth(String email, int number) {
         try {
@@ -415,5 +374,21 @@ public class MemberServices implements UServices<User> {
 
         return users;
     }
+public void banUser(int id, boolean etat) {
+        try {
 
+            // update user account activation status
+            String req = "UPDATE user SET activated = ? WHERE idUser = ?";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setBoolean(1, etat);
+            ps.setInt(2, id);
+
+            // execute SQL statement to update user account activation status
+            int rowsUpdated = ps.executeUpdate();
+
+            // check if user account activation status was updated
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

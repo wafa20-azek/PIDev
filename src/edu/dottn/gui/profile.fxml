@@ -15,7 +15,9 @@
    <children>
        <fx:include source="sidebar.fxml" />
       <TextField fx:id="seachfield" layoutX="352.0" layoutY="72.0" prefHeight="31.0" prefWidth="337.0" />
-      <DatePicker layoutX="699.0" layoutY="72.0" prefHeight="31.0" prefWidth="148.0" />
+
+      <DatePicker fx:id="timeDate" layoutX="699.0" layoutY="72.0" prefHeight="31.0" prefWidth="148.0" />
+
       <Label fx:id="hellouserText" layoutX="1110.0" layoutY="78.0" text="Hello , user" />
       <ImageView fx:id="userimage" fitHeight="44.0" fitWidth="50.0" layoutX="1052.0" layoutY="63.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -13,6 +13,7 @@ import edu.dottn.util.UserSession;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +28,6 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-
 /**
  * FXML Controller class
  *
@@ -41,7 +41,6 @@ public class LoginPageController implements Initializable {
     private TextField emailId;
     @FXML
     private Text ForgetId;
-    
 
     /**
      * Initializes the controller class.
@@ -50,19 +49,22 @@ public class LoginPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         ForgetId.setOnMouseClicked(new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent e) {
+            @Override
+            public void handle(MouseEvent e) {
                 NavigationController.changeForgetPassword(e, "ForgetPassword.fxml");
-                }
-            
-    });}
-    
+            }
+
+        });
+    }
+
     @FXML
     private void btnSignUp(ActionEvent event) {
-         NavigationController.changeSignUpPage(event,"Inscription.fxml");
+        NavigationController.changeSignUpPage(event, "Inscription.fxml");
     }
+
     @FXML
     private void btnSignIn(ActionEvent event) throws IOException {
+        Preferences prefs = Preferences.userNodeForPackage(TwoFactorAuthenticationController.class);
 
         if (!(emailId.getText().isEmpty() || passwordId.getText().isEmpty())) {
             if (!emailId.getText().contains("@")) {
@@ -70,27 +72,25 @@ public class LoginPageController implements Initializable {
                 Alert email = new Alert(Alert.AlertType.ERROR, "email doesn't contain @ ", ButtonType.CLOSE);
                 email.showAndWait();
             } else {
+
                 MemberServices m1 = new MemberServices();
                 User p1 = m1.authenticateUser(emailId.getText(), passwordId.getText());
-               
 
+                prefs.put("iduser", Integer.toString(p1.getIdUser()));
                 if (p1 != null && p1 instanceof Member) {
 //                    m1.sendCodeAuth(p1.getEmail(), p1.getNumero());
 //                   
 //                    NavigationController.changeToTwoFactorAuthentication(event, p1, "TwoFactorAuthentication.fxml");
                     //System.out.println(p1);
-                    
-                    
-                    UserSession us=new UserSession();
+
+                    UserSession us = new UserSession();
                     us.setUser(p1);
                     NavigationController.changeFeedPage(event, p1, "feedproductFXML.fxml");
-                }
-                else if(p1 != null && p1 instanceof Admin){
-                   NavigationController.AdminHomePage(event, p1, "AdminDashboard.fxml");
-                }
-                else {
+                } else if (p1 != null && p1 instanceof Admin) {
+                    NavigationController.AdminHomePage(event, p1, "AdminDashboard.fxml");
+                } else {
                     passwordId.setStyle("-fx-border-color: red;");
-                    
+
                 }
             }
         } else {

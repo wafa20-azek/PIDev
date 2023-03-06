@@ -15,9 +15,9 @@ public class Association extends User  {
     private int number;
 
     public Association() {
-        
     }
 
+    
      public Association(String assocName, String username, String email, String location, int number ){
         this.assocName = assocName;
         this.username = username;

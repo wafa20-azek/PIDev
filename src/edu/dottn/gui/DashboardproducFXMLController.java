@@ -153,20 +153,15 @@ UserSession us=new UserSession();
             btndelete.setLayoutX(x + 720);
             btndelete.setOnMouseClicked((MouseEvent MouseEvent) -> {
                 ps.removeProduct(id);
-                   Parent root = null;
+                  
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboardproducFXML.fxml"));
+        Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource("dashboardproductFXML.fxml"));
             root = loader.load();
-            DashboardproducFXMLController dashboard = loader.getController();
-           
-           Scene scene = new Scene(root);
-            Stage primaryStage = (Stage)((Node) MouseEvent.getSource()).getScene().getWindow();
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("TrocTn");
-            primaryStage.show();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        } catch (IOException e) {
         }
+
+        btndelete.getScene().setRoot(root);
                 
             });
             Product p=l.get(i);
