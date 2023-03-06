@@ -35,6 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.PopupWindow.AnchorLocation;
@@ -107,7 +108,7 @@ public class ProfileController implements Initializable {
             Node postNode = loader.load();
 
             PostController postController = loader.getController();
-            postController.setData(item.getTitlePost(),item.getDescription(),item.getDate_created(),item.getPhotos());
+            postController.setData(item.getTitlePost(),item.getAssociation(),item.getDescription(),item.getDate_created(),item.getPhotos());
          //   postController.setData(item.getTitlePost());
 
             AnchorPane feed1 = new AnchorPane(postNode);
@@ -154,8 +155,6 @@ public class ProfileController implements Initializable {
                 }
             });
             
-           
-           
             } catch (IOException e) {
                System.out.println(e.getMessage());
             }
@@ -185,7 +184,7 @@ public class ProfileController implements Initializable {
             Node postNode = loader.load();
 
             PostController postController = loader.getController();
-            postController.setData(item.getTitlePost(),item.getDescription(),item.getDate_created(),item.getPhotos());
+            postController.setData(item.getTitlePost(),item.getAssociation(),item.getDescription(),item.getDate_created(),item.getPhotos());
 
             AnchorPane feed1 = new AnchorPane(postNode);
             postNode.getStyleClass().add("post");
@@ -197,23 +196,47 @@ public class ProfileController implements Initializable {
                 feed1.setManaged(true);
             } else if (myfeedbtn.isHover()) 
             {
-                Label titleLabel = (Label) feed1.lookup("#titlepost");
+               
                 Label associationLabel = (Label) feed1.lookup("#assocpost");
-                String title = titleLabel.getText();
+                System.out.println(associationLabel);
                 String association = associationLabel.getText();
                 System.out.println(association);
-                boolean match = association.toLowerCase().equals(loggedInAssociation.getAssocName().toLowerCase());
+                boolean match = association.toLowerCase().equals("leo club tunis");//// association instance
                 feed1.setVisible(match);
                 feed1.setManaged(match);
             }
            feedBox.getChildren().add(feed1);
-            
-           
+           feed1.setOnMouseClicked(event->{
+                try {
+                    File file = new File(item.getPhotos());
+                    URL url1 = file.toURI().toURL();
+                    Image img = new Image(url1.toString());
+                    try {
+                        Stage stage = (Stage) feed1.getScene().getWindow();
+                        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("postInformations.fxml"));
+                        AnchorPane root1 = loader1.load();
+                        PostInformationsController controller = loader1.getController();
+                        controller.setPostInformations(item.getTitlePost(), item.getDescription(), img,item);
+                        controller.setIdPost(item);
+                        // Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+                        Scene scene = new Scene(root1, 1280, 700);
+                        stage.setScene(scene);
+                        stage.setTitle("Troctn Desktop App ");
+                        scene.getStylesheets().add("styles.css");
+                        stage.setResizable(false);
+                        stage.show();
+                    } catch (IOException ex) {
+                    }
+                } catch (MalformedURLException ex) {
+                }
+            }); 
         } catch (IOException e) {
                 System.out.println(e.getMessage());
         }
     }
 }
+
+
 
 }
 

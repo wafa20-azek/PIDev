@@ -36,6 +36,7 @@ public class InventoryController implements Initializable {
 
     @FXML
     private Button addPostbtn;
+    @FXML
     private ImageView inventoryImageUser;
     
     
@@ -47,16 +48,16 @@ public class InventoryController implements Initializable {
     
   private List<Donation> l= sd.getAll();
      private AnchorPane root;
+    @FXML
+    private Label welcomeInventoryText;
      
       public AnchorPane getRoot() {
         return root;
     }
-      
-
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
+        donationFeed.setSpacing(15);
+       // System.out.println(l);
        /*try{
         String imagePath = loggedInAssociation.getImage();
         File file = new File(imagePath);
@@ -99,7 +100,7 @@ public class InventoryController implements Initializable {
             Node postNode = loader.load();
 
             DonationCardController DonationCardController = loader.getController();
-            DonationCardController.setData(item.getIdDon());
+            DonationCardController.setData(item);
             
 
             AnchorPane donation = new AnchorPane(postNode);
@@ -114,9 +115,7 @@ public class InventoryController implements Initializable {
                 System.out.println(e.getMessage());
         }
         }
-
     }    
-
 
     @FXML
     private void goToAddPost(ActionEvent event) {

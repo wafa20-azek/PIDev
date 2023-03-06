@@ -39,6 +39,9 @@ import javax.mail.internet.MimeMessage;
 public class ServiceDonation implements DService<Donation> {
 
     Connection cnx = MyConnection.getInstance().getConnection();
+    MemberServices ms = new MemberServices();
+    ProductServices ps = new ProductServices();
+    ServicePost sp=new ServicePost();
 //Ajout avec verification
 
     public void ajouter(Donation d) {
@@ -63,16 +66,16 @@ public class ServiceDonation implements DService<Donation> {
             stInsert.executeUpdate();
             System.out.println("added!");
 
-           /* Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("DONATION ADDED. THANK YOU!");
-            alert.showAndWait();*/
+            alert.showAndWait();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-          /*  Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Error: " + ex.getMessage());
-            alert.showAndWait();*/
+            alert.showAndWait();
         }
     }
 
@@ -104,14 +107,14 @@ public class ServiceDonation implements DService<Donation> {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                Donation d = new Donation();
-                d.setDateDonation(rs.getTimestamp("date_donation"));
-                //d.setUser(user);
-                try {
-                    d.setEtatDonation(Donation.DonationStatus.valueOf(rs.getString("status")));
-                } catch (IllegalArgumentException e) {
-                    // handle the case where the value returned by rs.getString("status") is not a valid enum constant
-                }
+                Donation d = new Donation(ms.getOneById(rs.getInt("idUser")), ps.getById(rs.getInt("ID_Product")), sp.getOneById(rs.getInt("idPost")));
+               
+      //          d.setUser(user);
+//                try {
+//                    d.setEtatDonation(Donation.DonationStatus.valueOf(rs.getString("status")));
+//                } catch (IllegalArgumentException e) {
+//                    // handle the case where the value returned by rs.getString("status") is not a valid enum constant
+//                }
                 list.add(d);
             }
         } catch (SQLException ex) {
@@ -165,7 +168,7 @@ public class ServiceDonation implements DService<Donation> {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+           message.setRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             message.setSubject("Merci pour votre donation !");
             message.setText("Bonjour " + userName + ",\n\n"
                     + "Nous tenions à vous remercier pour votre généreuse donation  "
@@ -175,7 +178,6 @@ public class ServiceDonation implements DService<Donation> {
                     + "L'équipe de notre organisation");
             return message;
         } catch (AddressException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -192,7 +194,7 @@ public class ServiceDonation implements DService<Donation> {
 
             // Send the thank-you email
             User user = donation.getUser();
-            try {
+           try {
                 envoyer(user);
             } catch (MessagingException ex) {
                 Logger.getLogger(ServiceDonation.class.getName()).log(Level.SEVERE, null, ex);

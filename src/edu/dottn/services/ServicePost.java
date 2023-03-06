@@ -6,7 +6,6 @@
 package edu.dottn.services;
 
 import com.restfb.DefaultFacebookClient;
-
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
@@ -37,6 +36,7 @@ import javafx.scene.control.Alert.AlertType;
 public class ServicePost implements PService<Post> {
 
     Connection cnx = MyConnection.getInstance().getConnection();
+    AssociationServices as = new AssociationServices();
 
     public void ajouter(Post p) {
         // Vérifier que les champs ne sont pas nuls
@@ -78,11 +78,12 @@ public class ServicePost implements PService<Post> {
             return;
         }
 
-        String sql = "INSERT INTO post (titlePost, description,postimage) VALUES (?, ?,?)";
+        String sql = "INSERT INTO post (titlePost, description,idAssociation,postimage) VALUES (?, ?,?,?)";
         try (PreparedStatement statement = cnx.prepareStatement(sql)) {
             statement.setString(1, p.getTitlePost());
             statement.setString(2, p.getDescription());
-            statement.setString(3, p.getPhotos());
+            statement.setInt(3, p.getAssociation().getId());
+            statement.setString(4, p.getPhotos());
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -111,7 +112,7 @@ public class ServicePost implements PService<Post> {
         users.forEach((user) -> {
             String phoneNumber = String.valueOf(user.getNumero());
             String messageText = "Hello, " + user.getName() + "! This is a test message.";
-            sendSms("987654321", phoneNumber, messageText, "AC5cdd383d413ed620eedf7dad1cb391fa", "632e9902034e972c36341a801050995e");
+           sendSms("987654321", phoneNumber, messageText, "AC5cdd383d413ed620eedf7dad1cb391fa", "632e9902034e972c36341a801050995e");
         });
     }
 
@@ -119,11 +120,7 @@ public class ServicePost implements PService<Post> {
         Twilio.init(accountSid, authToken);
     }
 
-    /**
-     *
-     * @param idPost 
-     * Method supprimerParId 
-     */
+   
     @Override
     public void supprimerParId(int idPost) {
         // Vérifier que l'ID de l'article est valide
@@ -196,7 +193,7 @@ public class ServicePost implements PService<Post> {
             Statement st = cnx.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                Post p = new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"),rs.getString("postimage"),rs.getInt("idPost"));
+                Post p = new Post(as.getById(rs.getInt("idAssociation")),rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"),rs.getString("postimage"),rs.getInt("idPost"));
                 list.add(p);
             }
         } catch (SQLException ex) {
@@ -215,7 +212,7 @@ public class ServicePost implements PService<Post> {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                post = new Post(rs.getInt("idPost"),rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"),rs.getString("postimage"));
+                post = new Post(as.getById(rs.getInt("idAssociation")), rs.getString("titlePost"), rs.getString("description"),rs.getString("postimage"));
             }
         } catch (SQLException ex) {
             System.out.println("Error retrieving post with l'id: " + id + ": " + ex.getMessage());

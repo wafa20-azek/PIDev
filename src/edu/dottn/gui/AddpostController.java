@@ -8,6 +8,7 @@ package edu.dottn.gui;
 
 import edu.dottn.entities.Association;
 import edu.dottn.entities.Post;
+import edu.dottn.services.AssociationServices;
 import edu.dottn.services.ServicePost;
 import edu.dottn.test.Example;
 import java.io.File;
@@ -57,7 +58,8 @@ public class AddpostController implements Initializable {
     @FXML
     private Label sharetxt;
 
-    Association a = new Association(33, "Leo Club Emna", "emnasaif", "emna@gmail.com", "Nabeul", 12345678);
+    AssociationServices as = new AssociationServices();
+    Association a = as.getById(2);
     String image = urlcheck;
 
     ServicePost sp = new ServicePost();
@@ -99,10 +101,16 @@ public class AddpostController implements Initializable {
     @FXML
     private void addpost(ActionEvent event) {
 
-        Post p = new Post(a, titlepost.getText(), descpost.getText(), "C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/default.jpg");
+       if(urlcheck==null){
+           Post p = new Post(a, titlepost.getText(), descpost.getText(), "D:/emna/PIDev-donation/src/default.jpg");
+            ps.ajouter(p);
+       }else{
+           Post p = new Post(a, titlepost.getText(), descpost.getText(), urlcheck);
 
         ps.ajouter(p);
-        //  exem.sendMessage(a.getAssocName(),p.getTitlePost());
+       }
+        
+        
     }
 
     @FXML
@@ -116,9 +124,8 @@ public class AddpostController implements Initializable {
             imageurl = selectedFile.toURI().toString();
 
             urlImage.setText(selectedFile.getName());
+            urlcheck = imageurl.substring("file:/".length());
         }
-        urlcheck = imageurl.substring("file:/".length());
-
         return urlcheck;
     }
 

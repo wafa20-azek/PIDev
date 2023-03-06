@@ -1,5 +1,6 @@
 package edu.dottn.gui;
 
+import edu.dottn.entities.Association;
 import edu.dottn.entities.Comment;
 import edu.dottn.entities.Post;
 import edu.dottn.services.ServiceComment;
@@ -76,6 +77,8 @@ public class PostInformationsController implements Initializable {
     private AnchorPane anchorComment;
     @FXML
     private VBox commentArea;
+    @FXML
+    private ImageView deletepostbtn;
    
   
     @Override
@@ -152,6 +155,9 @@ public class PostInformationsController implements Initializable {
              }
         });
          
+         
+       
+         
         
         // comments=;
        
@@ -199,6 +205,12 @@ public class PostInformationsController implements Initializable {
         
     }
     public void setIdPost(Post item){
+        Association as = item.getAssociation();
+        System.out.println(as.getAssocName());
+        if (as.getId()!=3){
+            deletepostbtn.setVisible(false);
+            deletepostbtn.disableProperty();
+        }
         idPost=item.getIdPost();
         comments=sc.getCommentsByPostId(idPost);
         displayComment(comments);

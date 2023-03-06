@@ -19,8 +19,9 @@ public class Post {
 
     }
 
-    public Post(String titlePost, String description, Timestamp date_created,String postimage,int id ) {
+    public Post(Association associations, String titlePost, String description, Timestamp date_created,String postimage,int id ) {
         this.titlePost = titlePost;
+        this.association = associations;
         this.description = description;
         this.date_created = date_created;
         this.postimage=postimage;
@@ -45,7 +46,7 @@ public class Post {
 
     public Post(Association associations ,String titlePost, String description,String image) {
         this.titlePost = titlePost;
-         this.association = association;
+         this.association = associations;
         this.description = description;
         this.postimage=image;
        
@@ -154,7 +155,7 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" + "titlePost=" + titlePost + ", description=" + description + ", photos=" + postimage + ", date_created=" + date_created + ", date_updated=" + date_updated + ", likes=" + likes + ", dislikes=" + dislikes + '}';
+        return "Association="+association+"Post{" + "titlePost=" + titlePost + ", description=" + description + ", photos=" + postimage + ", date_created=" + date_created + ", date_updated=" + date_updated + ", likes=" + likes + ", dislikes=" + dislikes + '}';
     }
 
    

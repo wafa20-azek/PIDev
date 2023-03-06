@@ -5,6 +5,8 @@
  */
 package edu.dottn.gui;
 
+import com.sun.org.apache.xerces.internal.xs.ItemPSVI;
+import edu.dottn.entities.Donation;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -38,12 +40,15 @@ public class DonationCardController implements Initializable {
         // TODO
     }    
     
-    public void setData(int item) {
+    public void setData( Donation item) {
     // Set the data for the post
    Label titleLabel = (Label) root.lookup("#donaterUsername");
+   Label datelabel = (Label) root.lookup("#donationDate");
     //Label date = (Label) root.lookup("donationDate");
      //  date.setText(time.toString());
-      titleLabel.setText(String.valueOf(item));
+      titleLabel.setText(item.getUser().getName());
+      datelabel.setText(item.getProduct().getName());
+   //   datelabel.setText(item.getDateDonation().toString());
    
 }
     

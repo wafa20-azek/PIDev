@@ -62,7 +62,7 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="416.0" layoutY="15.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="deletepostbtn" fitHeight="50.0" fitWidth="50.0" layoutX="416.0" layoutY="15.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../icons8-supprimer-128.png" />
                </image>

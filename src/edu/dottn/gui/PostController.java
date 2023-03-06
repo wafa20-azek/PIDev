@@ -1,5 +1,6 @@
 package edu.dottn.gui;
 
+import edu.dottn.entities.Association;
 import edu.dottn.entities.Post;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -65,7 +66,7 @@ public void setData(String titlePost, String description, Timestamp date_created
     datepost.setText(dateStr);
     imgpost.setImage(image);
 }*/
-    public void setData(String titlePost, String description, Timestamp date_created, String imagepath) throws MalformedURLException {
+    public void setData(String titlePost, Association assocname,String description, Timestamp date_created, String imagepath) throws MalformedURLException {
         URL url = null;
         if (imagepath != null) {
             File file = new File(imagepath);
@@ -75,18 +76,29 @@ public void setData(String titlePost, String description, Timestamp date_created
         if (url != null) {
             image = new Image(url.toString());
         }
+       // setImage(assocname);
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = date.format(date_created.getTime());
         // Set the data for the post
         Label titleLabel = (Label) root.lookup("#titlepost");
+        Label assocName = (Label) root.lookup("#assocpost");
         Label descriptionLabel = (Label) root.lookup("#detailslabel");
         Text datepost = (Text) root.lookup("#datepost");
         ImageView imgpost = (ImageView) root.lookup("#imgpost");
 
         titleLabel.setText(titlePost);
+        assocName.setText(assocname.getAssocName());
         descriptionLabel.setText(description);
         datepost.setText(dateString);
         imgpost.setImage(image);
     }
+//    public void setImage(Association a){
+//        ImageView img =(ImageView) root.lookup("#associmgpost");
+//        if (a.get){
+//            
+//        }
+//    }
+    
+    
 
 }

@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.DonationCardController">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="279.0" prefWidth="265.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="279.0" prefWidth="265.0" style="-fx-border-color: #35353535;">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="donaterUsername" layoutX="92.0" layoutY="204.0" text="donaterUser" />

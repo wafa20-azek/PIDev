@@ -107,8 +107,12 @@ public class Donation {
 
     @Override
     public String toString() {
-        return "Donation{" + "post=" + post + ", dateDonation=" + dateDonation + ", etatDonation=" + etatDonation + '}';
+        return "Donation{" + "user=" + user + ", product=" + product + ", post=" + post + '}';
     }
+
+    
+
+   
 
     @Override
     public int hashCode() {
