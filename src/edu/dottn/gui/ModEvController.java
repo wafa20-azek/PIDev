@@ -53,6 +53,8 @@ public class ModEvController implements Initializable {
     private WebEngine webEngine;
     private JSObject window;
     private String location;
+    @FXML
+    private TextField id;
 
     /**
      * Initializes the controller class.
@@ -65,9 +67,10 @@ public class ModEvController implements Initializable {
     void setEvents(Event ev) {
 
         if (ev != null) {
+            System.out.println(ev.getIdEvent());
             tfEvent.setText(ev.getName());
             taDesc.setText(ev.getDescription());
-
+            id.setText(String.valueOf(ev.getIdEvent()));
             dpDate.setValue(ev.getEventDate().toLocalDate());
             String location = ev.getLocation();
 
@@ -121,7 +124,9 @@ public class ModEvController implements Initializable {
     @FXML
     private void saveEv(ActionEvent event) throws IOException {
         Event.Status s;
+        int idev= Integer.parseInt(id.getText());
         String nom = tfEvent.getText();
+        System.out.println(nom);
         String desc = taDesc.getText();
         LocalDate localDate = dpDate.getValue();
         Date date = Date.valueOf(localDate);
@@ -131,21 +136,24 @@ public class ModEvController implements Initializable {
         } else {
             s = Event.Status.ongoing;
         }
-        if (nom.isEmpty() || desc.isEmpty() || dpDate.getValue() == null || loc.isEmpty()) {
+
+        Event eve = new Event();
+        if(nom.isEmpty()||desc.isEmpty()||loc.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
-            alert.setHeaderText("tous les champs doit être remplie");
+            alert.setHeaderText("tous les champs doit étre a jour ");
             alert.showAndWait();
-        } else {
-            Event ev = new Event();
-            ev.setName(nom);
-            ev.setDescription(desc);
-            ev.setEventDate(date);
-            ev.setLocation(loc);
-            ev.setStatus(s);
-            ServiceEvent se = new ServiceEvent();
-            se.modifier(ev);
-        }
+        }else{
+        eve.setName(nom);
+        System.out.println(eve.getName());
+        eve.setIdEvent(idev);
+        eve.setDescription(desc);
+        eve.setEventDate(date);
+        eve.setLocation(loc);
+        eve.setStatus(s);
+        ServiceEvent se = new ServiceEvent();
+        se.modifier(eve);}
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MyEvent.fxml"));
         Parent feedParent = loader.load();
         Scene feedScene = new Scene(feedParent);

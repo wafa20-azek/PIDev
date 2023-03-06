@@ -89,15 +89,8 @@ public class ServiceEvent implements IService<Event> {
     @Override
     public void modifier(Event t) {
         try {
-            String req = "UPDATE `event` SET `event_name`= '"
-                    +t.getName()+"',`event_description`= '"
-                    +t.getDescription()+"',`event_date`= '"
-                    +t.getEventDate()+"',`event_location`= '"
-                    +t.getLocation()+"',`event_status`= '"
-                    +t.getStatus().toString()+"' WHERE event_id = "
-                    +t.getIdEvent() +" ";
+            String req = "UPDATE `event` SET `event_name`='"+t.getName()+"',`event_description`='"+t.getDescription()+"',`event_date`='"+t.getEventDate()+"',`event_location`='"+t.getLocation()+"',`event_status`='"+t.getStatus().toString()+"',`user`='"+3+"' WHERE `event_id`='"+t.getIdEvent()+"'";
             PreparedStatement ps = cnx.prepareStatement(req);
-           
          
             ps.executeUpdate();
             System.out.println("roww updated ");
@@ -118,6 +111,7 @@ public class ServiceEvent implements IService<Event> {
 
             while (result.next()) {
                 Event ev = new Event();
+                ev.setIdEvent(result.getInt("event_id"));
                 ev.setName(result.getString("event_name"));
                 ev.setDescription(result.getString("event_description"));
                 ev.setEventDate(result.getDate("event_date"));
@@ -181,10 +175,10 @@ public class ServiceEvent implements IService<Event> {
                 .collect(Collectors.toList());
     }
 
-    public void participer(int eventId, int userId) {
+    public void participer(Event eve, int userId) {
         try {
             // Check if the event exists
-            Event event = getOneById(eventId);
+            Event event = getOneById(eve.getIdEvent());
             if (event == null) {
                 System.out.println("Event does not exist");
                 return;
@@ -202,7 +196,7 @@ public class ServiceEvent implements IService<Event> {
             String req = "INSERT INTO `participant` (`nameP`, `event`) VALUES (?, ?)";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, userId);
-            ps.setInt(2, eventId);
+            ps.setInt(2, eve.getIdEvent());
             ps.executeUpdate();
             System.out.println("User has successfully participated in the event");
         } catch (SQLException ex) {
@@ -212,13 +206,14 @@ public class ServiceEvent implements IService<Event> {
     public List<Event> getById(int id) {
         List<Event> listE = new ArrayList();
         try {
-            String req = "SELECT  `event_name`, `event_description`, `event_date`, `event_location`, `event_status` FROM `event` WHERE user = "+id+"";
+            String req = "SELECT  `event_id`,`event_name`, `event_description`, `event_date`, `event_location`, `event_status` FROM `event` WHERE user = "+id+"";
             PreparedStatement ps = cnx.prepareStatement(req);
         
             ResultSet result = ps.executeQuery();
             System.out.println("row by id pulled");
             while (result.next()) {
                 Event ev = new Event();
+                ev.setIdEvent(result.getInt("event_id"));
                 ev.setName(result.getString("event_name"));
                 ev.setDescription(result.getString("event_description"));
                 ev.setEventDate(result.getDate("event_date"));

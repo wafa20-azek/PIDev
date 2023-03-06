@@ -38,5 +38,6 @@
         <TextArea fx:id="taDesc" layoutX="480.0" layoutY="165.0" prefHeight="102.0" prefWidth="524.0" />
       <Button fx:id="bEnvoyer" layoutX="914.0" layoutY="637.0" mnemonicParsing="false" onAction="#saveEv" text="Enregistrer" />
       <Button fx:id="bAnnuler" layoutX="798.0" layoutY="637.0" mnemonicParsing="false" onAction="#annuler" prefHeight="31.0" prefWidth="99.0" text="Annuler" />
+      <TextField fx:id="id" editable="false" layoutX="480.0" layoutY="43.0" visible="false" />
     </children>
 </AnchorPane>

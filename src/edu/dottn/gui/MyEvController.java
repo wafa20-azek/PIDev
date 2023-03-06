@@ -36,6 +36,8 @@ public class MyEvController implements Initializable {
     @FXML
     private Text tStatut;
     Event ev = new Event();
+    @FXML
+    private Text idevent;
 
     /**
      * Initializes the controller class.
@@ -50,6 +52,8 @@ public class MyEvController implements Initializable {
         ftName.setText(e.getName());
         dateEvent.setText(String.valueOf(e.getEventDate().toLocalDate()));
         tStatut.setText(String.valueOf(e.getStatus()));
+        idevent.setText(String.valueOf(e.getIdEvent()));
+        System.out.println(e.getIdEvent());
         ev = e;
     }
 
@@ -76,6 +80,7 @@ public class MyEvController implements Initializable {
             Parent root = loader.load();
        
         ModEvController evdCont = loader.getController();
+            System.out.println(ev.getIdEvent());
     evdCont.setEvents(ev);
     Scene scene = new Scene(root);
     stage.setScene(scene);

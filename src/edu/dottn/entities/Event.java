@@ -18,6 +18,24 @@ public class Event {
     private String Description;
     private Date eventDate;
     private String Location;
+    private int user;
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
+    }
+
+    public Event(String Name, String Description, Date eventDate, String Location, int user, Status status) {
+        this.Name = Name;
+        this.Description = Description;
+        this.eventDate = eventDate;
+        this.Location = Location;
+        this.user = user;
+        this.status = status;
+    }
     
 
    
@@ -45,8 +63,10 @@ public class Event {
     }
 
  
+    public void setIdEvent(int idEvent) {
+        this.idEvent = idEvent;
+    }
     
-
     public int getIdEvent() {
         return idEvent;
     }

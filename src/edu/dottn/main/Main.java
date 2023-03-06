@@ -47,9 +47,9 @@ public class Main {
 //        System.out.println("Date: " + a.getDateRep());
 //        System.out.println("Complaint: " + a.getReclamation().getDescription());
 //      System.out.println();
-//ServiceEvent ee = new ServiceEvent();
-//    Event e = new Event("troc","trial number 1",Date.valueOf(LocalDate.of(2023, 12, 15)),"tunis",Status.ongoing);
-//    //ee.ajouter(e);
+ServiceEvent ee = new ServiceEvent();
+   Event e = new Event(7,"troc","trial number 1",Date.valueOf(LocalDate.of(2024, 12, 15)),"34.229970811273084,9.926147460937502",Status.ongoing);
+    ee.modifier(e);
 //    List <Event> e1=ee.getAll();
 //    for (Event ev:e1){
 //        System.out.println("name :"+ev.getName());
@@ -59,11 +59,11 @@ public class Main {
 //        System.out.println("Status : "+ev.getStatus());
 //        System.out.println();
 //  }
-    ServiceReclamation rep = new ServiceReclamation();
-    List<Reclamation>ls=rep.myRec(2);
-    for(Reclamation r:ls){
-        System.out.println("rep "+r.getDescription());
-    }
+//    ServiceReclamation rep = new ServiceReclamation();
+//    List<Reclamation>ls=rep.myRec(2);
+//    for(Reclamation r:ls){
+//        System.out.println("rep "+r.getDescription());
+//    }
 
     
             
