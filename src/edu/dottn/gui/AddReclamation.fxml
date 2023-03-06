@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="721.0" prefWidth="1170.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.AddReclamationController">
+    <children>
+        <fx:include source="sidebaruser.fxml" />
+      <Label layoutX="387.0" layoutY="278.0" text="Reclamtion :">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <TextArea fx:id="fxReclamation" layoutX="500.0" layoutY="242.0" prefHeight="200.0" prefWidth="427.0" />
+      <Button fx:id="fxButton" layoutX="829.0" layoutY="471.0" mnemonicParsing="false" onAction="#SaveRec" prefHeight="31.0" prefWidth="98.0" text="Envoyer" />
+      <Button layoutX="707.0" layoutY="471.0" mnemonicParsing="false" onAction="#back" prefHeight="31.0" prefWidth="98.0" text="Annuler" />
+     
+     
+    </children>
+</AnchorPane>

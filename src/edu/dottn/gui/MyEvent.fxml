@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="721.0" prefWidth="1170.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.MyEventController">
+    <children>
+        <fx:include source="sidebar.fxml" />
+        <ScrollPane layoutX="285.0" layoutY="69.0">
+            <content>
+                <VBox fx:id="eventListContainer" prefHeight="650.0" prefWidth="884.0" />
+            </content>
+        </ScrollPane>
+      <ImageView fitHeight="38.0" fitWidth="31.0" layoutX="295.0" layoutY="27.0" onMouseClicked="#nav" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../pluss.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

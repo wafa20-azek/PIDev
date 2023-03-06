@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /build/
 =======
 /build/
@@ -13,3 +14,11 @@
 /build/
 /dist/
 >>>>>>> 3e170621cf1e7404842b9b005b236f27c073096e
+=======
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+/dist/
+>>>>>>> 956c77060427eeabb703c3de4e9562774066c20f

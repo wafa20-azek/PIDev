@@ -32,6 +32,8 @@ public class SidebaradminController implements Initializable {
     private Button btnproducts;
     @FXML
     private ImageView logout;
+    @FXML
+    private Button rec;
 
     /**
      * Initializes the controller class.
@@ -74,6 +76,11 @@ public class SidebaradminController implements Initializable {
          Preferences prefs = Preferences.userNodeForPackage(TwoFactorAuthenticationController.class);
             prefs.clear();
             NavigationController.changeLoginPage(event,"LoginPage.fxml");
+    }
+
+    @FXML
+    private void gotoreclamtion(ActionEvent event) {
+        NavigationController.changerecadmin(event, "ReclamationFeed.fxml");
     }
     
 }

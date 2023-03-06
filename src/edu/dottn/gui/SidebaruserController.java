@@ -41,6 +41,10 @@ UserSession us=new UserSession();
     private ImageView logout;
     @FXML
     private Button donation;
+    @FXML
+    private Button event;
+    @FXML
+    private Button rec1;
     /**
      * Initializes the controller class.
      */
@@ -86,6 +90,17 @@ UserSession us=new UserSession();
     @FXML
     private void gotodonation(ActionEvent event) {
         NavigationController.changefeeddonation(event, "feeddonation.fxml");
+    }
+
+    @FXML
+    private void gotorec(ActionEvent event) {
+        NavigationController.changeReclamtion(event, "MyRec.fxml");
+        
+    }
+
+    @FXML
+    private void gotoevent(ActionEvent event) {
+        NavigationController.changefeedevent(event, "EventFeed.fxml");
     }
 
   

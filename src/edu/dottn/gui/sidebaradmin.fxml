@@ -19,7 +19,7 @@
       </ImageView>
       <Button fx:id="btnuser" layoutX="40.0" layoutY="232.0" mnemonicParsing="false" onAction="#gotouser" prefHeight="57.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: BF5CFF;" text="users" textFill="WHITE" />
       <Button fx:id="btnproducts" layoutX="40.0" layoutY="306.0" mnemonicParsing="false" onAction="#gotoproducts" prefHeight="57.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: BF5CFF;" text="products" textFill="WHITE" />
-      <Button layoutX="40.0" layoutY="379.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: BF5CFF;" text="users" textFill="WHITE" />
+      <Button fx:id="rec" layoutX="40.0" layoutY="379.0" mnemonicParsing="false" onAction="#gotoreclamtion" prefHeight="57.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: BF5CFF;" text="reclamtions" textFill="WHITE" />
       <ImageView fx:id="logout" fitHeight="40.0" fitWidth="160.0" layoutX="68.0" layoutY="589.0" onMouseClicked="#logoutapp" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/logout.png" />

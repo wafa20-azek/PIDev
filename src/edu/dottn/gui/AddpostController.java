@@ -12,7 +12,7 @@ import edu.dottn.entities.Association;
 import edu.dottn.entities.Post;
 import edu.dottn.services.AssociationServices;
 import edu.dottn.services.ServicePost;
-import edu.dottn.test.Example;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -49,7 +49,7 @@ import javafx.stage.Stage;
 public class AddpostController implements Initializable {
 
     ServicePost ps = new ServicePost();
-    Example exem = new Example();
+    
     @FXML
     private Label urlImage;
 

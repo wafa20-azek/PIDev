@@ -53,7 +53,7 @@
     -fx-background-radius: 20;
     -fx-text-fill:white;  
 }
-#homebtn ,#messagesbtn{
+#homebtn ,#messagesbtn,#Profile,#Inventory{
     -fx-background-color:transparent;
     -fx-border-color: #BF5CFF;
     -fx-border-radius: 15;
