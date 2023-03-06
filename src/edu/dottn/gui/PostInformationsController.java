@@ -3,6 +3,7 @@ package edu.dottn.gui;
 import edu.dottn.entities.Comment;
 import edu.dottn.entities.Post;
 import edu.dottn.services.ServiceComment;
+import edu.dottn.services.ServicePost;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -40,6 +41,8 @@ import javafx.stage.Stage;
 
 
 public class PostInformationsController implements Initializable {
+    
+    
 
     @FXML
     private ImageView postImage;
@@ -53,8 +56,7 @@ public class PostInformationsController implements Initializable {
     private ImageView dislike;
     @FXML
     private TextArea postComment;
-    @FXML
-    private Button donateBtn;
+   
     @FXML
     private ImageView backToFeed;
     private int i =0;
@@ -74,6 +76,7 @@ public class PostInformationsController implements Initializable {
     private AnchorPane anchorComment;
     @FXML
     private VBox commentArea;
+   
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -136,27 +139,8 @@ public class PostInformationsController implements Initializable {
             
         });
          
-         backToFeed.setOnMouseClicked(e->{
-             try {
-                    Stage stage = (Stage) backToFeed.getScene().getWindow();
-                    Parent root = FXMLLoader.load(getClass().getResource("profile.fxml"));
-                   // Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
-                    Scene scene = new Scene(root, 1280, 700);
-                    stage.setScene(scene);
-                    stage.setTitle("Troctn Desktop App ");
-                     scene.getStylesheets().add("styles.css");
-                    stage.setResizable(false);
-                    stage.show();
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                   }
-         });
-         donateBtn.setOnMouseClicked(e->{
-            try {
-                donate();
-            } catch (IOException ex) {
-               }
-       });
+        
+         
          postComment.setOnKeyPressed(event->{
              if (event.getCode() == KeyCode.ENTER) {
                  Comment c = new Comment(post,postComment.getText(),new Timestamp(System.currentTimeMillis()));
@@ -167,6 +151,8 @@ public class PostInformationsController implements Initializable {
                  displayComment(comments);
              }
         });
+         
+        
         // comments=;
        
          //System.out.println(sc.getCommentsByPostId(post.getIdPost()));
@@ -174,7 +160,6 @@ public class PostInformationsController implements Initializable {
          
     }    
 
-    @FXML
     private void donate() throws IOException {
              Stage stage = new Stage();
               Parent root = FXMLLoader.load(getClass().getResource("donate.fxml"));
@@ -190,7 +175,20 @@ public class PostInformationsController implements Initializable {
     }
 
     @FXML
-    private void backToFeed(MouseEvent event) {
+    private void backToFeed() {
+        try {
+                    Stage stage = (Stage) backToFeed.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("profile.fxml"));
+                   // Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+                    Scene scene = new Scene(root, 1280, 700);
+                    stage.setScene(scene);
+                    stage.setTitle("Troctn Desktop App ");
+                     scene.getStylesheets().add("styles.css");
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                   }
     }
     
     public void setPostInformations(String title , String description , Image img ,Post p){
@@ -224,6 +222,13 @@ public class PostInformationsController implements Initializable {
             HBox com = new HBox(label);
             commentArea.getChildren().add(com);
         }
+    }
+
+    @FXML
+    private void delete(MouseEvent event) {
+        ServicePost sp = new ServicePost();
+        sp.supprimerParId(idPost);
+        backToFeed( );
     }
     
     

@@ -20,6 +20,15 @@ public class Donation {
     public Donation() {
     }
 
+    public Donation(User user, Product product, Post post, DonationStatus etatDonation) {
+        this.user = user;
+        this.product = product;
+        this.post = post;
+    
+        this.etatDonation = etatDonation;
+    }
+    
+
     public Donation(User user, Association association, Product product,Post post, Timestamp dateDonation, DonationStatus etatDonation) {
         this.user = user;
         this.association = association;
@@ -28,6 +37,13 @@ public class Donation {
         this.dateDonation = dateDonation;
         this.etatDonation = etatDonation;
     }
+
+    public Donation(User user, Product product, Post post) {
+        this.user = user;
+        this.product = product;
+        this.post = post;
+    }
+    
     
     public Donation(Timestamp dateDonation, DonationStatus etatDonation) {
         this.dateDonation = dateDonation;
@@ -42,7 +58,17 @@ public class Donation {
         return idDon;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
+
+
+    
     public User getUser() {
         return user;
     }

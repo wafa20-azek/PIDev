@@ -34,6 +34,15 @@ public class Post {
       
     }
 
+    public Post(int idPost, String titlePost, String description, Timestamp date_createdn, String postimage) {
+        this.idPost = idPost;
+        this.titlePost = titlePost;
+        this.description = description;
+        this.postimage = postimage;
+        this.date_created = date_created;
+    }
+      
+
     public Post(Association associations ,String titlePost, String description,String image) {
         this.titlePost = titlePost;
          this.association = association;

@@ -6,7 +6,6 @@
  */
 package edu.dottn.gui;
 
-
 import edu.dottn.entities.Association;
 import edu.dottn.entities.Post;
 import edu.dottn.services.ServicePost;
@@ -41,10 +40,10 @@ public class AddpostController implements Initializable {
     Example exem = new Example();
     @FXML
     private Label urlImage;
-    
+
     String imageurl;
-     String urlcheck;
-     ActionEvent e;
+    String urlcheck;
+    ActionEvent e;
     @FXML
     private Button addpostbtn;
     @FXML
@@ -57,17 +56,15 @@ public class AddpostController implements Initializable {
     private ImageView sharebtn;
     @FXML
     private Label sharetxt;
-    
-     Association a = new Association(33, "Leo Club Emna", "emnasaif", "emna@gmail.com", "Nabeul", 12345678);
-     String image = urlcheck;
-     
-     ServicePost sp = new ServicePost();
-    /**
-     * Initializes the controller class.
-     */
+
+    Association a = new Association(33, "Leo Club Emna", "emnasaif", "emna@gmail.com", "Nabeul", 12345678);
+    String image = urlcheck;
+
+    ServicePost sp = new ServicePost();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         sharebtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -82,8 +79,8 @@ public class AddpostController implements Initializable {
                 sharebtn.setEffect(null);
             }
         });
-        sharebtn.setOnMouseClicked(e->{
-            Post p = new Post(a,titlepost.getText(),descpost.getText(),image);
+        sharebtn.setOnMouseClicked(e -> {
+            Post p = new Post(a, titlepost.getText(), descpost.getText(), image);
             try {
                 sp.ajouter(p);
                 sp.shareOnPage(p);
@@ -94,37 +91,35 @@ public class AddpostController implements Initializable {
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
-            
+
         });
-        
-    }    
+
+    }
 
     @FXML
     private void addpost(ActionEvent event) {
-       
-        
-        Post p = new Post(a,titlepost.getText(),descpost.getText(),image);
+
+        Post p = new Post(a, titlepost.getText(), descpost.getText(), "C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/default.jpg");
 
         ps.ajouter(p);
-      //  exem.sendMessage(a.getAssocName(),p.getTitlePost());
+        //  exem.sendMessage(a.getAssocName(),p.getTitlePost());
     }
 
     @FXML
     private String uploadImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-            Stage stage = new Stage();
-            File selectedFile = fileChooser.showOpenDialog(stage);
-          System.out.println(selectedFile);
-          System.out.println(selectedFile.getName());
-             if (selectedFile != null) {
-                 imageurl = selectedFile.toURI().toString();
-                
-                 urlImage.setText(selectedFile.getName());
-             }
-              urlcheck = imageurl.substring("file:/".length());
-        
-            return urlcheck;
+        Stage stage = new Stage();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        System.out.println(selectedFile);
+        System.out.println(selectedFile.getName());
+        if (selectedFile != null) {
+            imageurl = selectedFile.toURI().toString();
+
+            urlImage.setText(selectedFile.getName());
+        }
+        urlcheck = imageurl.substring("file:/".length());
+
+        return urlcheck;
     }
 
-    
 }

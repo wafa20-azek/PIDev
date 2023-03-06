@@ -44,6 +44,18 @@ public class Product {
         this.iduser=iduser;
     }
 
+    public Product(int id, String Name, String Description, String image, float price, int iduser) {
+        this.id = id;
+        this.Name = Name;
+        this.Description = Description;
+        this.image = image;
+        this.price = price;
+        this.iduser = iduser;
+    }
+
+   
+    
+
     public Product(int id, String Name, String Description, String image, float price, int idsbucategory, int iduser) {
         this.id = id;
         this.Name = Name;

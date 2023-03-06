@@ -15,11 +15,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -39,40 +41,58 @@ public class ServiceDonation implements DService<Donation> {
     Connection cnx = MyConnection.getInstance().getConnection();
 //Ajout avec verification
 
-    @Override
     public void ajouter(Donation d) {
         // Vérifier que les champs ne sont pas nuls
-        if (d.getEtatDonation().toString().isEmpty()) {
-            System.out.println("Error : fields are null");
+      /*  if (d.getEtatDonation().toString().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Error: fields are null");
+            alert.showAndWait();
             return;
-        }
+        }*/
 
         try {
-            String insertReq = "INSERT INTO donation (idUser,idAssociation,ID_Product,idPost, status) VALUES (?,?,?,?,?)";
+            String insertReq = "INSERT INTO donation (idUser,ID_Product,idPost,date_donation) VALUES (?,?,?,?)";
             PreparedStatement stInsert = cnx.prepareStatement(insertReq);
             stInsert.setInt(1, d.getUser().getIdUser());
-            stInsert.setInt(2, d.getAssociation().getId());
-            stInsert.setInt(3, d.getProduct().getId());
-            stInsert.setInt(4, d.getPost().getIdPost());
-            stInsert.setString(5, d.getEtatDonation().toString());
+           
+            stInsert.setInt(2, d.getProduct().getId());
+            stInsert.setInt(3, d.getPost().getIdPost());
+           
+            stInsert.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
             stInsert.executeUpdate();
-            System.out.println("DONATION ADDED. THANK YOU!");
+            System.out.println("added!");
+
+           /* Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("DONATION ADDED. THANK YOU!");
+            alert.showAndWait();*/
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
+          /*  Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Error: " + ex.getMessage());
+            alert.showAndWait();*/
         }
     }
 
 // Méthode supprimer des dons 
-    @Override
     public void supprimerParId(int id) {
         try {
             String req = "DELETE FROM donation WHERE idDon = ?";
             PreparedStatement st = cnx.prepareStatement(req);
             st.setInt(1, id);
             st.executeUpdate();
-            System.out.println("Donation supprimée avec succès !");
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Donation supprimée avec succès !");
+            alert.showAndWait();
         } catch (SQLException ex) {
-            System.out.println("Erreur lors de la suppression du don : " + ex.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Erreur lors de la suppression du don : " + ex.getMessage());
+            alert.showAndWait();
         }
     }
 
@@ -86,6 +106,7 @@ public class ServiceDonation implements DService<Donation> {
             while (rs.next()) {
                 Donation d = new Donation();
                 d.setDateDonation(rs.getTimestamp("date_donation"));
+                //d.setUser(user);
                 try {
                     d.setEtatDonation(Donation.DonationStatus.valueOf(rs.getString("status")));
                 } catch (IllegalArgumentException e) {
@@ -182,20 +203,19 @@ public class ServiceDonation implements DService<Donation> {
     }
 
     public int countDonationsForPost(int postId) {
-    int count = 0;
-    try {
-        String req = "SELECT COUNT(*) as count FROM donation WHERE idPost = ?";
-        PreparedStatement st = cnx.prepareStatement(req);
-        st.setInt(1, postId);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            count = rs.getInt("count");
+        int count = 0;
+        try {
+            String req = "SELECT COUNT(*) as count FROM donation WHERE idPost = ?";
+            PreparedStatement st = cnx.prepareStatement(req);
+            st.setInt(1, postId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
-    } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
+        return count;
     }
-    return count;
-}
-
 
 }

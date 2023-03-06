@@ -16,7 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-
 public class PostController implements Initializable {
 
     @FXML
@@ -26,26 +25,25 @@ public class PostController implements Initializable {
     @FXML
     private Text datepost;
     //@FXML
-   //private Label assocpost;
-    
-   // @FXML
-   // private ImageView associmgpost;
-    
+    //private Label assocpost;
+
+    // @FXML
+    // private ImageView associmgpost;
     @FXML
     private ImageView imgpost;
     @FXML
     private Label detailslabel;
-    
-     public AnchorPane getRoot() {
+
+    public AnchorPane getRoot() {
         return root;
     }
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         
-    }  
-    
+
+    }
+
+    /*
 public void setData(String titlePost, String description, Timestamp date_created ,String imagepath) throws MalformedURLException {
     File file = new File(imagepath);
     URL url = file.toURI().toURL();
@@ -66,7 +64,29 @@ public void setData(String titlePost, String description, Timestamp date_created
     descriptionLabel.setText(description);
     datepost.setText(dateStr);
     imgpost.setImage(image);
-}
+}*/
+    public void setData(String titlePost, String description, Timestamp date_created, String imagepath) throws MalformedURLException {
+        URL url = null;
+        if (imagepath != null) {
+            File file = new File(imagepath);
+            url = file.toURI().toURL();
+        }
+        Image image = null;
+        if (url != null) {
+            image = new Image(url.toString());
+        }
+        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = date.format(date_created.getTime());
+        // Set the data for the post
+        Label titleLabel = (Label) root.lookup("#titlepost");
+        Label descriptionLabel = (Label) root.lookup("#detailslabel");
+        Text datepost = (Text) root.lookup("#datepost");
+        ImageView imgpost = (ImageView) root.lookup("#imgpost");
 
+        titleLabel.setText(titlePost);
+        descriptionLabel.setText(description);
+        datepost.setText(dateString);
+        imgpost.setImage(image);
+    }
 
 }

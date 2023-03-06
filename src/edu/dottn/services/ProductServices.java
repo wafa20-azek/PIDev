@@ -30,13 +30,13 @@ public class ProductServices implements IservicesProduct<Product>{
     public void addProduct(Product p) {
 
          try {
-            PreparedStatement pr = cnx.prepareStatement("INSERT INTO `Product`(`name`, `description`, `image`, `price`, `idsubcategory`,`iduser`) VALUES (?,?,?,?,?,?)");
+            PreparedStatement pr = cnx.prepareStatement("INSERT INTO `Product`(`name`, `description`, `image`, `price`,`iduser`) VALUES (?,?,?,?,?)");
             pr.setString(1, p.getName());
             pr.setString(2, p.getDescription());
             pr.setString(3, p.getImage());
             pr.setFloat(4, p.getPrice());
-            pr.setInt(5,p.getSubCategory().getId() );
-            pr.setInt(6,p.getIduser() );
+           // pr.setInt(5,p.getSubCategory().getId() );
+            pr.setInt(5,p.getIduser() );
             pr.executeUpdate();
             System.out.println("Product added");
         } catch (SQLException ex) {
@@ -92,7 +92,7 @@ public class ProductServices implements IservicesProduct<Product>{
             pr.setInt(1, id);
             ResultSet result = pr.executeQuery();
             while (result.next()) {
-                return new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6), result.getInt(7));
+                return new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6));
             }
         } catch (SQLException sqlEx) {
             System.out.println(sqlEx.getMessage());
@@ -108,7 +108,7 @@ public class ProductServices implements IservicesProduct<Product>{
             Statement st = cnx.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM Product");
             while (result.next()) {
-                Product p = new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6), result.getInt(7));
+                Product p = new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6));
                 lp.add(p);
             }
         } catch (SQLException sqlEx) {

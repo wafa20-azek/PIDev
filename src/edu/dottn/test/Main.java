@@ -11,6 +11,8 @@ import com.restfb.Version;
 import edu.dottn.entities.Donation;
 import edu.dottn.entities.Donation.DonationStatus;
 import edu.dottn.entities.Post;
+import edu.dottn.entities.Product;
+import edu.dottn.entities.SubCategory;
 import edu.dottn.entities.User;
 //import edu.dottn.entities.User;
 import edu.dottn.services.ServiceComment;
@@ -21,6 +23,7 @@ import java.io.IOException;
 import javax.mail.MessagingException;
 //import com.restfb.types.User;
 import edu.dottn.services.MemberServices;
+import edu.dottn.services.ProductServices;
 
 
 /**
@@ -30,15 +33,32 @@ import edu.dottn.services.MemberServices;
 public class Main {
     public static void main(String[] args) throws MessagingException, IOException {
        MyConnection.getInstance();
-       ServicePost post1 = new ServicePost();
-       ServiceDonation don1= new ServiceDonation();
-       ServiceComment com1 = new ServiceComment();
-     // Post p1 = new Post("first post","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
+       ServicePost sp = new ServicePost();
+      // ServiceDonation don1= new ServiceDonation();
+      // ServiceComment com1 = new ServiceComment();
+     //Post p1 = new Post("first post","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
      // Post p2 = new Post("second test","dons des livres",new java.sql.Timestamp(System.currentTimeMillis()));
      // Post p3 = new Post("second test","TEST API SAIF",new java.sql.Timestamp(System.currentTimeMillis()));
 
-        System.out.println(com1.getCommentsByPostId(29));
-      
+      //  System.out.println(com1.getCommentsByPostId(29));
+      ServiceDonation sd = new ServiceDonation();
+      Post post = sp.getOneById(29);
+      SubCategory sb = new SubCategory(5, "test", 1);
+      MemberServices ms = new MemberServices();
+       // System.out.println(ms.getOneById(1));
+        ProductServices ps = new ProductServices();
+       // System.out.println(ps.getAll());
+      //  System.out.println(ps.getByIdUser(1));
+        
+        
+        User us = ms.getOneById(1);
+        Product p = ps.getById(11);
+       // System.out.println(p);
+        Donation d = new Donation(us, p, post);
+       sd.ajouter(d);
+        //System.out.println(sp.getOneById(29));
+        
+       // ps.addProduct(p);
       //post1.ajouter(p1);
      // System.out.println(post1.getAll());
      //System.out.println(post1.getOneById(1));

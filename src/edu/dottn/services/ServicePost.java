@@ -215,7 +215,7 @@ public class ServicePost implements PService<Post> {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                post = new Post(rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"),rs.getString("postimage"));
+                post = new Post(rs.getInt("idPost"),rs.getString("titlePost"), rs.getString("description"), rs.getTimestamp("date_created"),rs.getString("postimage"));
             }
         } catch (SQLException ex) {
             System.out.println("Error retrieving post with l'id: " + id + ": " + ex.getMessage());

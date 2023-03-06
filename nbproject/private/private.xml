@@ -3,30 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/entities/Donation.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/donate.fxml</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/services/ServicePost.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/test/Main.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/services/CService.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/profile.fxml</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/services/ServiceComment.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/services/AssociationServices.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/entities/Comment.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/test/sceneMain.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/styles.css</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/services/ServiceDonation.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/post.fxml</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/entities/Post.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/PostInformationsController.java</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/AddpostController.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/share.png</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/entities/Product.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/ProfileController.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/CommentpostController.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/productfordonation.fxml</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/PostController.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/DonateController.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/ProductfordonationController.java</file>
         </group>
     </open-files>
 </project-private>
