@@ -7,6 +7,7 @@ package edu.dottn.services;
 
 import edu.dottn.entities.Product;
 import edu.dottn.util.MyConnection;
+import edu.dottn.util.UserSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +34,7 @@ public class ProductServices implements IservicesProduct<Product>{
     
      Connection cnx = MyConnection.getInstance().getConnection();
     List<Product> lp = new ArrayList();
-    
+    UserSession us= new UserSession();
     @Override
     public void addProduct(Product p) {
 
@@ -115,6 +116,22 @@ public class ProductServices implements IservicesProduct<Product>{
         try {
             Statement st = cnx.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM Product");
+            while (result.next()) {
+                Product p = new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6), result.getInt(7));
+                lp.add(p);
+            }
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.getMessage());
+        }
+        return lp;
+    }
+     public List<Product> getAllexceptuser() {
+        
+        
+        try {
+           PreparedStatement pr = cnx.prepareStatement("SELECT * FROM Product WHERE ID_Product<>?");
+            pr.setInt(1, us.getUser().getIdUser());
+            ResultSet result = pr.executeQuery();
             while (result.next()) {
                 Product p = new Product(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getFloat(5), result.getInt(6), result.getInt(7));
                 lp.add(p);

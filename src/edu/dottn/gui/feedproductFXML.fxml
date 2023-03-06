@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane id="BorderPane" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.FeedproductFXMLController">
-   
-   <top>
-       <AnchorPane prefHeight="200.0" prefWidth="700" BorderPane.alignment="CENTER">
-         <AnchorPane fx:id="filter" layoutX="239.0" layoutY="105.0" prefHeight="1.0" prefWidth="700.0">
-            <children>
-               <Separator layoutY="1.0" prefHeight="3.0" prefWidth="700.0" style="-fx-background-color: BF5CFF;" />
-            </children></AnchorPane>
-         <TextField fx:id="tfserchbyname" layoutX="326.0" layoutY="51.0" onKeyTyped="#searchbyname" prefHeight="34.0" prefWidth="429.0" promptText="type name,..." style="-fx-border-color: F1F1F1; -fx-border-radius: 3;" />
-         <Text layoutX="282.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="3.0" text="Top picks for you " wrappingWidth="307.6708984375">
-            <font>
-               <Font size="32.0" />
-            </font>
-         </Text>
-</AnchorPane>
-   </top>
-   <center>
-       <javafx.scene.control.ScrollPane style="-fx-background-color: FFFFFF;">
-      <AnchorPane fx:id="feed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-      </javafx.scene.control.ScrollPane>
-   </center>
    <left>
-      <AnchorPane prefHeight="700.0" prefWidth="206.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnexplore" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" onAction="#showfilters" prefHeight="125.0" prefWidth="192.0" text="Explore" />
-            <Button fx:id="btninventory" layoutX="12.0" layoutY="208.0" mnemonicParsing="false" onAction="#listproducts" prefHeight="125.0" prefWidth="192.0" text="Inventory" />
-         </children></AnchorPane>
+       <fx:include source="sidebaruser.fxml" />
    </left>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+             <AnchorPane fx:id="filter" prefHeight="171.0" prefWidth="741.0" BorderPane.alignment="CENTER">
+               <AnchorPane layoutX="66.0" layoutY="101.0" prefHeight="0.0" prefWidth="666.0">
+                  <children>
+                     <Separator layoutX="-34.0" layoutY="-5.0" prefHeight="0.0" prefWidth="700.0" style="-fx-background-color: BF5CFF;" />
+                  </children>
+               </AnchorPane>
+               <TextField fx:id="tfserchbyname" layoutX="54.0" layoutY="36.0" onKeyTyped="#searchbyname" prefHeight="34.0" prefWidth="429.0" promptText="type name,..." style="-fx-border-color: F1F1F1; -fx-border-radius: 3;" />
+               <Text fx:id="top" layoutX="37.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="3.0" text="Top picks for you " wrappingWidth="307.6708984375">
+                  <font>
+                     <Font size="26.0" />
+                  </font>
+               </Text>
+               <AnchorPane fx:id="profile" layoutX="611.0" layoutY="1.0" onMouseClicked="#gotoprofile" prefHeight="94.0" prefWidth="158.0">
+                  <children>
+                     <Label fx:id="username" layoutX="30.0" layoutY="69.0" />
+                     <ImageView fitHeight="55.0" fitWidth="69.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../assets/user.png" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </AnchorPane>
+      </AnchorPane>
+         </top>
+         <center>
+             <javafx.scene.control.ScrollPane prefHeight="530.0" prefWidth="741.0" style="-fx-background-color: FFFFFF;" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="feed" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: FFFFFF;" BorderPane.alignment="CENTER" />
+            </javafx.scene.control.ScrollPane>
+         </center>
+      </BorderPane>
+   </center>
    
 </BorderPane>

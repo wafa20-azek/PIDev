@@ -11,6 +11,7 @@ import edu.dottn.entities.SubCategory;
 import edu.dottn.services.CategoryServices;
 import edu.dottn.services.ProductServices;
 import edu.dottn.services.SubCategoryServices;
+import edu.dottn.util.UserSession;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -67,7 +69,9 @@ public class DashboardproducFXMLController implements Initializable {
     private ComboBox<String> subcategory;
     @FXML
     private ComboBox<String> category;
-
+    @FXML
+    private ScrollPane scroll;
+UserSession us=new UserSession();
     /**
      * Initializes the controller class.
      */
@@ -105,45 +109,65 @@ public class DashboardproducFXMLController implements Initializable {
         feed.getChildren().clear();
 
         int k = 0;
-        AnchorPane head = new AnchorPane();
-        Label headimg = new Label("image");
-        Label headtitle = new Label("name");
-        Label headvalue = new Label("value");
-        Label headdescription = new Label("description");
-        headimg.setLayoutX(30);
-        headtitle.setLayoutX(100);
-        headvalue.setLayoutX(150);
-        headdescription.setLayoutX(200);
-        head.setBorder(border);
-        head.setLayoutY(10);
-        head.setLayoutX(10);
-        head.getChildren().addAll(headimg, headtitle, headvalue, headdescription);
-        feed.getChildren().addAll(head);
+//        AnchorPane head = new AnchorPane();
+//        Label headimg = new Label("image");
+//        Label headtitle = new Label("name");
+//        Label headvalue = new Label("value");
+//        Label headdescription = new Label("description");
+//        headimg.setLayoutX(30);
+//        headtitle.setLayoutX(170);
+//        headvalue.setLayoutX(250);
+//        headdescription.setLayoutX(200);
+//        head.setBorder(border);
+//        head.setLayoutY(10);
+//        head.setLayoutX(10);
+//        head.setMinWidth(700);
+//        head.getChildren().addAll(headimg, headtitle, headvalue, headdescription);
+//        feed.getChildren().addAll(head);
+        scroll.setFitToWidth(true);
         float x = 20, y = 50;
         for (int i = 0; i < l.size(); i++) {
 
             AnchorPane anchorpane = new AnchorPane();
             Image image = new Image("file:src/assets/" + l.get(i).getImage(), 100, 100, false, false);
             ImageView iv = new ImageView(image);
-            Image image1 = new Image("file:src/assets/3405244.png", 50, 50, false, false);
-            ImageView iv1 = new ImageView(image1);
+//            Image image1 = new Image("file:src/assets/3405244.png", 30, 30, false, false);
+//            ImageView iv1 = new ImageView(image1);
             Label title = new Label(l.get(i).getName());
             Label Description = new Label(l.get(i).getDescription());
             String s = String.valueOf(l.get(i).getPrice());
             Label value = new Label(s);
             anchorpane.setLayoutY(y);
             anchorpane.setBorder(border);
-
-            iv.setLayoutX(x);
-            title.setLayoutX(x + 110);
-            value.setLayoutX(x + 200);
-            Description.setLayoutX(x + 260);
+            anchorpane.setMinWidth(870);
+            iv.setLayoutX(x+10);
+            iv.setLayoutY(20);
+            title.setLayoutX(x + 220);
+            value.setLayoutX(x + 325);
+            Description.setLayoutX(x + 500);
             Description.setMaxWidth(200);
-            Description.setWrapText(true);
-            iv1.setLayoutX(x + 600);
+            //Description.setWrapText(true);
+            
             int id = l.get(i).getId();
-            iv1.setOnMouseClicked(MouseEvent -> {
+            Button btndelete = new Button("delete");
+            btndelete.setLayoutX(x + 720);
+            btndelete.setOnMouseClicked((MouseEvent MouseEvent) -> {
                 ps.removeProduct(id);
+                   Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource("dashboardproductFXML.fxml"));
+            root = loader.load();
+            DashboardproducFXMLController dashboard = loader.getController();
+           
+           Scene scene = new Scene(root);
+            Stage primaryStage = (Stage)((Node) MouseEvent.getSource()).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("TrocTn");
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+                
             });
             Product p=l.get(i);
             anchorpane.setOnMouseClicked(MouseEvent -> {
@@ -164,8 +188,8 @@ public class DashboardproducFXMLController implements Initializable {
                 }            
             });
            
-            //y += 200;
-            anchorpane.getChildren().addAll(iv, title, value, Description, iv1);
+            y += 150;
+            anchorpane.getChildren().addAll(iv, title, value, Description, btndelete);
 
             feed.getChildren().addAll(anchorpane);
             

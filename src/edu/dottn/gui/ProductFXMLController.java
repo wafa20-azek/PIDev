@@ -14,7 +14,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -96,7 +98,17 @@ public class ProductFXMLController implements Initializable {
 
     @FXML
     private void makeoffer(ActionEvent event) {
-        NavigationController.changeCreateofferPage(event, user, p1, "CreationOfferFXML.fxml");
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("CreationOfferFXML.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        CreationOfferFXMLController o = loader.getController();
+        o.setproductinfo(p1);
+        title.getScene().setRoot(root);
     }
 
     void setvisibility(Boolean b) {

@@ -54,14 +54,14 @@ public class LoadingPageController implements Initializable {
             if (P instanceof Member) {
 
                 timeline.getKeyFrames().add(new KeyFrame(javafx.util.Duration.seconds(2),
-                        e -> NavigationController.openSession("HomePage.fxml", P, idText)));
+                        e -> NavigationController.openSession("feedproductFXML.fxml", P, idText)));
             }
 
         } else {
             timeline.getKeyFrames().add(new KeyFrame(javafx.util.Duration.seconds(2),
                     e -> {
                         try {
-                            FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource("Inscription.fxml"));
+                             FXMLLoader loader = new FXMLLoader(getClass().getResource("hero.fxml"));
                             Parent root = loader.load();
                             idText.getScene().setRoot(root);
                         } catch (IOException ex) {

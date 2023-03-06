@@ -9,6 +9,8 @@ import edu.dottn.entities.Admin;
 import edu.dottn.entities.Member;
 import edu.dottn.entities.User;
 import edu.dottn.services.MemberServices;
+import edu.dottn.util.UserSession;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,6 +22,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -58,8 +62,7 @@ public class LoginPageController implements Initializable {
          NavigationController.changeSignUpPage(event,"Inscription.fxml");
     }
     @FXML
-    private void btnSignIn(ActionEvent event) {
-         
+    private void btnSignIn(ActionEvent event) throws IOException {
 
         if (!(emailId.getText().isEmpty() || passwordId.getText().isEmpty())) {
             if (!emailId.getText().contains("@")) {
@@ -75,6 +78,11 @@ public class LoginPageController implements Initializable {
 //                    m1.sendCodeAuth(p1.getEmail(), p1.getNumero());
 //                   
 //                    NavigationController.changeToTwoFactorAuthentication(event, p1, "TwoFactorAuthentication.fxml");
+                    //System.out.println(p1);
+                    
+                    
+                    UserSession us=new UserSession();
+                    us.setUser(p1);
                     NavigationController.changeFeedPage(event, p1, "feedproductFXML.fxml");
                 }
                 else if(p1 != null && p1 instanceof Admin){

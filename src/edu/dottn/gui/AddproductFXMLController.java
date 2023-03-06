@@ -5,6 +5,9 @@
  */
 package edu.dottn.gui;
 
+import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.google.code.kaptcha.util.Config;
+import static com.itextpdf.text.pdf.XfaXpathConstructor.XdpPackage.Config;
 import edu.dottn.entities.Category;
 import edu.dottn.entities.Product;
 import edu.dottn.entities.SubCategory;
@@ -12,14 +15,17 @@ import edu.dottn.entities.User;
 import edu.dottn.services.CategoryServices;
 import edu.dottn.services.ProductServices;
 import edu.dottn.services.SubCategoryServices;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +43,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * FXML Controller class
@@ -69,17 +77,30 @@ public class AddproductFXMLController implements Initializable {
     private Label inputcontrol;
     @FXML
     private Button btnclear;
-    @FXML
     private Button btnlistproduct;
-    @FXML
     private Button btnhome;
   User user = new User();
+    @FXML
+    private AnchorPane captchaContainer;
+    @FXML
+    private TextField captchaField;
+    DefaultKaptcha captcha;
+    String randomWord = RandomStringUtils.randomAlphanumeric(6);
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        captcha = new DefaultKaptcha();
+        captcha.setConfig(new Config(new Properties()));
+
+        BufferedImage image = captcha.createImage(randomWord);
+        Image fxImage = SwingFXUtils.toFXImage(image, null);
+        ImageView imageView = new ImageView(fxImage);
+        imageView.setY(25);
+        imageView.setX(25);
+        captchaContainer.getChildren().add(imageView);
         
 inputcontrol.setText("");
         List<Category> l = cs.getAll();
@@ -137,6 +158,9 @@ inputcontrol.setText("");
          else 
         if ((subcategory.getValue() == null || subcategory.getValue().isEmpty())) {
           inputcontrol.setText("You didn't choose a subcategory!");
+        }
+        else if ( !randomWord.equals(captchaField.getText())){
+           inputcontrol.setText("wrong captcha!");
         }else
         
        
@@ -151,7 +175,9 @@ inputcontrol.setText("");
         ps.addProduct(p);
 
         Alert a = new Alert(Alert.AlertType.INFORMATION, "Product added !", ButtonType.FINISH);
-        a.showAndWait();}
+        a.showAndWait();
+      NavigationController.changeMyproductsPage(event, user, "listproductFXML.fxml");
+}
         else {inputcontrol.setText("Product already exists!");}
         
         }
@@ -197,31 +223,6 @@ inputcontrol.setText("");
         
     }
 
-    @FXML
-    private void gotolistproduct(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/listproductFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        btnlistproduct.getScene().setRoot(root);
-    }
-
-    @FXML
-    private void home(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/feedproductFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        btnhome.getScene().setRoot(root);
-    }
-
+   
 
 }

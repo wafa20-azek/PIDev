@@ -74,26 +74,14 @@ public class AfficheOffreFXMLController implements Initializable {
     private Button btnAccepted;
     @FXML
     private Button btnDeclined;
-    @FXML
-    private Button btnMyProduct;
-    @FXML
-    private Button btnAddProduct;
-    @FXML
-    private Button btnMyOffer;
-
-    private Button btncreationOffer;
-    @FXML
-    private Button createOffer;
+   
     @FXML
     private AnchorPane feed;
 //    @FXML
 //    private ListView<Offre> offreListView;
     @FXML
     private VBox vbox;
-    @FXML
-    private AnchorPane feed2;
-    @FXML
-    private AnchorPane feed3;
+  
     private User user = new Member();
 
 
@@ -252,7 +240,7 @@ an.setOnMouseClicked(MouseEvent -> {
                     System.out.println(e.getMessage());}
             });
             an.getChildren().addAll(title, r, value, imv1);
-            feed2.getChildren().add(an);
+            feed.getChildren().add(an);
             vbox.getChildren().add(an);
 
         }
@@ -279,29 +267,28 @@ an.setOnMouseClicked(MouseEvent -> {
             value.setLayoutY(x + 17);
 
             an.getChildren().addAll(title, value);
-            feed3.getChildren().add(an);
+            feed.getChildren().add(an);
             vbox.getChildren().add(an);
         }
     }
 
-    @FXML
-    private void consulterOffers(ActionEvent event
-    ) {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-            ServiceOffre serviceOffre = new ServiceOffre();
-            Offre o = new Offre();
-            List<Offre> offres = serviceOffre.getAll();
-
-        } catch (IOException e) {
-            System.out.println("Error :" + e.getMessage());
-        }
-
-        btnMyOffer.getScene().setRoot(root);
-
-    }
+//    private void consulterOffers(ActionEvent event
+//    ) {
+//
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
+//        Parent root = null;
+//        try {
+//            root = loader.load();
+//            ServiceOffre serviceOffre = new ServiceOffre();
+//            Offre o = new Offre();
+//            List<Offre> offres = serviceOffre.getAll();
+//
+//        } catch (IOException e) {
+//            System.out.println("Error :" + e.getMessage());
+//        }
+//
+//        btnMyOffer.getScene().setRoot(root);
+//
+//    }
 
 }

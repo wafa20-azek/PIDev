@@ -55,6 +55,6 @@ public class HomePageController implements Initializable {
     @FXML
     private void changeToProfile(ActionEvent event) {
         System.out.println(P);
-        NavigationController.changeProfilePage(event,P,"ProfilePage.fxml");
+        //NavigationController.changeProfilePage(event,P,"ProfilePage.fxml");
     }
 }

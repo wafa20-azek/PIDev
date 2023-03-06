@@ -38,7 +38,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.json.JSONException;
 
@@ -68,9 +76,11 @@ public class FeedproductFXMLController implements Initializable {
 
     ComboBox<String> subcategory = new ComboBox<>();
     @FXML
-    private Button btnexplore;
+    private Text top;
     @FXML
-    private Button btninventory;
+    private AnchorPane profile;
+    @FXML
+    private Label username;
 
     /**
      * Initializes the controller class.
@@ -78,8 +88,9 @@ public class FeedproductFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        username.setText(user.getName());
         feed.setStyle("-fx-background-color:#FFFFFF");
-        l = ps.getAll();
+        l = ps.getAllexceptuser();
         loadproducts(l);
 
     }
@@ -104,18 +115,7 @@ public class FeedproductFXMLController implements Initializable {
         user = u;
     }
 
-    @FXML
-    public void listproducts(ActionEvent event) {
-        NavigationController.changeMyproductsPage(event, user, "listproductFXML.fxml");
-    }
-
-    @FXML
-    private void searchbyname(KeyEvent event) {
-        System.out.println(tfserchbyname.getText());
-        l.clear();
-        l = ps.getByName(tfserchbyname.getText());
-        loadproducts(l);
-    }
+    
 
     private void searchbycategory(ActionEvent event) {
         initialiateSubCategory(category.getValue());
@@ -134,10 +134,13 @@ public class FeedproductFXMLController implements Initializable {
         GridPane gp = new GridPane();
         gp.setPrefWidth(794);
         gp.setPrefHeight(400);
-        gp.setPadding(new Insets(10, 10, 10, 10));
+        gp.setHgap(60);
         feed.getChildren().clear();
         float x = 20, y = 20;
         int k = 1;
+         BorderStroke borderStroke = new BorderStroke(Color.DARKGREY, BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY, new BorderWidths(1, 1, 1, 1));
+        Border border = new Border(borderStroke);
         for (int i = 0; i < l.size(); i++) {
 
             AnchorPane anchorpane = new AnchorPane();
@@ -158,7 +161,13 @@ public class FeedproductFXMLController implements Initializable {
             Description.setLayoutY(y + 280);
 
             Description.setMaxSize(200, 100);
-            //Description.setWrapText(true);
+            AnchorPane.setLeftAnchor(iv, 10.0);
+            AnchorPane.setLeftAnchor(title, 10.0);
+            AnchorPane.setLeftAnchor(Description, 10.0);
+            AnchorPane.setLeftAnchor(value, 10.0);
+            anchorpane.setBorder(border);
+            anchorpane.setPrefSize(260, 300);
+            
 
             String t = l.get(i).getDescription();
             Product p = l.get(i);
@@ -190,9 +199,9 @@ public class FeedproductFXMLController implements Initializable {
 
     }
 
-    @FXML
     public void showfilters(ActionEvent event) {
 
+        filter.getChildren().remove(top);
         List<Category> l1 = cs.getAll();
         List<String> l2 = new ArrayList<>();
 
@@ -212,6 +221,12 @@ public class FeedproductFXMLController implements Initializable {
             l4.add(l3.get(i).getName());
 
         }
+        category.setLayoutX(91);
+        category.setLayoutY(100);
+        category.setBackground(Background.EMPTY);
+         subcategory.setLayoutX(408);
+        subcategory.setLayoutY(100);
+        subcategory.setBackground(Background.EMPTY);
         subcategory.setItems(FXCollections.observableArrayList(l4));
         subcategory.setLayoutX(300);
         subcategory.setPromptText("Subcategory");
@@ -220,6 +235,19 @@ public class FeedproductFXMLController implements Initializable {
         filter.getChildren().addAll(anchorpane);
         category.setOnAction(e -> searchbycategory(event));
         subcategory.setOnAction(e -> searchbysubcategory(event));
+    }
+
+    @FXML
+    private void gotoprofile(MouseEvent event) {
+        NavigationController.changeProfilePage(event, user, "ProfilePage.fxml");
+    }
+
+    @FXML
+    private void searchbyname(KeyEvent event) {
+        System.out.println(tfserchbyname.getText());
+        l.clear();
+        l = ps.getByName(tfserchbyname.getText());
+        loadproducts(l);
     }
 
 }

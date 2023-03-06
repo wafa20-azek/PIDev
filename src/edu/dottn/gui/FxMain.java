@@ -25,7 +25,7 @@ public class FxMain extends Application {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoadingPage.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 1280, 700);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Gestion utilisateur");
             primaryStage.show();

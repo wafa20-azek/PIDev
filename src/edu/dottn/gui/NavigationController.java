@@ -77,7 +77,7 @@ public class NavigationController {
             FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));
             root = loader.load();
             CreationOfferFXMLController offer = loader.getController();
-            offer.setInformation(u);
+            //offer.setInformation(u);
             offer.setproductinfo(p);
            Scene scene = new Scene(root);
             Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -203,7 +203,7 @@ public class NavigationController {
             System.out.println(ex.getMessage());
         }
     }
-    public static void changeProfilePage(ActionEvent event,User P,String fxmlFile){
+    public static void changeProfilePage(MouseEvent event,User P,String fxmlFile){
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(NavigationController.class.getResource(fxmlFile));

@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.dottn.entities;
 
 import java.util.Objects;
 
-/**
- *
- * @author WALID
- */
+
 public class User {
 
     protected int idUser;
@@ -22,6 +15,12 @@ public class User {
 
     public User() {
     }
+
+    public User(int idUser,String Name) {
+        this.idUser = idUser;
+        this.Name = Name;
+    }
+    
 
     public User(int idUser, String Name, String Address, String Email, String Password, int Numero) {
         this.idUser = idUser;
@@ -127,5 +126,7 @@ public class User {
         }
         return true;
     }
+    
+    
 
 }

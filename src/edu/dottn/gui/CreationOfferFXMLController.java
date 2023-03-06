@@ -11,6 +11,7 @@ import edu.dottn.entities.Product;
 import edu.dottn.entities.User;
 import edu.dottn.services.ProductServices;
 import edu.dottn.services.ServiceOffre;
+import edu.dottn.util.UserSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -31,12 +32,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -50,13 +58,10 @@ import javax.transaction.TransactionRequiredException;
  */
 public class CreationOfferFXMLController implements Initializable {
 
-    @FXML
     private Button btnback;
     @FXML
     private Button btnsentrequest;
-    @FXML
-    private AnchorPane feed1;
-private User user= new Member();
+
 //private Product product=new Product();
     @FXML
     private ImageView image;
@@ -73,6 +78,9 @@ private User user= new Member();
     ProductServices ps=new ProductServices();
     Product p1=new Product();
     Product p2=new Product();
+    UserSession user=new UserSession();
+    @FXML
+    private ScrollPane scroll;
     /**
      * Initializes the controller class.
      */
@@ -80,8 +88,11 @@ private User user= new Member();
     public void initialize(URL url, ResourceBundle rb) {
           float x = 20, y = 20;
         int k=0;
+        BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY, new BorderWidths(0, 0, 1, 0));
+        Border border = new Border(borderStroke);
         List<Product> l = new ArrayList<>();
-       l=ps.getByIdUser(user.getIdUser());
+       l=ps.getByIdUser(user.getUser().getIdUser());
         for (int i = 0; i < l.size(); i++) {
            
             AnchorPane anchorpane = new AnchorPane();
@@ -102,8 +113,9 @@ private User user= new Member();
                     p1=p;
                 }
             });
-           
-           
+             scroll.setFitToWidth(true);
+           anchorpane.setBorder(border);
+           anchorpane.setMinWidth(338);
             anchorpane.getChildren().addAll(iv, title);
            
            list.getChildren().addAll(anchorpane);
@@ -112,9 +124,7 @@ private User user= new Member();
         } 
        
     }
-     void setInformation(User u) {
-         user=u;
-     }
+     
        void setproductinfo(Product p) {
            p2=p;
         Image image1 = new Image("file:src/assets/" +p.getImage());
@@ -127,7 +137,7 @@ private User user= new Member();
     @FXML
     private void sentRequest(ActionEvent event) {
        
-        Offre o = new Offre(p1,user,p2,ps.getById(p2.getId()).getUser());
+        Offre o = new Offre(p1,user.getUser(),p2,ps.getById(p2.getId()).getUser());
         ServiceOffre so = new ServiceOffre();
         if (so.verifierOffre(o) == null) {
                 so.ajouterOffre(o);
@@ -148,7 +158,6 @@ private User user= new Member();
 
     }
 
-    @FXML
     private void backtomyoffer(ActionEvent event) {
       
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));

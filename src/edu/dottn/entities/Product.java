@@ -35,6 +35,12 @@ public class Product {
     public Product() {
     }
 
+    public Product(String Name, String image) {
+        this.Name = Name;
+        this.image = image;
+    }
+
+    
     public Product(String Name, String Description, String image, float price, SubCategory subcategory, User user) {
         this.Name = Name;
         this.Description = Description;
