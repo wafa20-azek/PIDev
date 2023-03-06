@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -63,9 +64,9 @@ public class ServiceEvent implements IService<Event> {
     public Event getOneById(int id) {
         Event event = null;
         try {
-            String req = "SELECT  `event_name`, `event_description`, `event_date`, `event_location`, `event_status` FROM `event` WHERE ?";
+            String req = "SELECT  `event_name`, `event_description`, `event_date`, `event_location`, `event_status` FROM `event` WHERE event_id = "+id+"";
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, id);
+        
             ResultSet result = ps.executeQuery();
             System.out.println("row by id pulled");
             if (result.next()) {
@@ -87,7 +88,7 @@ public class ServiceEvent implements IService<Event> {
     @Override
     public void modifier(Event t) {
         try {
-            String req = "UPDATE `event` SET `event_name`= ?,`event_description`= ?,`event_date`= ?,`event_location`= ?,`event_status`= ? WHERE ?";
+            String req = "UPDATE `event` SET `event_name`= ?,`event_description`= ?,`event_date`= ?,`event_location`= ?,`event_status`= ? WHERE event_id = "+t.getIdEvent() +" ";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, t.getName());
             ps.setString(2, t.getDescription());
@@ -143,11 +144,10 @@ public class ServiceEvent implements IService<Event> {
     public List<Event> search(String hint) {
         List<Event> results = new ArrayList<>();
         try {
-            String req = "SELECT * FROM `event` WHERE `event_name` LIKE ? OR `event_location` LIKE ? OR `event_date` LIKE ?";
+            String req = "SELECT * FROM `event` WHERE `event_name` LIKE ?";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, "%" + hint + "%");
-            ps.setString(2, "%" + hint + "%");
-            ps.setString(3, "%" + hint + "%");
+           
             ResultSet result = ps.executeQuery();
             while (result.next()) {
                 Event ev = new Event();
@@ -168,21 +168,9 @@ public class ServiceEvent implements IService<Event> {
     public List<Event> getEventsByDateRange(Date startDate, Date endDate) {
         List<Event> events = new ArrayList<>();
         try {
-            String req = "SELECT * FROM `event` ";
-            Statement ps = cnx.createStatement();
-            ResultSet result = ps.executeQuery(req);
-
-            while (result.next()) {
-                Event event = new Event();
-                event.setName(result.getString("event_name"));
-                event.setDescription(result.getString("event_description"));
-                event.setEventDate(result.getDate("event_date"));
-                event.setLocation(result.getString("event_location"));
-                event.setStatus(Event.Status.valueOf(result.getString("event_status")));
-                events.add(event);
-            }
+            events=this.getAll();
             System.out.println("Events by date range pulled");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         return events.stream()

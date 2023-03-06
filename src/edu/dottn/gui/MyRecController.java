@@ -5,25 +5,19 @@
  */
 package edu.dottn.gui;
 
-
 import edu.dottn.entities.Reclamation;
 import edu.dottn.services.ServiceReclamation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -32,11 +26,10 @@ import javafx.stage.Stage;
  *
  * @author ProInfo
  */
-public class ReclamationFeedController implements Initializable {
+public class MyRecController implements Initializable {
 
-    private ListView<Reclamation> fxList;
     @FXML
-    private VBox recContainerList;
+    private VBox recList;
 
     /**
      * Initializes the controller class.
@@ -44,31 +37,30 @@ public class ReclamationFeedController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       ServiceReclamation sr = new ServiceReclamation();
-        List<Reclamation> reclamationList = sr.getAll();
+        ServiceReclamation sr = new ServiceReclamation();
+        ///*******CurrentUserrrr*******
+        List<Reclamation> reclamationList = sr.myRec(1);
         for (Reclamation r : reclamationList) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Reclamation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Mrec.fxml"));
             try {
             Node recContainer = loader.load();
-            ReclamationController recController = loader.getController();
+            MrecController recController = loader.getController();
             recController.setData(r);
-            recContainerList.getChildren().add(recContainer);
+            recList.getChildren().add(recContainer);
         } catch (IOException ex) {
                 System.err.println(ex.getMessage());
         }
     }
+    }    
+
+    @FXML
+    private void goTo(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddReclamation.fxml"));
+        Parent feedParent = loader.load();
+        Scene feedScene = new Scene(feedParent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(feedScene);
+        stage.show();
+    }
+    
 }
-
-    
-        }
-        
-                
-            
-        
-            
-         
-       
-    
-    
-   
-

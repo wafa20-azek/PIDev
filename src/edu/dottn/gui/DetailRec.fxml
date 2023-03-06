@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="721.0" prefWidth="1157.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="edu.dottn.gui.DetailRecController">
+        <fx:include source="sidebar.fxml" />
+   <TextField fx:id="taID" disable="true" editable="false" layoutX="459.0" layoutY="125.0" visible="false">
+    
+   </TextField>
+  
+   <TextArea fx:id="taReclamation" editable="false" layoutX="429.0" layoutY="100.0" prefHeight="178.0" prefWidth="688.0" />
+   <Label layoutX="316.0" layoutY="177.0" text="Reclamation :">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font>
+   </Label>
+   <Label layoutX="341.0" layoutY="422.0" text="Reponse : ">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font>
+   </Label>
+   <TextArea fx:id="taReponse" editable="false" layoutX="431.0" layoutY="372.0" prefHeight="138.0" prefWidth="688.0" />
+   <TextField fx:id="tfStatut" editable="false" layoutX="866.0" layoutY="309.0" prefHeight="31.0" prefWidth="253.0" />
+   <Label layoutX="321.0" layoutY="314.0" text="Date d'envoi :">
+      <font>
+         <Font name="System Bold" size="15.0" />
+      </font>
+   </Label>
+   <Label layoutX="801.0" layoutY="314.0" text="Statut : ">
+      <font>
+         <Font name="System Bold" size="15.0" />
+      </font>
+   </Label>
+   <DatePicker fx:id="dpDate" disable="true" editable="false" layoutX="430.0" layoutY="309.0" prefHeight="31.0" prefWidth="253.0" />
+   <ImageView fitHeight="38.0" fitWidth="36.0" layoutX="300.0" layoutY="39.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../../backarrow.png" />
+      </image>
+   </ImageView>
+</AnchorPane>

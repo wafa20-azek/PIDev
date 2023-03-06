@@ -14,12 +14,12 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Text fx:id="dateEvent" layoutX="4.0" layoutY="75.0" opacity="0.38" strokeType="OUTSIDE" strokeWidth="0.0" text="sdfqfqs" wrappingWidth="137.6708984375">
+            <Text fx:id="dateEvent" layoutX="14.0" layoutY="73.0" opacity="0.38" strokeType="OUTSIDE" strokeWidth="0.0" text="sdfqfqs" wrappingWidth="192.6708984375">
                <font>
                   <Font size="17.0" />
                </font>
             </Text>
-            <Text fx:id="tStatut" layoutX="625.0" layoutY="74.0" opacity="0.38" strokeType="OUTSIDE" strokeWidth="0.0" text="sdfqfqs" wrappingWidth="137.6708984375">
+            <Text fx:id="tStatut" layoutX="605.0" layoutY="72.0" opacity="0.38" strokeType="OUTSIDE" strokeWidth="0.0" text="sdfqfqs" wrappingWidth="137.6708984375">
                <font>
                   <Font size="17.0" />
                </font>

@@ -6,6 +6,8 @@
 package edu.dottn.gui;
 
 import edu.dottn.entities.Event;
+import edu.dottn.entities.User;
+import edu.dottn.services.ServiceEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,7 +48,7 @@ public class EventDetailController implements Initializable {
     @FXML
     private Button bParticiper;
     private WebEngine webEngine;
-
+    Event a = new Event();
     /**
      * Initializes the controller class.
      */
@@ -60,6 +62,7 @@ public class EventDetailController implements Initializable {
      * @param ev
      */
     public void setEvents(Event ev) {
+        a=ev;
         if (ev != null) {
             tfEvent.setText(ev.getName());
             tfDesc.setText(ev.getDescription());
@@ -103,9 +106,22 @@ public class EventDetailController implements Initializable {
         stage.show();
 }
     
-
+/**
+     *
+     * @param ev
+     */
     @FXML
-    private void part(ActionEvent event) {
+    private void part(ActionEvent event) throws IOException {
+        ServiceEvent se = new ServiceEvent();
+        User s = new User();
+        se.participer(a.getIdEvent(),s.getIdUser() );
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EventFeed.fxml"));
+        Parent feedParent = loader.load();
+        Scene feedScene = new Scene(feedParent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(feedScene);
+        stage.show();
+        
 
     }
 }

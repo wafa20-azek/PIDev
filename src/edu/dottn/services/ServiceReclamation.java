@@ -10,8 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 /**
@@ -42,9 +44,9 @@ public class ServiceReclamation implements IService<Reclamation> {
     @Override
     public void supprimer(int id) {
         try {
-            String req = "DELETE FROM reclamation WHERE ID_Rec = ? ";
+            String req = "DELETE FROM reclamation WHERE ID_Rec = "+id+" ";
             PreparedStatement st = cnx.prepareStatement(req);
-            st.setInt(1, id);
+         
             st.executeUpdate();
             System.out.println("row deleted");
         } catch (SQLException ex) {
@@ -79,7 +81,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     @Override
     public void modifier(Reclamation t) {
         try {
-            String req ="UPDATE `reclamation` SET `Customer`= ?,`Product`= ?,`status`= ?,`Description`= ?,`Date`= ? WHERE ID_Rec = ?";
+            String req ="UPDATE `reclamation` SET `Customer`= ?,`Product`= ?,`status`= ?,`Description`= ?,`Date`= ? WHERE ID_Rec = ? ";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1,t.getCustomer());
             ps.setInt(2, t.getProduct());
@@ -117,6 +119,28 @@ public class ServiceReclamation implements IService<Reclamation> {
             System.err.println(ex.getMessage());
         }
         return reclamations;
+    }
+    public List<Reclamation> myRec(int id){
+           List<Reclamation> l=new ArrayList<>();
+        try {
+         
+            String req="SELECT  `ID_Rec`,`Customer`, `Product`, `status`, `Description`, `Date` FROM `reclamation` WHERE `Customer` = "+id+" ";
+                    
+                    
+            PreparedStatement ps=cnx.prepareStatement(req);
+          
+            ResultSet rs = ps.executeQuery(req);
+            while (rs.next()){
+                Reclamation r=new Reclamation(rs.getInt("ID_Rec"), rs.getInt("Customer"), rs.getInt("Product"), rs.getString("status"), rs.getString("Description"), rs.getTimestamp("Date"));
+                l.add(r);
+                
+            }
+            System.out.println("rows pulled ");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return l ;
+        
     }
 
 }

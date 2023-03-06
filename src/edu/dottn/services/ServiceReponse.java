@@ -17,6 +17,7 @@ import java.util.List;
 
 
 
+
 /**
  *
  * @author ProInfo
@@ -59,9 +60,8 @@ public class ServiceReponse implements IService<Reponse>{
             String req ="SELECT r.Description, rp.ID_Rec, rp.Response, rp.Date_Rep " +
                     "FROM reclamation r " +
                     "JOIN reponse rp ON r.ID_Rec = rp.ID_Rec " +
-                    "WHERE rp.Id_Rep = ?";
+                    "WHERE rp.ID_Rec = "+id+"";
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, id);
             ResultSet result = ps.executeQuery();
             System.out.println("roww pulled");
             if (result.next()){
@@ -120,5 +120,4 @@ public class ServiceReponse implements IService<Reponse>{
        
     }
    
-    
 }

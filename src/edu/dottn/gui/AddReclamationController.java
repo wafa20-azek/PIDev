@@ -9,6 +9,7 @@ import edu.dottn.entities.Produit;
 import edu.dottn.entities.Reclamation;
 import edu.dottn.services.ServiceProduit;
 import edu.dottn.services.ServiceReclamation;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -16,11 +17,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -72,6 +78,13 @@ public class AddReclamationController implements Initializable {
     }
 
     @FXML
-    private void back(ActionEvent event) {
+    private void back(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MyRec.fxml"));
+        Parent feedParent = loader.load();
+        Scene feedScene = new Scene(feedParent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(feedScene);
+        stage.show();
+
     }
 }
