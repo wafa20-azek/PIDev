@@ -132,7 +132,7 @@ public class EventDetailController implements Initializable {
         String charset = "UTF-8";
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
         hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-        generateQRcode(a.getName()+s.getName(), path, charset, hashMap, 400, 400);
+        generateQRcode(a.getName()+" est enregistrer dans la liste des participant a l'event : "+s.getName(), path, charset, hashMap, 400, 400);
         System.out.println("QR Code created successfully.");  
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EventFeed.fxml"));
         Parent feedParent = loader.load();

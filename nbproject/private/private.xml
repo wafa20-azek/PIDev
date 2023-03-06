@@ -7,28 +7,26 @@
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/AddReclamationController.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/ReclamationController.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/MyEvController.java</file>
-            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/entities/Member.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/AddEventController.java</file>
+            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/CodeQr.fxml</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/MrecController.java</file>
+            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/services/CodeQr.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/EventDetailController.java</file>
-            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/Mrec.fxml</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/entities/Event.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/MyRecController.java</file>
-            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/Ev.fxml</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/ModEvController.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/EventFeedController.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/EvController.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/main/Main.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/MyEventController.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/ReponseController.java</file>
-            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/services/MemeberServices.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/SideBarController.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/services/ServiceReclamation.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/services/IService.java</file>
+            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/MyEvent.fxml</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/services/ServiceEvent.java</file>
-            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/entities/Produit.java</file>
+            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/CodeQrController.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/entities/Reponse.java</file>
-            <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/services/ServiceProduit.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/main/Test.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/DetailRecController.java</file>
             <file>file:/C:/Users/ProInfo/Documents/NetBeansProjects/x/PIDev/src/edu/dottn/gui/ReclamationFeedController.java</file>
