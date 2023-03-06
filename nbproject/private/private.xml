@@ -9,7 +9,6 @@
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/addpost.fxml</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/donationCard.fxml</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/test/Main.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/entities/SubCategory.java</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/services/ServiceDonation.java</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/entities/Post.java</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/postInformations.fxml</file>
@@ -17,11 +16,9 @@
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/PostInformationsController.java</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/inventory.fxml</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/test/Example.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/entities/Product.java</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/ProfileController.java</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/DonateController.java</file>
             <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/gui/PostController.java</file>
-            <file>file:/C:/Users/rajhi/OneDrive/Desktop/x/PIDev/src/edu/dottn/services/ProductServices.java</file>
         </group>
     </open-files>
 </project-private>
