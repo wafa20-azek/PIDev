@@ -19,6 +19,10 @@ public class Post {
 
     }
 
+    public void setIdPost(int idPost) {
+        this.idPost = idPost;
+    }
+
     public Post(Association associations, String titlePost, String description, Timestamp date_created,String postimage,int id ) {
         this.titlePost = titlePost;
         this.association = associations;
@@ -43,7 +47,7 @@ public class Post {
         this.date_created = date_created;
     }
       
-
+    //Constructeur d'ajout
     public Post(Association associations ,String titlePost, String description,String image) {
         this.titlePost = titlePost;
          this.association = associations;
@@ -51,6 +55,15 @@ public class Post {
         this.postimage=image;
        
     }
+
+    public Post(int idPost, Association association, String titlePost, String description, String postimage) {
+        this.idPost = idPost;
+        this.association = association;
+        this.titlePost = titlePost;
+        this.description = description;
+        this.postimage = postimage;
+    }
+    
 
     public Post(int idPost, Association association, String titlePost, String description, String postimage, Timestamp date_created, Timestamp date_updated, int likes, int dislikes) {
         this.idPost = idPost;

@@ -178,7 +178,7 @@ public class UpdateproductFXMLController implements Initializable {
  @FXML
     private void addimage(ActionEvent event) {
         FileChooser fc = new FileChooser();
-        fc.setInitialDirectory(new File("C:/Users/WAFA/Documents/NetBeansProjects/PIDEV/src/assets"));
+        fc.setInitialDirectory(new File("D:/PIDEV V0/PIDev/src/assets"));
         File selectedFile = fc.showOpenDialog(null);
         if (selectedFile != null) {
             imagename = selectedFile.getName().toString();

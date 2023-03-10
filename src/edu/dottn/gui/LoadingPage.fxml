@@ -6,14 +6,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #003192;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.LoadingPageController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1280.0" style="-fx-background-color: #003192;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.LoadingPageController">
    <children>
-       <ImageView fitHeight="180.0" fitWidth="202.0" layoutX="404.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+       <ImageView fitHeight="220.0" fitWidth="213.0" layoutX="534.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/troctnLogo.png" />
                </image>
        </ImageView>
-      <Text fx:id="idText" fill="#fafafaac" layoutX="392.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Join &amp; Let's exchange..." wrappingWidth="268.09814453125">
+      <Text fx:id="idText" fill="#fafafaac" layoutX="526.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Join &amp; Let's exchange..." wrappingWidth="227.09814453125">
          <font>
             <Font size="22.0" />
          </font>

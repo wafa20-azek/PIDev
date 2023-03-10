@@ -7,17 +7,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.FeeddonationController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1280.0" stylesheets="@../../../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.FeeddonationController">
    <children>
        <fx:include source="sidebaruser.fxml" />
-      <TextField fx:id="seachfield" layoutX="352.0" layoutY="72.0" prefHeight="31.0" prefWidth="337.0" />
+      <TextField fx:id="seachfield" layoutX="348.0" layoutY="72.0" prefHeight="31.0" prefWidth="399.0" promptText="search for a post .." />
 
-      <Label fx:id="hellouserText" layoutX="1110.0" layoutY="78.0" text="Hello , user" />
-      <Separator layoutX="316.0" layoutY="125.0" prefHeight="7.0" prefWidth="932.0" />
-      <Separator layoutX="320.0" layoutY="181.0" prefHeight="7.0" prefWidth="932.0" />
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="347.0" layoutY="184.0" prefHeight="512.0" prefWidth="880.0">
+      <Label fx:id="hellouserText" layoutX="998.0" layoutY="77.0" text="Hello , user" />
+      <Separator layoutX="285.0" layoutY="127.0" prefHeight="7.0" prefWidth="964.0" />
+      <Separator layoutX="285.0" layoutY="167.0" prefHeight="7.0" prefWidth="964.0" />
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="319.0" layoutY="184.0" prefHeight="495.0" prefWidth="913.0">
          <content>
-             <VBox fx:id="feedBox" prefHeight="487.0" prefWidth="874.0" />
+             <VBox fx:id="feedBox" prefHeight="493.0" prefWidth="930.0" />
                 
          </content>
       </ScrollPane>

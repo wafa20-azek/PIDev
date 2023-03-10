@@ -3,14 +3,17 @@ package edu.dottn.gui;
 import edu.dottn.entities.Association;
 import edu.dottn.entities.Comment;
 import edu.dottn.entities.Post;
+import edu.dottn.services.AssociationServices;
 import edu.dottn.services.ServiceComment;
 import edu.dottn.services.ServicePost;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,9 +27,14 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -36,6 +44,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -79,6 +88,10 @@ public class PostInformationsController implements Initializable {
     private VBox commentArea;
     @FXML
     private ImageView deletepostbtn;
+    
+    AssociationServices as = new AssociationServices();
+    @FXML
+    private ImageView updatepostbtn;
    
   
     @Override
@@ -202,15 +215,25 @@ public class PostInformationsController implements Initializable {
         postDescription.setText(description);
         postImage.setImage(img);
         post=p;
+        Association a = as.getLoggedInAssociation();
+        System.out.println(p.getAssociation().getId());
+        System.out.println(p.getAssociation().getId());
+        if (a.getId()!=p.getAssociation().getId()){
+            deletepostbtn.setVisible(false);
+            deletepostbtn.disableProperty();
+            updatepostbtn.setVisible(false);
+            deletepostbtn.disableProperty();
+        }
         
     }
     public void setIdPost(Post item){
-        Association as = item.getAssociation();
-        System.out.println(as.getAssocName());
-        if (as.getId()!=3){
-            deletepostbtn.setVisible(false);
-            deletepostbtn.disableProperty();
-        }
+//        Association as = item.getAssociation();
+//       // System.out.println(as.getAssocName());
+//        System.out.println(item.getAssociation().getId());
+//        if (as.getId()!=4){
+//            deletepostbtn.setVisible(false);
+//            deletepostbtn.disableProperty();
+//        }
         idPost=item.getIdPost();
         comments=sc.getCommentsByPostId(idPost);
         displayComment(comments);
@@ -239,10 +262,92 @@ public class PostInformationsController implements Initializable {
     @FXML
     private void delete(MouseEvent event) {
         ServicePost sp = new ServicePost();
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Confirmation");
+    alert.setHeaderText("Delete Post");
+    alert.setContentText("Are you sure you want to delete this post?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK){
+       
         sp.supprimerParId(idPost);
-        backToFeed( );
+        backToFeed();
     }
-    
-    
-    
+        
+    }
+
+    @FXML
+    private void updatepost(MouseEvent event) {
+        
+      
+    // Créer une boîte de dialogue pour modifier le post
+    Dialog<Post> dialog = new Dialog<>();
+    dialog.setTitle("Modifier le post");
+
+    // Créer les boutons "Enregistrer" et "Annuler"
+    ButtonType enregistrerButtonType = new ButtonType("Enregistrer", ButtonData.OK_DONE);
+    dialog.getDialogPane().getButtonTypes().addAll(enregistrerButtonType, ButtonType.CANCEL);
+
+    // Créer les champs pour éditer les informations du post
+    // Remplacez les labels et les champs par les informations de votre post
+    Label titleLabel = new Label("Titre :");
+    TextField titleField = new TextField(post.getTitlePost());
+    Label contentLabel = new Label("Contenu :");
+    TextArea contentField = new TextArea(post.getDescription());
+   // ImageView imageView = new ImageView(post.getPhotos()); // Display the current image
+    Button chooseImageButton = new Button("Choisir une image");
+
+    VBox vbox = new VBox(10, titleLabel, titleField, contentLabel, contentField, chooseImageButton);
+    dialog.getDialogPane().setContent(vbox);
+
+    // Configure the button to open a file chooser to select the image
+//    chooseImageButton.setOnAction(e -> {
+//        FileChooser fileChooser = new FileChooser();
+//        File selectedFile = fileChooser.showOpenDialog(dialog.getOwner());
+//
+//        if (selectedFile != null) {
+//            // Update the image view with the selected image
+//            Image selectedImage = new Image(selectedFile.toURI().toString());
+//            imageView.setImage(selectedImage);
+//
+//            // Update the post object with the new image
+//            post.setPhotos(selectedImage.toString());
+//        }
+//    });
+
+    // Attendre que l'utilisateur appuie sur un bouton
+    dialog.setResultConverter((ButtonType dialogButton) -> {
+        if (dialogButton == enregistrerButtonType) {
+            // Créer un nouveau post avec les nouvelles informations
+            Post modifiedPost = new Post(idPost,as.getLoggedInAssociation(),titleField.getText(), contentField.getText(), "test");
+           // modifiedPost.setIdPost(idPost);
+            // Appeler la méthode de ServicePost pour modifier le post
+            ServicePost sp = new ServicePost();
+            sp.modifier(modifiedPost);
+
+            // Retourner le post modifié pour affichage ultérieur
+          
+            backToFeed();
+              return modifiedPost;
+        }
+        return null;
+    });
+
+    // Afficher la boîte de dialogue et attendre que l'utilisateur appuie sur un bouton
+    Optional<Post> result = dialog.showAndWait();
+    result.ifPresent(modifiedPost -> {
+        // Afficher le post modifié dans l'interface utilisateur
+        // Remplacez les labels et les champs par les informations de votre post
+        
+        post.setTitlePost(modifiedPost.getTitlePost());
+        post.setDescription(modifiedPost.getDescription());
+        post.setPhotos(modifiedPost.getPhotos());
+        System.out.println(post.getIdPost());
+        titleLabel.setText("Titre : " + post.getTitlePost());
+        contentLabel.setText("Contenu : " + post.getDescription());
+       // imageView.setImage(new Image(post.getPhotos()));
+    });
+}
+        
+   
 }

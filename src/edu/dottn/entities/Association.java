@@ -13,11 +13,19 @@ public class Association extends User  {
     private String image;
     private String location;
     private int number;
+    private String salt;
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
     public Association() {
     }
 
-    
      public Association(String assocName, String username, String email, String location, int number ){
         this.assocName = assocName;
         this.username = username;
@@ -26,7 +34,6 @@ public class Association extends User  {
         this.number = number;
         
     }
-    
     public Association(String assocName, String username, String email, String location, int number, String image) {
         this.assocName = assocName;
         this.username = username;
@@ -34,6 +41,27 @@ public class Association extends User  {
         this.location = location;
         this.number = number;
         this.image = image;
+    }
+    
+    public Association(int id,String assocName, String username, String email, String location, int number, String image) {
+        this.id=id;
+        this.assocName = assocName;
+        this.username = username;
+        this.email = email;
+        this.location = location;
+        this.number = number;
+        this.image = image;
+        
+    }
+    public Association(int id,String assocName, String username, String email, String location, int number, String image,String salt) {
+        this.id=id;
+        this.assocName = assocName;
+        this.username = username;
+        this.email = email;
+        this.location = location;
+        this.number = number;
+        this.image = image;
+        this.salt=salt;
     }
 
     

@@ -38,11 +38,10 @@ import javax.mail.internet.MimeMessage;
  */
 public class ServiceDonation implements DService<Donation> {
 
-    Connection cnx = MyConnection.getInstance().getConnection();
     MemberServices ms = new MemberServices();
     ProductServices ps = new ProductServices();
     ServicePost sp=new ServicePost();
-//Ajout avec verification
+    Connection cnx = MyConnection.getInstance().getConnection();
 
     public void ajouter(Donation d) {
         // Vérifier que les champs ne sont pas nuls
@@ -51,24 +50,23 @@ public class ServiceDonation implements DService<Donation> {
             alert.setHeaderText(null);
             alert.setContentText("Error: fields are null");
             alert.showAndWait();
-            return;
         }*/
 
         try {
-            String insertReq = "INSERT INTO donation (idUser,ID_Product,idPost,date_donation) VALUES (?,?,?,?)";
+          String insertReq = "INSERT INTO donation (idUser,idAssociation,ID_Product,idPost,date_donation) VALUES (?,?,?,?,?)";
             PreparedStatement stInsert = cnx.prepareStatement(insertReq);
             stInsert.setInt(1, d.getUser().getIdUser());
-           
-            stInsert.setInt(2, d.getProduct().getId());
-            stInsert.setInt(3, d.getPost().getIdPost());
-           
-            stInsert.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+             stInsert.setInt(2, d.getPost().getAssociation().getId());
+            stInsert.setInt(3, d.getProduct().getId());
+            stInsert.setInt(4, d.getPost().getIdPost());
+            stInsert.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
             stInsert.executeUpdate();
             System.out.println("added!");
+            
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
-            alert.setContentText("DONATION ADDED. THANK YOU!");
+            alert.setContentText("DONATION ADDED. THANK YOU FOR YOUR HELP!");
             alert.showAndWait();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -115,6 +113,25 @@ public class ServiceDonation implements DService<Donation> {
 //                } catch (IllegalArgumentException e) {
 //                    // handle the case where the value returned by rs.getString("status") is not a valid enum constant
 //                }
+                list.add(d);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return list;
+    }
+    public List<Donation> getAllbyAssoc(int id) {
+        List<Donation> list = new ArrayList<>();
+        try {
+            String req = "Select * from donation where idAssociation=?";
+            PreparedStatement st = cnx.prepareStatement(req);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Donation d = new Donation(ms.getOneById(rs.getInt("idUser")), ps.getById(rs.getInt("ID_Product")), sp.getOneById(rs.getInt("idPost")));
+               
+     
                 list.add(d);
             }
         } catch (SQLException ex) {

@@ -12,6 +12,7 @@ import edu.dottn.entities.Offre;
 import edu.dottn.entities.User;
 import edu.dottn.services.ServiceAvis;
 import edu.dottn.services.ServiceOffre;
+import edu.dottn.util.UserSession;
 import java.awt.Desktop;
 import static java.awt.Desktop.Action.BROWSE;
 import java.awt.TextField;
@@ -84,7 +85,7 @@ public class AfficheOffreFXMLController implements Initializable {
   
     private User user = new Member();
 
-
+    UserSession us=new UserSession();
  
     /*
 
@@ -98,7 +99,7 @@ public class AfficheOffreFXMLController implements Initializable {
     }
 
     void setInformation(User P) {
-        user = P;
+       // user = P;
     }
 
     @FXML
@@ -107,7 +108,7 @@ public class AfficheOffreFXMLController implements Initializable {
         List<Offre> listoffre = new ArrayList<>();
 
         ServiceOffre so = new ServiceOffre();
-        listoffre = so.getBYStatus("On_Hold", user.getIdUser());
+        listoffre = so.getBYStatus("On_Hold", us.getUser().getIdUser());
         System.out.println(listoffre.size());
         //System.out.println(listoffre);
         int x = 0, y = 0;
@@ -136,7 +137,7 @@ public class AfficheOffreFXMLController implements Initializable {
             Image img1 = new Image(imgStream1, 25, 25, false, false);
             ImageView imgv = new ImageView(img1);
             imgv.setOnMouseClicked(MouseEvent -> so.RefuserOffer(o));
-            imgv.setLayoutX(x + 398);
+            imgv.setLayoutX(x + 390);
             imgv.setLayoutY(y + 17);
             InputStream imgStream2 = getClass().getResourceAsStream("/img/modifiericon.png");
             Image imgv1 = new Image(imgStream2, 20, 20, false, false);
@@ -144,7 +145,7 @@ public class AfficheOffreFXMLController implements Initializable {
             imv1.setOnMouseClicked(MouseEvent -> {
                 try {
                     //so.modifierOffre(o);
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierOffreFXML.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOffreFXML.fxml"));
                     Parent root = loader.load();
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
@@ -155,17 +156,17 @@ public class AfficheOffreFXMLController implements Initializable {
                 }
             });
 
-            imv1.setLayoutX(x + 435);
+            imv1.setLayoutX(x + 420);
             imv1.setLayoutY(y + 17);
             InputStream imgS = getClass().getResourceAsStream("/img/supprimer.png");
             Image im = new Image(imgS, 25, 25, false, false);
             ImageView iv = new ImageView(im);
             iv.setOnMouseClicked(MouseEvent -> so.supprimerOffre(o));
-            iv.setLayoutX(x + 460);
+            iv.setLayoutX(x + 440);
             iv.setLayoutY(y + 17);
             Button btnOn_Hold = new Button("On_Hold");
             an.setOnMouseClicked(MouseEvent -> {
-             NavigationController.changedetailofferPage(event, o, "DetailofferFXML.fxml");
+             NavigationController.changedetailofferPage(event, o, "AfficheOfferFXML.fxml");
             });
 
             an.getChildren().addAll(name, date, imv, imgv, imv1, iv);
@@ -184,9 +185,10 @@ public class AfficheOffreFXMLController implements Initializable {
         vbox.getChildren().clear();
         List<Offre> listoffre1 = new ArrayList<>();
         ServiceOffre so = new ServiceOffre();
-        listoffre1 = so.getBYStatus("Accepted", user.getIdUser());
+        listoffre1 = so.getBYStatus("Accepted", us.getUser().getIdUser());
 
         for (Offre o : listoffre1) {
+            //System.out.println(o);
             AnchorPane an = new AnchorPane();
             an.setLayoutX(x + 14);
             an.setLayoutY(y + 17);
@@ -214,7 +216,7 @@ public class AfficheOffreFXMLController implements Initializable {
             }
 
             InputStream imgStream2 = getClass().getResourceAsStream("/img/imprimericon.png");
-            Image imgv1 = new Image(imgStream2, 15, 15, false, false);
+            Image imgv1 = new Image(imgStream2, 25, 25, false, false);
             ImageView imv1 = new ImageView(imgv1);
             imv1.setOnMouseClicked(mouseEvent -> {
                 try {
@@ -227,10 +229,10 @@ public class AfficheOffreFXMLController implements Initializable {
                 }
             });
             imv1.setLayoutX(x + 398);
-            imv1.setLayoutY(y + 10);
+            imv1.setLayoutY(y + 17);
 an.setOnMouseClicked(MouseEvent -> {
                 try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailofferFXML.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficheOfferFXML.fxml"));
                     Parent root = loader.load();
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
@@ -252,7 +254,7 @@ an.setOnMouseClicked(MouseEvent -> {
         vbox.getChildren().clear();
         List<Offre> listoffre3 = new ArrayList<>();
         ServiceOffre so = new ServiceOffre();
-        listoffre3 = so.getBYStatus("Declined", user.getIdUser());
+        listoffre3 = so.getBYStatus("Declined",  us.getUser().getIdUser());
 
         for (Offre o : listoffre3) {
             AnchorPane an = new AnchorPane();
@@ -290,5 +292,29 @@ an.setOnMouseClicked(MouseEvent -> {
 //        btnMyOffer.getScene().setRoot(root);
 //
 //    }
+    @FXML
+    private void offersent(ActionEvent event) {
+                int x = 0, y = 0;
+        vbox.getChildren().clear();
+    List<Offre> listoffre4 = new ArrayList<>();
+    ServiceOffre so = new ServiceOffre();
+    Offre o1 = new Offre();
+     listoffre4=  so.getOffresByUser(o1);
 
+    for (Offre o : listoffre4) {
+        AnchorPane an = new AnchorPane();
+        an.setLayoutX(x + 14);
+        an.setLayoutY(y + 17);
+        Label name = new Label(o.getUser1().getName());
+        String s = String.valueOf(o.getDate_offre());
+        Label date = new Label(s);
+        name.setLayoutX(x + 14);
+        name.setLayoutY(y + 17);
+        date.setLayoutX(x + 130);
+        date.setLayoutY(x + 17);
+
+        an.getChildren().addAll(name,date);
+         feed.getChildren().add(an);
+            vbox.getChildren().add(an);
+    }}
 }

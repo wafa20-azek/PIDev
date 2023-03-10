@@ -9,24 +9,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="700" prefWidth="1000" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.AddproductFXMLController">
+<BorderPane prefHeight="700" prefWidth="1280.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.AddproductFXMLController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
               <AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="896.0" BorderPane.alignment="CENTER">
                   <children>
-                      <TextField fx:id="tfName" layoutX="350.0" layoutY="21.0" prefHeight="31.0" prefWidth="279.0" promptText="enter title" />
-                      <TextArea fx:id="tfDescription" layoutX="350.0" layoutY="69.0" prefHeight="98.0" prefWidth="279.0" promptText="enter description..." />
-                      <TextField fx:id="tfValue" layoutX="350.0" layoutY="187.0" prefHeight="31.0" prefWidth="279.0" promptText="enter value ..." />
-                      <ComboBox fx:id="category" layoutX="396.0" layoutY="252.0" onAction="#initialiateSubCategory" prefHeight="31.0" prefWidth="187.0" promptText="category" style="-fx-background-color: transparent;" />
-                      <ComboBox fx:id="subcategory" layoutX="396.0" layoutY="299.0" prefHeight="31.0" prefWidth="187.0" promptText="subcategory" style="-fx-background-color: transparent;" />
-                      <Button fx:id="btnaddproduct" layoutX="396.0" layoutY="453.0" mnemonicParsing="false" onAction="#AddProduct" prefHeight="31.0" prefWidth="151.0" style="-fx-background-color: #BF5CFF;" text="Add" textFill="WHITE" />
-                      <ImageView fx:id="image" fitHeight="260.0" fitWidth="300.0" layoutX="23.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-                      <Button fx:id="btnaddimage" layoutX="80.0" layoutY="293.0" mnemonicParsing="false" onAction="#addimage" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: transparent;" text="choose image" />
-                      <Label fx:id="inputcontrol" layoutX="437.0" layoutY="412.0" text="Label" textFill="RED" />
-                      <Button fx:id="btnclear" layoutX="565.0" layoutY="453.0" mnemonicParsing="false" onAction="#clear" prefHeight="31.0" prefWidth="151.0" style="-fx-background-color: #BF5CFF;" text="Clear" textFill="WHITE" />
-                      <AnchorPane fx:id="captchaContainer" layoutX="80.0" layoutY="351.0" prefHeight="47.0" prefWidth="226.0" />
-                      <TextField fx:id="captchaField" layoutX="100.0" layoutY="422.0" />
+                      <TextField fx:id="tfName" layoutX="535.0" layoutY="21.0" prefHeight="31.0" prefWidth="279.0" promptText="enter title" />
+                      <TextArea fx:id="tfDescription" layoutX="535.0" layoutY="69.0" prefHeight="98.0" prefWidth="279.0" promptText="enter description..." />
+                      <TextField fx:id="tfValue" layoutX="535.0" layoutY="187.0" prefHeight="31.0" prefWidth="279.0" promptText="enter value ..." />
+                      <ComboBox fx:id="category" layoutX="581.0" layoutY="252.0" onAction="#initialiateSubCategory" prefHeight="31.0" prefWidth="187.0" promptText="category" style="-fx-background-color: transparent;" />
+                      <ComboBox fx:id="subcategory" layoutX="581.0" layoutY="299.0" prefHeight="31.0" prefWidth="187.0" promptText="subcategory" style="-fx-background-color: transparent;" />
+                      <Button fx:id="btnaddproduct" layoutX="581.0" layoutY="453.0" mnemonicParsing="false" onAction="#AddProduct" prefHeight="31.0" prefWidth="151.0" style="-fx-background-color: #BF5CFF;" text="Add" textFill="WHITE" />
+                      <ImageView fx:id="image" fitHeight="260.0" fitWidth="300.0" layoutX="130.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+                      <Button fx:id="btnaddimage" layoutX="187.0" layoutY="299.0" mnemonicParsing="false" onAction="#addimage" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: transparent;" text="choose image" />
+                      <Label fx:id="inputcontrol" layoutX="622.0" layoutY="412.0" text="Label" textFill="RED" />
+                      <Button fx:id="btnclear" layoutX="750.0" layoutY="453.0" mnemonicParsing="false" onAction="#clear" prefHeight="31.0" prefWidth="151.0" style="-fx-background-color: #BF5CFF;" text="Clear" textFill="WHITE" />
+                      <AnchorPane fx:id="captchaContainer" layoutX="185.0" layoutY="339.0" prefHeight="47.0" prefWidth="226.0" />
+                      <TextField fx:id="captchaField" layoutX="204.0" layoutY="433.0" />
                   </children>
               </AnchorPane>
          </center>

@@ -1,7 +1,5 @@
 package edu.dottn.gui;
 
-
-import java.net.URL;
 import edu.dottn.entities.Association;
 import edu.dottn.entities.Post;
 import java.io.File;
@@ -27,39 +25,28 @@ public class PostController implements Initializable {
     private Label titlepost;
     @FXML
     private Text datepost;
-
-    @FXML
-    private Label assocpost;
-    
-    @FXML
-    private ImageView associmgpost;
-    
-//@FXML
+    //@FXML
     //private Label assocpost;
 
     // @FXML
     // private ImageView associmgpost;
-
     @FXML
     private ImageView imgpost;
     @FXML
     private Label detailslabel;
+    @FXML
+    private Label assocpost;
+    @FXML
+    private ImageView associmgpost;
 
-    
-     public AnchorPane getRoot() {
+    public AnchorPane getRoot() {
         return root;
     }
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         
-    }  
-    
- 
 
-
-  
+    }
 
     /*
 public void setData(String titlePost, String description, Timestamp date_created ,String imagepath) throws MalformedURLException {
@@ -85,6 +72,7 @@ public void setData(String titlePost, String description, Timestamp date_created
 }*/
     public void setData(String titlePost, Association assocname,String description, Timestamp date_created, String imagepath) throws MalformedURLException {
         URL url = null;
+        
         if (imagepath != null) {
             File file = new File(imagepath);
             url = file.toURI().toURL();
@@ -93,17 +81,24 @@ public void setData(String titlePost, String description, Timestamp date_created
         if (url != null) {
             image = new Image(url.toString());
         }
+        
+        File file1 = new File(assocname.getImage());
+        URL url1 = file1.toURI().toURL();
+        System.out.println(url1);
+        
        // setImage(assocname);
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = date.format(date_created.getTime());
         // Set the data for the post
         Label titleLabel = (Label) root.lookup("#titlepost");
         Label assocName = (Label) root.lookup("#assocpost");
+        ImageView img = (ImageView) root.lookup("#associmgpost");
         Label descriptionLabel = (Label) root.lookup("#detailslabel");
         Text datepost = (Text) root.lookup("#datepost");
         ImageView imgpost = (ImageView) root.lookup("#imgpost");
 
         titleLabel.setText(titlePost);
+        img.setImage(new Image(url1.toString()));
         assocName.setText(assocname.getAssocName());
         descriptionLabel.setText(description);
         datepost.setText(dateString);
@@ -117,6 +112,5 @@ public void setData(String titlePost, String description, Timestamp date_created
 //    }
     
     
-
 
 }

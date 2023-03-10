@@ -7,6 +7,10 @@ import edu.dottn.services.imageAnalyseAPI;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Base64;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,11 +18,15 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
@@ -28,6 +36,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.imageio.stream.FileImageInputStream;
 
 
@@ -51,9 +61,9 @@ public class UserprofileController implements Initializable {
     @FXML
     private Button updatebtn;
     @FXML
-    private TextField passwordfield;
+    private PasswordField passwordfield;
     @FXML
-    private TextField repeatpassword;
+    private PasswordField repeatpassword;
     @FXML
     private TextField addressfield;
     @FXML
@@ -64,6 +74,12 @@ public class UserprofileController implements Initializable {
     boolean checked;
     @FXML
     private ImageView uploadgif;
+    @FXML
+    private ImageView backbtn;
+    @FXML
+    private ImageView statsbtn;
+    
+     private Scene previous;
 
    
     @Override
@@ -202,6 +218,54 @@ public class UserprofileController implements Initializable {
                 repeatpassword.setPromptText("");
             } 
         });
+        
+        statsbtn.setOnMouseClicked(e->{
+            try {
+                previous=statsbtn.getScene();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("chart.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                ChartController chartController = loader.getController();
+                chartController.chart(previous,loggedInAssociation.getId());
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(UserprofileController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        backbtn.setOnMouseEntered(e->{
+            backbtn.setScaleX(1.2);
+            backbtn.setScaleY(1.2);
+        });
+         backbtn.setOnMouseExited(e->{
+            backbtn.setScaleX(1);
+            backbtn.setScaleY(1);
+        });
+         
+          statsbtn.setOnMouseEntered(e->{
+            statsbtn.setScaleX(1.2);
+            statsbtn.setScaleY(1.2);
+        });
+         statsbtn.setOnMouseExited(e->{
+            statsbtn.setScaleX(1);
+            statsbtn.setScaleY(1);
+        });
+        backbtn.setOnMouseClicked(e->{
+            try {
+                    Stage stage = (Stage) backbtn.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("profile.fxml"));
+                    Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+                    Scene scene = new Scene(root, 1280, 700);
+                    stage.setScene(scene);
+                    stage.setTitle("Troctn Desktop App ");
+                     scene.getStylesheets().add("styles.css");
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                   }
+        });
    
     }    
 
@@ -212,6 +276,28 @@ public class UserprofileController implements Initializable {
         a.setId(loggedInAssociation.getId());
         a.setUsername(usernamefield.getText());
         a.setEmail(emailfield.getText());
+        if (!passwordfield.getText().equals(repeatpassword.getText())){
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please verify your password.");
+            alert.showAndWait();
+            return;  
+        }else{
+            try {
+                byte[] salt = getSalt();
+                String hashedPassword = hashPassword(passwordfield.getText(), salt);
+                a.setPassword(hashedPassword);
+                a.setSalt(Base64.getEncoder().encodeToString(salt));
+            } catch (NoSuchAlgorithmException ex) {
+                    System.out.println(ex.getMessage());
+            }
+        }
+        if(phonefield.getText().isEmpty()){
+            a.setNumber(0);
+        }else{
+            a.setNumber(Integer.parseInt(phonefield.getText()));
+        }
         if (imageurl.startsWith("file:/")) {
             String img = imageurl.substring("file:/".length());
              a.setImage(img);
@@ -220,10 +306,36 @@ public class UserprofileController implements Initializable {
         }
        
          
-
         System.out.println(a);
         associationServices.update(a);
+        System.out.println(a.getNumber());
+         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Updating!");
+            alert.setHeaderText(null);
+            alert.setContentText("Your Profile Is Uptodate .");
+            alert.showAndWait();
+            return;
         
+    }
+    
+    private static String hashPassword(String password, byte[] salt) {
+          try {
+            int iterations = 10000;
+            char[] chars = password.toCharArray();
+            PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            byte[] hash = skf.generateSecret(spec).getEncoded();
+            return Base64.getEncoder().encodeToString(hash);
+          } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+            throw new RuntimeException(ex);
+          }
+        }
+
+    private static byte[] getSalt() throws NoSuchAlgorithmException {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt;
     }
     
 }

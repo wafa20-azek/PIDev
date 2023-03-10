@@ -121,6 +121,31 @@ Connection conn = MyConnection.getInstance().getConnection();
         System.out.println(sqlEx.getMessage());
     }
 }
+     public  void sendUserMessage(String senderId, String recipientId, String messageText) {
+    Connection conn = MyConnection.getInstance().getConnection();
+    AssociationServices as = new AssociationServices();
+    MemberServices ms = new MemberServices();
+
+    // Retrieve the association with the specified ID
+    
+   // System.out.println(recipient);
+    //System.out.println(recipient.getId());
+   
+    // Create a new message and send it to the recipient
+    Message message = new Message(senderId, recipientId, messageText, new Timestamp(System.currentTimeMillis()));
+
+    try {
+        String sql = "INSERT INTO messages (idUser,isAssociation,message,time)values (?,?,?,?)";     
+        PreparedStatement pr = conn.prepareStatement(sql);
+        pr.setInt(1, Integer.parseInt(message.getSenderId()));
+        pr.setInt(2, Integer.parseInt(recipientId));
+        pr.setString(3, message.getText());
+        pr.setTimestamp(4, message.getTime());
+        pr.executeUpdate();
+    } catch(SQLException sqlEx) {
+        System.out.println(sqlEx.getMessage());
+    }
+}
 
     
     public  List<Integer> getConversationUserIds(String loggedInAssociationId) {

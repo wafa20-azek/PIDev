@@ -28,7 +28,7 @@
     -fx-underline: true;
 }
 
-#signinbtn ,#updatebtn ,#allpostbtn,#myfeedbtn ,#searchMatchingMessage{
+#signinbtn ,#updatebtn ,#allpostbtn,#myfeedbtn ,#searchMatchingMessage ,#donateBtn{
     -fx-background-color:#BF5CFF;
     -fx-background-radius: 15;
     
@@ -60,13 +60,13 @@
     -fx-text-fill:white;  
 }
 
-#homebtn:hover ,#messagesbtn:hover {
+#homebtn:hover ,#messagesbtn:hover,#Profile:hover,#Inventory:hover{
     -fx-background-color: #BF5CFF;
       -fx-background-radius: 15;
 }
 
 
-#signinbtn:hover,#updatebtn:hover ,#allpostbtn:hover,#myfeedbtn:hover,#searchMatchingMessage:hover{
+#signinbtn:hover,#updatebtn:hover ,#allpostbtn:hover,#myfeedbtn:hover,#searchMatchingMessage:hover ,#donateBtn:hover{
     -fx-background-color: #002885;
     -fx-text-fill: white;
     -fx-cursor:hand;
@@ -204,3 +204,29 @@
 .post:pressed {
     -fx-background-color: #CCCCCC;
 }
+
+.productdonation:hover{
+    -fx-background-color: #BF5CFF;
+    padding-right: 2;
+    -fx-cursor: hand;
+}
+.productdonation:selected{
+    -fx-background-color: #BF5CFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

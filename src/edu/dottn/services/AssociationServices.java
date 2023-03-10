@@ -15,8 +15,13 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Scanner;
+import javafx.embed.swing.SwingNode;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -209,12 +214,20 @@ public class AssociationServices implements IController<Association> {
     }
 
     // Check if number is provided and add to update query
-    if (association.getNumber() != 0) {
+    if (association.getNumber()!=0) {
         updateQuery += "assoPhone = ?, ";
     }
     
     if (!association.getImage().isEmpty()) {
         updateQuery += "image = ?, ";
+    }
+    
+    if (!association.getPassword().isEmpty()) {
+        updateQuery += "password = ?, ";
+    }
+    
+    if (!association.getSalt().isEmpty()) {
+        updateQuery += "salt = ?, ";
     }
 
     // Remove trailing comma and space from update query
@@ -246,6 +259,14 @@ public class AssociationServices implements IController<Association> {
         if (!association.getImage().isEmpty()) {
             pr.setString(i++, association.getImage());
         }
+        
+        if (!association.getPassword().isEmpty()) {
+        pr.setString(i++, association.getPassword());
+        }
+        
+        if (!association.getSalt().isEmpty()) {
+         pr.setString(i++, association.getSalt());
+    }
 
         pr.setInt(i++, association.getId());
 
@@ -289,7 +310,7 @@ public class AssociationServices implements IController<Association> {
            pr.setInt(1, id);
            ResultSet result = pr.executeQuery();
            while (result.next()){
-               Association a = new Association(result.getInt("idAssociation"),result.getString("assoName"),result.getString("username"),result.getString("email"),result.getString("assoAddress"),result.getInt("assoPhone"));
+               Association a = new Association(result.getInt("idAssociation"),result.getString("assoName"),result.getString("username"),result.getString("email"),result.getString("assoAddress"),result.getInt("assoPhone"),result.getString("image"));
                return a;
            }
            
@@ -450,6 +471,8 @@ public class AssociationServices implements IController<Association> {
         }
         return p;
     }
+      
+
    
 
     

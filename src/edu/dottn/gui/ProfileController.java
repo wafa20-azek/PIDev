@@ -2,20 +2,15 @@
 package edu.dottn.gui;
 
 import edu.dottn.entities.Association;
-import edu.dottn.services.AssociationServices;
-
 import edu.dottn.entities.Post;
 import edu.dottn.services.AssociationServices;
 import edu.dottn.services.ServicePost;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 import java.net.URL;
-
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,14 +24,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-
-import javafx.scene.control.Button;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -44,11 +35,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.PopupWindow.AnchorLocation;
-
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -57,16 +43,10 @@ import javafx.stage.Stage;
 
 
 
-
 public class ProfileController implements Initializable {
-
-
-    private AssociationServices associationServices = new AssociationServices();
-
     
     private ServicePost ps = new ServicePost();
-    //private AssociationServices associationServices = new AssociationServices();
-
+    private AssociationServices associationServices = new AssociationServices();
     private Association loggedInAssociation;
      
     @FXML
@@ -80,10 +60,6 @@ public class ProfileController implements Initializable {
     private Button allpostbtn;
     @FXML
     private Button myfeedbtn;
-
-    @FXML
-    private DatePicker timeDate;
-
     
     
     public AnchorPane getRoot() {
@@ -92,64 +68,52 @@ public class ProfileController implements Initializable {
     @FXML
     private ImageView userimage;
     
-
-private List<Post> l= ps.getAll() ;
   
-
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox feedBox;
-
-
+ 
+    private List<Post> l= ps.getAll() ;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-  
         
-
+        
+        
         seachfield.textProperty().addListener((observable, oldValue, newValue) -> {
             filterPosts(newValue);
         });
 
         feedBox.setSpacing(20);
         feedBox.setPadding(new Insets(20, 0, 0, 0));
-
-    
-        
-      
-        
-       loggedInAssociation = associationServices.getLoggedInAssociation();
-        hellouserText.setText("Hello, "+loggedInAssociation.getAssocName());
-
+  
+        loggedInAssociation = associationServices.getLoggedInAssociation();
+       hellouserText.setText("Hello, "+loggedInAssociation.getAssocName());
+       try{
+        String imagePath = loggedInAssociation.getImage();
+        File file = new File(imagePath);
+         url = file.toURI().toURL();
+        Image image = new Image(url.toString());
+        userimage.setImage(image);
+        } catch (MalformedURLException ex) {
+            System.out.println(ex.getMessage());
+        }
         System.out.println(l);
             
             for (Post item : l) {
-
              try {
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource("post.fxml"));
             Node postNode = loader.load();
-
             PostController postController = loader.getController();
-
-           // postController.setData(item);
-
             postController.setData(item.getTitlePost(),item.getAssociation(),item.getDescription(),item.getDate_created(),item.getPhotos());
-         //   postController.setData(item.getTitlePost());
-
-
+         //  postController.setData(item.getTitlePost());
             AnchorPane feed1 = new AnchorPane(postNode);
-            
             postNode.getStyleClass().add("post");
             AnchorPane.setBottomAnchor(feed1, 10.0);
-            
-            
             feedBox.getChildren().add(feed1);
             allpostbtn.setOnAction(event -> {
-
-           
                 try {
                     refreshPosts();
                 } catch (MalformedURLException ex) {
@@ -190,9 +154,7 @@ private List<Post> l= ps.getAll() ;
                System.out.println(e.getMessage());
             }
          }
-
-    }
-
+      }
     
     private void filterPosts(String searchText) {
     for (Node child : feedBox.getChildren()) {
@@ -201,30 +163,24 @@ private List<Post> l= ps.getAll() ;
         
          
         String title = titleLabel.getText();
-
-
         boolean match = title.toLowerCase().startsWith(searchText.toLowerCase());
-
         feed1.setVisible(match);
         feed1.setManaged(match);   
         }
     }
-
-
+    
     private void refreshPosts() throws MalformedURLException {
     feedBox.getChildren().clear(); 
     //LocalDate selectedDate = timeDate.getValue(); 
     for (Post item : l) {
        
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("post.fxml"));
             Node postNode = loader.load();
-
             PostController postController = loader.getController();
-           // postController.setData(item);
+            System.out.println(item.getAssociation());
             postController.setData(item.getTitlePost(),item.getAssociation(),item.getDescription(),item.getDate_created(),item.getPhotos());
-
+            
             AnchorPane feed1 = new AnchorPane(postNode);
             postNode.getStyleClass().add("post");
             AnchorPane.setBottomAnchor(feed1, 10.0);
@@ -233,19 +189,17 @@ private List<Post> l= ps.getAll() ;
             if (allpostbtn.isHover()) {
                 feed1.setVisible(true);
                 feed1.setManaged(true);
-            } else if (myfeedbtn.isHover()) {
-                Label titleLabel = (Label) feed1.lookup("#titlepost");
+            } else if (myfeedbtn.isHover()) 
+            {
+               
                 Label associationLabel = (Label) feed1.lookup("#assocpost");
-                String title = titleLabel.getText();
+                System.out.println(associationLabel);
                 String association = associationLabel.getText();
                 System.out.println(association);
-                boolean match = association.toLowerCase().equals(loggedInAssociation.getAssocName().toLowerCase());
+                boolean match = association.toLowerCase().equals(loggedInAssociation.getAssocName().toLowerCase());//// association instance
                 feed1.setVisible(match);
                 feed1.setManaged(match);
             }
-
-            feedBox.getChildren().add(feed1);
-            
            feedBox.getChildren().add(feed1);
            feed1.setOnMouseClicked(event->{
                 try {
@@ -276,7 +230,6 @@ private List<Post> l= ps.getAll() ;
         }
     }
 }
-
 
 
 

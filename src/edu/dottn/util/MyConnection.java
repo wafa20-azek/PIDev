@@ -26,7 +26,7 @@ public class MyConnection {
    // JDBC URL, username and password
 
 
-    private  final String url = "jdbc:mysql://localhost:3306/troctndb";
+    private  final String url = "jdbc:mysql://localhost:3306/dottn_troctndb";
     private  final String user = "root";
     private  final String password = "";
   

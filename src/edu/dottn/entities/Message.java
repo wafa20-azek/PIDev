@@ -11,10 +11,18 @@ public class Message {
     private Association  receiverId;
     private String text;
     private Timestamp time;
+    private String receiverId1;
 
     public Message(String senderId, Association receiverId, String text, Timestamp time) {
         this.senderId = senderId;
         this.receiverId = receiverId;
+        this.text = text;
+        this.time = time;
+    }
+    
+    public Message(String senderId, String receiverId1, String text, Timestamp time) {
+        this.senderId = senderId;
+        this.receiverId1 = receiverId1;
         this.text = text;
         this.time = time;
     }

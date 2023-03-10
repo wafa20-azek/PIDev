@@ -98,7 +98,7 @@ public class ProductServices implements IservicesProduct<Product>{
          try {
             PreparedStatement pr = cnx.prepareStatement("UPDATE `Product` SET  `status`=? WHERE ID_Product=?");
             pr.setInt(1, 1);
-             pr.setInt(1, p.getId());
+             pr.setInt(2, p.getId());
             pr.executeUpdate();
             System.out.println("Product with id:  "+p.getId()+" updated  ");
         }catch(SQLException sqlEx){

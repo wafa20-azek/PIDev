@@ -28,7 +28,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="28.0" layoutY="350.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="messages" textFill="WHITE">
+      <Button fx:id="conversation" layoutX="28.0" layoutY="350.0" mnemonicParsing="false" onAction="#goToConversation" prefHeight="58.0" prefWidth="204.0" style="-fx-background-color: transparent; -fx-border-color: BF5CFF; -fx-border-radius: 5px;" text="messages" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>

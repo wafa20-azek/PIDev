@@ -54,12 +54,13 @@ public class InventoryController implements Initializable {
     
     
     private AssociationServices associationServices = new AssociationServices();
-    private Association loggedInAssociation;
+    private Association loggedInAssociation=associationServices.getLoggedInAssociation();
     private ServiceDonation sd = new ServiceDonation();
+    
     @FXML
     private HBox donationFeed;
     
-  private List<Donation> l= sd.getAll();
+  private List<Donation> l= sd.getAllbyAssoc(loggedInAssociation.getId());
      private AnchorPane root;
     @FXML
     private Label welcomeInventoryText;

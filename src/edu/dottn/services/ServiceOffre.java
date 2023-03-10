@@ -347,5 +347,16 @@ public class ServiceOffre implements Oservice<Offre> {
             document.add(new Paragraph(" "));
         }
     }
+    
+    public List<Offre> getOffresByUser(Offre o) {
+    List<Offre> allOffers = getAll(); // Replace with your implementation of getAllOffres()
+List<Offre> l = new ArrayList<Offre>();
+    l = getAll().stream()
+            .filter(offre -> offre.getUser1().getIdUser()== o.getUser1().getIdUser())
+            .collect(Collectors.toList());
+        System.out.println(l);
+
+    return l;
+}
 
 }

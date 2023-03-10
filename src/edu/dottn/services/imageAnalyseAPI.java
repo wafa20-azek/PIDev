@@ -33,14 +33,16 @@ public class imageAnalyseAPI {
         Request request = new Request.Builder()
 	.url("https://nsfw3.p.rapidapi.com/v1/results")
 	.post(body)
-	.addHeader("X-RapidAPI-Key","f98f86c89dmsh48bfe779900149fp11590cjsnc20d08d3dad0")
+	.addHeader("X-RapidAPI-Key","34ed509fb3msh8ebb774419b2829p1a3935jsn1af20e695e74")
 	.addHeader("X-RapidAPI-Host", "nsfw3.p.rapidapi.com")
 	.build();
 
         Response response = client.newCall(request).execute();
             String responseBody = response.body().string();
             JSONObject json = new JSONObject(responseBody);
+            System.out.println(json);
             JSONArray results = json.getJSONArray("results");
+            System.out.println(results);
             JSONObject firstResult = results.getJSONObject(0);
             JSONArray entities = firstResult.getJSONArray("entities");
             JSONObject firstEntity = entities.getJSONObject(0);

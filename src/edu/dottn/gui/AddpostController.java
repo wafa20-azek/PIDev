@@ -1,10 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
-<<<<<<< HEAD
- */
-
 
 package edu.dottn.gui;
 
@@ -17,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,14 +32,6 @@ import javafx.stage.FileChooser;
 
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
-<<<<<<< HEAD
- * @author Saif
- */
-
-    
 
 public class AddpostController implements Initializable {
 
@@ -68,12 +55,19 @@ public class AddpostController implements Initializable {
     private ImageView sharebtn;
     @FXML
     private Label sharetxt;
+    
+    public static Post p;
+    
+  
 
     AssociationServices as = new AssociationServices();
-    Association a = as.getById(2);
+    Association loggedInAssociation = as.getLoggedInAssociation();
+   // Association a = as.getById(2);
     String image = urlcheck;
 
     ServicePost sp = new ServicePost();
+    @FXML
+    private ImageView backInventory;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -93,7 +87,7 @@ public class AddpostController implements Initializable {
             }
         });
         sharebtn.setOnMouseClicked(e -> {
-            Post p = new Post(a, titlepost.getText(), descpost.getText(), image);
+            Post p = new Post(loggedInAssociation, titlepost.getText(), descpost.getText(), image);
             try {
                 sp.ajouter(p);
                 sp.shareOnPage(p);
@@ -104,21 +98,33 @@ public class AddpostController implements Initializable {
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
-
         });
-
     }
 
     @FXML
     private void addpost(ActionEvent event) {
 
        if(urlcheck==null){
-           Post p = new Post(a, titlepost.getText(), descpost.getText(), "D:/emna/PIDev-donation/src/default.jpg");
+          p = new Post(loggedInAssociation, titlepost.getText(), descpost.getText(), "D:/emna/PIDev-donation/src/default.jpg");
+           System.out.println(p);
             ps.ajouter(p);
        }else{
-           Post p = new Post(a, titlepost.getText(), descpost.getText(), urlcheck);
-
+           p = new Post(loggedInAssociation, titlepost.getText(), descpost.getText(), urlcheck);
+           System.out.println(p);
+           sharebtn.setOnMouseClicked(e->{
+               try {
+                   ps.shareOnPage(p);
+               } catch (IOException ex) {
+                   System.out.println(ex.getMessage());
+               }
+           });
         ps.ajouter(p);
+       // ps.sendMessage(loggedInAssociation.getAssocName(), p.getTitlePost());
+        
+        titlepost.clear();
+        descpost.clear();
+        urlImage.setText("choose your picture ...");
+           backToInventory();
        }
         
         
@@ -139,6 +145,24 @@ public class AddpostController implements Initializable {
         }
         return urlcheck;
     }
+
+    @FXML
+    private void backToInventory() {
+        try {
+                    Stage stage = (Stage) backInventory.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("profile.fxml"));
+                    Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+                    Scene scene = new Scene(root, 1280, 700);
+                    stage.setScene(scene);
+                    stage.setTitle("Troctn Desktop App ");
+                     scene.getStylesheets().add("styles.css");
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                   }
+    }
+
 
 
 }

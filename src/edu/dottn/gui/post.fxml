@@ -9,7 +9,6 @@
 
 <AnchorPane fx:id="root" prefHeight="163.0" prefWidth="719.0" style="-fx-border-color: #35353535; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.dottn.gui.PostController">
    <children>
-
       <AnchorPane layoutX="5.0" layoutY="7.0" prefHeight="149.0" prefWidth="773.0">
          <children>
             <Label fx:id="titlepost" layoutX="22.0" layoutY="1.0" prefHeight="55.0" prefWidth="480.0" text="Title">
@@ -32,7 +31,6 @@
                   <Image url="@../../../homme.png" />
                </image>
             </ImageView>
-
             <ImageView fx:id="imgpost" fitHeight="137.0" fitWidth="245.0" layoutX="498.0" layoutY="7.0" opacity="0.5" pickOnBounds="true">
                <image>
                   <Image url="@../../../defaultimg.jpg" />

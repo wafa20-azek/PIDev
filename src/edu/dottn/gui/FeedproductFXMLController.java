@@ -188,7 +188,7 @@ public class FeedproductFXMLController implements Initializable {
             });
 
             anchorpane.getChildren().addAll(iv, title, Description, value);
-            if (k == 3) {
+            if (k == 4) {
                 k = 0;
             }
             gp.addColumn(k, anchorpane);

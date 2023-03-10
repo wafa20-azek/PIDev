@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Point3D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -24,7 +25,7 @@
                </font>
             </Label>
             <Text fx:id="postDescription" layoutX="5.0" layoutY="403.8134765625" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum" wrappingWidth="455.0" />
-            <ImageView fx:id="like" fitHeight="40.0" fitWidth="40.0" layoutX="136.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="like" fitHeight="40.0" fitWidth="40.0" layoutX="136.0" layoutY="592.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../like.png" />
                </image>
@@ -34,7 +35,7 @@
                   <Image url="@../../../dislike.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="dislike" fitHeight="40.0" fitWidth="40.0" layoutX="264.0" layoutY="607.0" pickOnBounds="true" preserveRatio="true" rotate="179.3">
+            <ImageView fx:id="dislike" fitHeight="40.0" fitWidth="40.0" layoutX="264.0" layoutY="599.0" pickOnBounds="true" preserveRatio="true" rotate="179.3">
                <image>
                   <Image url="@../../../like.png" />
                </image>
@@ -51,21 +52,32 @@
                </rotationAxis>
             </ImageView>
             <Separator layoutX="483.0" layoutY="37.0" orientation="VERTICAL" prefHeight="625.0" prefWidth="3.0" />
-            <Label layoutX="513.0" layoutY="40.0" prefHeight="21.0" prefWidth="182.0" text="Leave your comment here :" />
-            <TextArea fx:id="postComment" layoutX="513.0" layoutY="73.0" prefHeight="73.0" prefWidth="342.0" promptText="optional" />
-            <AnchorPane fx:id="anchorComment" layoutX="513.0" layoutY="165.0" prefHeight="422.0" prefWidth="342.0">
+            <Label layoutX="513.0" layoutY="31.0" prefHeight="21.0" prefWidth="182.0" text="Leave your comment here :" />
+            <TextArea fx:id="postComment" layoutX="513.0" layoutY="57.0" prefHeight="73.0" prefWidth="342.0" promptText="optional" />
+            <AnchorPane fx:id="anchorComment" layoutX="513.0" layoutY="167.0" prefHeight="383.0" prefWidth="342.0">
                <children>
-                  <ScrollPane prefHeight="422.0" prefWidth="342.0">
+                  <ScrollPane layoutY="-21.0" prefHeight="405.0" prefWidth="342.0">
                      <content>
-                        <VBox fx:id="commentArea" prefHeight="420.0" prefWidth="339.0" />
+                        <VBox fx:id="commentArea" prefHeight="403.0" prefWidth="339.0" />
                      </content>
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <ImageView fx:id="deletepostbtn" fitHeight="50.0" fitWidth="50.0" layoutX="416.0" layoutY="15.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="deletepostbtn" fitHeight="65.0" fitWidth="65.0" layoutX="791.0" layoutY="567.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../icons8-supprimer-128.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="updatepostbtn" fitHeight="65.0" fitWidth="65.0" layoutX="697.0" layoutY="567.0" onMouseClicked="#updatepost" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../modify.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
       </AnchorPane>

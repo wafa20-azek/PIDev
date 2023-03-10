@@ -28,14 +28,13 @@ public class Main extends Application {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/LoadingPage.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root,1280,700);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Gestion utilisateur");
             primaryStage.show();
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
-
         }
     }
 

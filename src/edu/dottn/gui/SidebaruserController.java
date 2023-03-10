@@ -45,6 +45,8 @@ UserSession us=new UserSession();
     private Button event;
     @FXML
     private Button rec1;
+    @FXML
+    private Button conversation;
     /**
      * Initializes the controller class.
      */
@@ -84,7 +86,6 @@ UserSession us=new UserSession();
             Preferences prefs = Preferences.userNodeForPackage(TwoFactorAuthenticationController.class);
             prefs.clear();
             NavigationController.changeLoginPage(event,"LoginPage.fxml");
-        
     }
 
     @FXML
@@ -101,6 +102,11 @@ UserSession us=new UserSession();
     @FXML
     private void gotoevent(ActionEvent event) {
         NavigationController.changefeedevent(event, "EventFeed.fxml");
+    }
+
+    @FXML
+    private void goToConversation(ActionEvent event) {
+         NavigationController.changefeedevent(event, "ConversationUser.fxml");
     }
 
   
