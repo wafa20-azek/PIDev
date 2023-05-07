@@ -20,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
@@ -53,6 +54,7 @@ public class FXMLController implements Initializable {
         });
     }  
     
+    @FXML
     public void goToSignup(ActionEvent event){
             
                 try {
@@ -106,6 +108,23 @@ public class FXMLController implements Initializable {
             AssociationServices as = new AssociationServices();
             Association association = as.Signin(username, password);
             return association;
+    }
+
+    @FXML
+    private void goToResetPassword(MouseEvent event) {
+         try {
+                    Stage stage = (Stage) signinbtn.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("resetPasswordAssociation.fxml"));
+                    Image icon = new Image(getClass().getResourceAsStream("/icon.png")) {};
+                    Scene scene = new Scene(root, 1280, 700);
+                    stage.setScene(scene);
+                    stage.setTitle("Troctn Desktop App ");
+                     scene.getStylesheets().add("styles.css");
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                   }
     }
 
     

@@ -6,6 +6,9 @@ import edu.dottn.entities.User;
 
 import static edu.dottn.services.MessageServices.displayMessageBySender;
 import edu.dottn.util.MyConnection;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 import java.security.*;
@@ -24,6 +27,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import org.mindrot.jbcrypt.BCrypt;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 
 public class AssociationServices implements IController<Association> {
 
@@ -75,9 +82,10 @@ public class AssociationServices implements IController<Association> {
         
         try {
             byte[] salt = getSalt();
-            String role = "association";
-            String hashedPassword = hashPassword(password, salt);
-            String sql = "INSERT INTO association (role ,assoName, username, password ,email ,assoAddress,assoPhone,image,salt) VALUES (?,?,?,?,?,?,?,?,?)";
+            String role = "ROLE_ASSOCIATION";
+            String hashedPassword =BCrypt.hashpw(password, BCrypt.gensalt(12));
+            
+            String sql = "INSERT INTO association (roles ,assoName, username, password ,email ,assoAddress,assoPhone,image,salt) VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement pr = conn.prepareStatement(sql);
             pr.setString(1, role);
             pr.setString(2, assocName);
@@ -152,26 +160,37 @@ public class AssociationServices implements IController<Association> {
         statement.setString(1, username);
         ResultSet result = statement.executeQuery();
         if (result.next()) {
-            String storedPasswordHash = result.getString("password");
-            String Salt = result.getString("salt");
-            byte[] storedSalt = Base64.getDecoder().decode(Salt);
+             String storedPassword = result.getString("password");
+              String mot = storedPassword.replaceFirst("^\\$2y\\$", "\\$2a\\$");
+           
+           // byte[] storedSalt = Base64.getDecoder().decode(Salt);
             
-            String enteredPasswordHash = hashPassword(password, storedSalt);
+           // String enteredPasswordHash = hashPassword(password, storedSalt);
            
             
-            if (storedPasswordHash.equals(enteredPasswordHash)) {
+            if (BCrypt.checkpw(password, mot)) {
                 Association loggedInAssociation = new Association();
                 loggedInAssociation.setId(result.getInt("idAssociation"));
                 loggedInAssociation.setAssocName(result.getString("AssoName"));
                 
-                String insertSql = "INSERT INTO session (idUser, loginTime) VALUES (?,?)";
+             /*   String insertSql = "INSERT INTO session (idUser, loginTime) VALUES (?,?)";
                 PreparedStatement insertStatement = conn.prepareStatement(insertSql);
                 insertStatement.setInt(1, loggedInAssociation.getId());
                 insertStatement.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
-                insertStatement.executeUpdate();
+                insertStatement.executeUpdate();*/
+            try{
+                 FileWriter writer = new FileWriter("session.txt",false);
+                      
+                      writer.write(String.valueOf(loggedInAssociation.getId()));
+                      writer.flush();
+                      writer.close();
+                      return loggedInAssociation;
+            }catch(IOException ex ){
+                System.out.println(ex.getMessage());
+            }
                    
                 System.out.println("Welcome to TrocTn "+ loggedInAssociation.getAssocName());
-                return loggedInAssociation;
+                
             } else {
                 System.out.println("Incorrect password");
             }
@@ -325,6 +344,7 @@ public class AssociationServices implements IController<Association> {
    
    public void runAssociationApp(){
        AssociationServices as = new AssociationServices();
+       
         Scanner sc = new Scanner(System.in);
         Connection conn =MyConnection.getInstance().getConnection();
         Association loggedInAssociation = null;
@@ -398,30 +418,20 @@ public class AssociationServices implements IController<Association> {
    public Association getLoggedInAssociation() {
        Connection conn =MyConnection.getInstance().getConnection();
     Association loggedInAssociation = null;
-    try  {
-        String selectSessionSql = "SELECT * FROM session";
-        PreparedStatement selectSessionStatement = conn.prepareStatement(selectSessionSql);
-        ResultSet sessionResult = selectSessionStatement.executeQuery();
-        if (sessionResult.next()) {
-            String selectAssociationSql = "SELECT * FROM association WHERE idAssociation = ?";
-            PreparedStatement selectAssociationStatement = conn.prepareStatement(selectAssociationSql);
-            selectAssociationStatement.setInt(1, sessionResult.getInt("idUser"));
-            ResultSet associationResult = selectAssociationStatement.executeQuery();
-            if (associationResult.next()) {
-                loggedInAssociation = new Association();
-                loggedInAssociation.setId(associationResult.getInt("idAssociation"));
-                loggedInAssociation.setUsername(associationResult.getString("username"));
-                loggedInAssociation.setAssocName(associationResult.getString("assoName"));
-                loggedInAssociation.setEmail(associationResult.getString("email"));
-                loggedInAssociation.setLocation(associationResult.getString("assoAddress"));
-                loggedInAssociation.setPassword(associationResult.getString("password"));
-                loggedInAssociation.setNumber(associationResult.getInt("assoPhone"));
-                loggedInAssociation.setImage(associationResult.getString("image"));
-            }
-        } 
-    } catch (SQLException sqlEX ) {
-        System.out.println("No session present for now please Login: ");
-    }
+    File sessionFile = new File("session.txt");
+       if(sessionFile.exists()){
+           try{
+            BufferedReader reader = new BufferedReader(new FileReader("session.txt"));
+            int associationId = Integer.parseInt(reader.readLine());
+            reader.close();
+            loggedInAssociation= getById(associationId);
+            
+           }catch(IOException ex){
+               System.out.println(ex.getMessage());
+           }
+           
+       }
+    
     return loggedInAssociation;
 }
 
@@ -430,25 +440,17 @@ public class AssociationServices implements IController<Association> {
 
    public boolean logoutAssociation (){
        Connection conn =MyConnection.getInstance().getConnection();
-       try {
-           String clearSession = "SELECT * FROM session";
-           PreparedStatement statement = conn.prepareStatement(clearSession);             
-           ResultSet rs = statement.executeQuery();  
-           
-           if(rs.next()){
-               try {
-                 String req = "DELETE FROM session WHERE idUser = ?";
-                 PreparedStatement pr = conn.prepareStatement(req);
-                        pr.setInt(1, rs.getInt("idUser"));
-                        pr.executeUpdate();   
-                        return true;
-            } catch (SQLException sqlEx) {
-                System.out.println("Error clearing session: " + sqlEx.getMessage());
+      File sessionFile = new File("session.txt");
+        if(sessionFile.exists()) {
+            if(sessionFile.delete()) {
+                System.out.println("Session file deleted successfully.");
+                return true ;
+            } else {
+                System.out.println("Failed to delete session file.");
             }
-           }
-       }catch (SQLException sqlEx) {
-                System.out.println("Error clearing session: " + sqlEx.getMessage());
-            }
+        } else {
+            System.out.println("Session file does not exist.");
+        }
        
           return false;         
    }

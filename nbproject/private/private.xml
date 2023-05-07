@@ -3,32 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/ProfileController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/styles.css</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/AddproductFXMLController.java</file>
+            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/LoadingPageController.java</file>
             <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/services/AssociationServices.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/AddpostController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/FeedproductFXMLController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/PostInformationsUserController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/services/ServiceOffre.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/entities/Offre.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/EventDetailController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/FeeddonationController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/ProductfordonationController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/ConversationUserController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/DonateController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/PostInformationsController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/UserprofileController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/InventoryController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/services/ServiceDonation.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/entities/Product.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/services/ProductServices.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/ChartController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/UpdateproductFXMLController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/services/imageAnalyseAPI.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/AfficheOffreFXMLController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/EventFeedController.java</file>
-            <file>file:/D:/PIDEV%20V0/PIDev/src/edu/dottn/gui/DonationCardController.java</file>
         </group>
     </open-files>
 </project-private>
