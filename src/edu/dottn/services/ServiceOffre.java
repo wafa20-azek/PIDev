@@ -348,15 +348,21 @@ public class ServiceOffre implements Oservice<Offre> {
         }
     }
     
-    public List<Offre> getOffresByUser(Offre o) {
-    List<Offre> allOffers = getAll(); // Replace with your implementation of getAllOffres()
-List<Offre> l = new ArrayList<Offre>();
-    l = getAll().stream()
-            .filter(offre -> offre.getUser1().getIdUser()== o.getUser1().getIdUser())
-            .collect(Collectors.toList());
-        System.out.println(l);
-
-    return l;
+    public List<Offre> getOffresByUser(int id) {
+     List<Offre> list = new ArrayList<>();
+        try {
+            String req = "Select * from offre where idUser= "+id;
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                Offre o = new Offre(rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getDate(6), rs.getString(7));
+                list.add(o);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(list);
+        return list;
 }
 
 }

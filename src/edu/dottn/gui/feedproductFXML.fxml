@@ -43,8 +43,8 @@
       </AnchorPane>
          </top>
          <center>
-             <javafx.scene.control.ScrollPane prefHeight="530.0" prefWidth="741.0" style="-fx-background-color: FFFFFF;" BorderPane.alignment="CENTER">
-            <AnchorPane fx:id="feed" prefHeight="206.0" prefWidth="204.0" style="-fx-background-color: FFFFFF;" BorderPane.alignment="CENTER" />
+             <javafx.scene.control.ScrollPane prefHeight="529.0" prefWidth="969.0" style="-fx-background-color: FFFFFF;" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="feed" prefHeight="524.0" prefWidth="1017.0" style="-fx-background-color: FFFFFF;" BorderPane.alignment="CENTER" />
             </javafx.scene.control.ScrollPane>
          </center>
       </BorderPane>

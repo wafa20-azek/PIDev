@@ -20,24 +20,24 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="775.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="38.0" layoutY="9.0" prefHeight="17.0" prefWidth="76.0" text="My Offer">
+                        <Label layoutX="24.0" layoutY="1.0" prefHeight="25.0" prefWidth="90.0" text="My Offer" textAlignment="CENTER">
                            <font>
                               <Font name="Verdana Bold" size="13.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnOn_Hold" layoutX="58.0" layoutY="34.0" mnemonicParsing="false" onAction="#offerStatus" prefHeight="26.0" prefWidth="92.0" text="On Hold">
+                        <Button fx:id="btnOn_Hold" layoutX="114.0" layoutY="26.0" mnemonicParsing="false" onAction="#offerStatus" prefHeight="38.0" prefWidth="135.0" style="-fx-background-color: BF5CFF;" text="On Hold" textFill="WHITE">
                               
                         
                             <font>
                               <Font name="Verdana Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnAccepted" layoutX="174.0" layoutY="34.0" mnemonicParsing="false" onAction="#offerStatus1" prefHeight="25.0" prefWidth="92.0" text="Accepted">
+                        <Button fx:id="btnAccepted" layoutX="265.0" layoutY="26.0" mnemonicParsing="false" onAction="#offerStatus1" prefHeight="38.0" prefWidth="135.0" style="-fx-background-color: BF5CFF;" text="Accepted" textFill="WHITE">
                            <font>
                               <Font name="Verdana Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnDeclined" layoutX="283.0" layoutY="34.0" mnemonicParsing="false" onAction="#offerStatus2" prefHeight="25.0" prefWidth="92.0" text="Declined">
+                        <Button fx:id="btnDeclined" layoutX="416.0" layoutY="26.0" mnemonicParsing="false" onAction="#offerStatus2" prefHeight="38.0" prefWidth="135.0" style="-fx-background-color: BF5CFF;" text="Declined" textFill="WHITE">
                            <font>
                               <Font name="Verdana Bold" size="13.0" />
                            </font>
@@ -51,6 +51,11 @@
                               </VBox>
                            </content>
                         </ScrollPane>
+                  <Button fx:id="btnMyoffers" layoutX="562.0" layoutY="26.0" mnemonicParsing="false" onAction="#offersent" prefHeight="38.0" prefWidth="135.0" style="-fx-background-color: BF5CFF;" text="my offers" textFill="WHITE">
+                     <font>
+                        <Font name="Verdana Bold" size="13.0" />
+                     </font>
+                  </Button>
                      </children>
                   </AnchorPane>
                </center>

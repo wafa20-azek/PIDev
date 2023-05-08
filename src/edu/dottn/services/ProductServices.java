@@ -39,13 +39,14 @@ public class ProductServices implements IservicesProduct<Product>{
     public void addProduct(Product p) {
 
          try {
-            PreparedStatement pr = cnx.prepareStatement("INSERT INTO `Product`(`name`, `description`, `image`, `price`, `idsubcategory`,`iduser`) VALUES (?,?,?,?,?,?)");
+            PreparedStatement pr = cnx.prepareStatement("INSERT INTO `Product`(`name`, `description`, `image`, `price`, `idsubcategory`,`iduser`,`status`) VALUES (?,?,?,?,?,?,?)");
             pr.setString(1, p.getName());
             pr.setString(2, p.getDescription());
             pr.setString(3, p.getImage());
             pr.setFloat(4, p.getPrice());
             pr.setInt(5,p.getSubCategory().getId() );
             pr.setInt(6,p.getUser().getIdUser() );
+            pr.setInt(7,0 );
             pr.executeUpdate();
             System.out.println("Product added");
         } catch (SQLException ex) {

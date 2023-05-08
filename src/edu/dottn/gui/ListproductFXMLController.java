@@ -77,7 +77,7 @@ public class ListproductFXMLController implements Initializable {
 
         for (Product p : l) {
             AnchorPane anchorpane = new AnchorPane();
-            Image image = new Image("file:src/assets/" + p.getImage(), 200, 200, false, false);
+            Image image = new Image("file:C:/xampp/htdocs/img/" + p.getImage(), 200, 200, false, false);
             ImageView iv = new ImageView(image);
 
             Label title = new Label(p.getName());

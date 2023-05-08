@@ -63,9 +63,8 @@ public class DonateController implements Initializable {
      
         for (Product item:product){
            try {
-               File file = new File(item.getImage());
-               URL url1 = file.toURI().toURL();
-               Image image = new Image(url1.toString());
+               
+               Image image = new Image("file:C:/xampp/htdocs/img/"+item.getImage());
                
                FXMLLoader loader = new FXMLLoader(getClass().getResource("productfordonation.fxml"));
                Node postNode = loader.load();

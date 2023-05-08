@@ -86,6 +86,8 @@ public class AfficheOffreFXMLController implements Initializable {
     private User user = new Member();
 
     UserSession us=new UserSession();
+    @FXML
+    private Button btnMyoffers;
  
     /*
 
@@ -299,7 +301,8 @@ an.setOnMouseClicked(MouseEvent -> {
     List<Offre> listoffre4 = new ArrayList<>();
     ServiceOffre so = new ServiceOffre();
     Offre o1 = new Offre();
-     listoffre4=  so.getOffresByUser(o1);
+        System.out.println(user.getIdUser());
+     listoffre4=  so.getOffresByUser(user.getIdUser());
 
     for (Offre o : listoffre4) {
         AnchorPane an = new AnchorPane();

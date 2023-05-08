@@ -19,6 +19,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -167,7 +169,7 @@ inputcontrol.setText("");
         { 
         List<SubCategory> l = (List<SubCategory>) scs.getByName(subcategory.getValue());
         float value=Float.parseFloat(tfValue.getText());
-        
+       
         Product p = new Product(tfName.getText(), tfDescription.getText(), imagename,value , l.get(0),user);
         System.out.println(p);
         ProductServices ps = new ProductServices();
@@ -186,11 +188,16 @@ inputcontrol.setText("");
     @FXML
     private void addimage(ActionEvent event) {
         FileChooser fc = new FileChooser();
-        fc.setInitialDirectory(new File("D:/PIDEV V0/PIDev/src/assets"));
         File selectedFile = fc.showOpenDialog(null);
         if (selectedFile != null) {
             imagename = selectedFile.getName().toString();
-            Image image1 = new Image("file:src/assets/" + imagename);
+            File newFile = new File("C:/xampp/htdocs/img/" + selectedFile.getName());
+            try {
+                Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Image image1 = new Image("file:C:/xampp/htdocs/img/" + imagename);
             image.setImage(image1);
 
         } else {

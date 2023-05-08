@@ -54,7 +54,7 @@ public class MemberServices implements UServices<User> {
             ResultSet rss = stt.executeQuery(req);
             if (!rss.next()) {
                 // if n'existe pas on va l'insérer
-                req = "INSERT INTO `user`(`name`, `address`, `email`, `password`, `numero`, `role`, `credit`, `salt`,`activation_code`,`activated`,`code`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                req = "INSERT INTO `user`(`name`, `address`, `email`, `password`, `numero`, `role`, `credit`, `salt`,`activation_code`,`activated`,`code`,`roles`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setString(1, p.getName());
                 ps.setString(2, p.getAddress());
@@ -72,6 +72,7 @@ public class MemberServices implements UServices<User> {
                 ps.setString(9, activationCode);
                 ps.setBoolean(10, false);
                 ps.setInt(11, 0);
+                 ps.setString(12, "[\"ROLE_USER\"]");
 
                 int n = ps.executeUpdate();
                 System.out.println("Member added");
@@ -95,9 +96,10 @@ public class MemberServices implements UServices<User> {
         try {
             int iterations = 10000;
             char[] chars = password.toCharArray();
-            PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
-            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 192 );
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
             byte[] hash = skf.generateSecret(spec).getEncoded();
+            System.out.println(hash);
             return Base64.getEncoder().encodeToString(hash);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
             throw new RuntimeException(ex);

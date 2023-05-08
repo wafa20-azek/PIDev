@@ -144,7 +144,7 @@ public class FeedproductFXMLController implements Initializable {
         for (int i = 0; i < l.size(); i++) {
 
             AnchorPane anchorpane = new AnchorPane();
-            Image image = new Image("file:src/assets/" + l.get(i).getImage(), 200, 200, false, false);
+            Image image = new Image("file:C:/xampp/htdocs/img/" + l.get(i).getImage(), 200, 200, false, false);
             ImageView iv = new ImageView(image);
 
             Label title = new Label(l.get(i).getName());
